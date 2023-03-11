@@ -4,9 +4,7 @@
 
 ## OBJETIVOS
 
-*[TODO] Se indicará de forma genérica y sin entrar en concreciones el objetivo
-que se pretende alcanzar al realizar el proyecto. Se indicará igualmente donde
-será utilizado el proyecto obtenido.*
+Diseñar, desarrollar y desplegar una red social enfocada en reducir la toxicidad en las interacciones y proteger la salud mental de sus usuarios. Para ello será posible filtrar y bloquear contenido problemático o controversial, así como indicar si tu publicación los contiene. Aparte, al igual que las redes sociales generalistas, será posible seguir a otros usuarios, hacer publicaciones, compartirlas y buscar contenido.
 
 ## PREANALISIS DE LO EXISTENTE (Opcional)
 
