@@ -12,11 +12,24 @@ Diseñar, desarrollar y desplegar una red social enfocada en reducir la toxicida
 
 ## ANÁLISIS DEL SOFTWARE
 
-*[TODO] Determinar de forma genérica lo que tiene que hacer el software y cuáles son los requisitos que debe cumplir.*
+El proyecto deberá contar con los siguientes requisitos para ser considerado como listo para su uso.
+- Funciones sociales
+    - Publicar contenido (texto y/o imágenes)
+    - Valorar contenido de otros usuarios
+    - Seguir / dejar de seguir a otros usuarios
+    - Ver de forma cronológica el contenido publicado por los usuarios seguidos
+    - Compartir publicaciones dentro y fuera de la plataforma
+    - Establecer un perfil con nombre de usuario, imagen y descripción
+    - Buscador de contenido
+- Funciones generales
+    - Registro de cuentas
+    - Inicio de sesión
+    - Notificaciones sobre eventos e interacciones
 
-*Si el proyecto trata sobre la adaptación o ampliación de algún software existente, se deberá aportar información sobre el mismo (documentos electrónicos, direcciones URL, etc.), delimitando claramente cuál será el trabajo que se realizará y que funcionalidad ya está implementada.*
-
-> *Incuir los diagramas necesarios*
+Además, se consideran como opcionales:
+- Autenticación en dos pasos
+- Modo claro y oscuro
+- Programación de publicaciones
 
 ## DISEÑO DEL SOFTWARE
 
