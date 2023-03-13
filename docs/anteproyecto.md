@@ -12,7 +12,7 @@ Diseñar, desarrollar y desplegar una red social enfocada en reducir la toxicida
 
 ## ANÁLISIS DEL SOFTWARE
 
-El proyecto deberá contar con los siguientes requisitos para ser considerado como listo para su uso.
+El proyecto deberá contar con los siguientes requisitos para ser considerado como listo para su uso:
 - Funciones sociales
     - Publicar contenido (texto y/o imágenes)
     - Valorar contenido de otros usuarios
@@ -39,7 +39,7 @@ Además, se consideran como opcionales:
 
 Teniendo en cuenta que se espera que la aplicación sea capaz de soportar un alto número de usuarios, el software se implementará bajo una arquitectura de microservicios, que frente a una solución monolítica (más adecuada para proyectos pequeños o con bajo volumen de trabajo) aporta ventajas considerables:
 - Mayor capacidad de carga: la aplicación será capaz de soportar gran cantidad de peticiones
-- Resiliencia: el sistema es capaz de funcionar cuando existen fallos en alguna de sus partes, aislando los errores y evitando fallos en cascada que afecten al resto de servicios
+- Resiliencia: el sistema es capaz de funcionar aun cuando existan fallos en alguna de sus partes, aislando los errores y evitando fallos en cascada que afecten al resto de servicios
 - Escalabilidad horizontal: gracias al balance de carga se puede ampliar la capacidad del sistema añadiendo más instancias de los servicios que lo requieran
 - Desacoplamiento: cada servicio es independiente salvo en su comunicación con otros, por lo que es posible utilizar múltiples lenguajes y tecnologías dependiendo de lo que sea necesario en cada uno
 
