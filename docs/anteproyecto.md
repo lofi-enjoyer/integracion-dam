@@ -6,7 +6,7 @@ Diseñar, desarrollar y desplegar una red social (de nombre 'Quiet') enfocada en
 
 ## ANÁLISIS DEL SOFTWARE
 
-El proyecto deberá contar con los siguientes requisitos para ser considerado como listo para su uso:
+El proyecto deberá contar con los siguientes requisitos (casos de uso) para ser considerado como listo para su uso:
 - Funciones generales
     - Registro de cuentas
     - Inicio de sesión
@@ -43,4 +43,10 @@ Teniendo en cuenta que se espera que la aplicación sea capaz de soportar un alt
 
 ## ESTIMACIÓN DE COSTES
 
-*[TODO] Estimar el coste que representará la creación del proyecto. Esta estimación será temporal y/o económica si procede (costes de contratación de servicios en la nube, por ejemplo).*
+La implementación se llevará a cabo en dos meses, con una duración estimada de entre sesenta y ochenta horas de desarrollo.
+
+Los costes económicos de la aplicación serán únicamente por el alojamiento. Para ello se va a utilizar como proveedor Amazon Web Services, que oferta los servicios necesarios para el despliegue. Además, ofrece una calculadora de presupuestos en la que obtener una estimación de los gastos de la aplicación.
+
+Suponiendo un alojamiento en la región de España, una base de datos MySQL de 2TB, una caché de Redis con 5 instancias de 26GiB y un tráfico de 5TB entrada/10TB salida, el coste total ascendería a 1189,92 dólares mensuales.
+
+![Captura de pantalla de 2023-03-17 10-32-39](https://user-images.githubusercontent.com/25750692/225880542-3c009fce-9683-409f-b096-4856315967ed.png)
