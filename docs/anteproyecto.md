@@ -2,7 +2,7 @@
 
 ## OBJETIVOS
 
-Diseñar, desarrollar y desplegar una red social (de nombre 'Quiet') enfocada en reducir la toxicidad en las interacciones y proteger la salud mental de sus usuarios. Para ello será posible filtrar y bloquear contenido problemático o controversial, así como indicar si tu publicación los contiene. Aparte, al igual que las redes sociales generalistas, será posible seguir a otros usuarios, hacer publicaciones, compartirlas y buscar contenido.
+Diseñar, desarrollar y preparar para su despliegue una red social (de nombre 'Quiet') enfocada en reducir la toxicidad en las interacciones y proteger la salud mental de sus usuarios. Para ello será posible filtrar y bloquear contenido problemático o controversial, así como indicar si tu publicación los contiene. Aparte, al igual que las redes sociales generalistas, será posible seguir a otros usuarios, hacer publicaciones, compartirlas y buscar contenido.
 
 ## ANÁLISIS DEL SOFTWARE
 
@@ -56,8 +56,8 @@ La aplicación estará compuesta por los siguientes componentes:
     - Front: sirve la interfaz web al usuario.
     - Notificaciones: envía notificaciones y comunicaciones a usuarios mediante e-mail.
 - Gestión de datos
-    - MySQL: base de datos donde almacenar la información de la aplicación
-    - Redis: almacenamiento de datos en memoria, utilizado para la caché de la aplicación
+    - Base de datos: almacena la información de la aplicación
+    - Almacenamiento de datos en memoria: utilizado para la caché de la aplicación
 
 ## ESTIMACIÓN DE COSTES
 
@@ -65,6 +65,6 @@ La implementación se llevará a cabo en dos meses, con una duración estimada d
 
 Los costes económicos de la aplicación serán únicamente por el alojamiento. Para ello se va a utilizar como proveedor Amazon Web Services, que oferta los servicios necesarios para el despliegue. Además, ofrece una calculadora de presupuestos en la que obtener una estimación de los gastos de la aplicación.
 
-Suponiendo un alojamiento en la región de España, una base de datos MySQL de 2TB, una caché de Redis con 5 instancias de 26GiB y un tráfico de 5TB entrada/10TB salida, el coste total ascendería a 1189,92 dólares mensuales.
+Suponiendo un alojamiento en la región de España, con una base de datos MySQL de 2TB, una caché de Redis con 5 instancias de 26GiB y un tráfico de 5TB entrada/10TB salida, el coste total ascendería a 1189,92 dólares mensuales.
 
 ![Captura de pantalla de 2023-03-17 10-32-39](https://user-images.githubusercontent.com/25750692/225880542-3c009fce-9683-409f-b096-4856315967ed.png)
