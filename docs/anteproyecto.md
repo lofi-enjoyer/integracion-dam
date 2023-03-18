@@ -31,6 +31,8 @@ Además, se consideran como opcionales:
 
 ## DISEÑO DEL SOFTWARE
 
+### Arquitectura
+
 Teniendo en cuenta que se espera que la aplicación sea capaz de soportar un alto número de usuarios, el software se implementará bajo una arquitectura de microservicios, que frente a una solución monolítica (más adecuada para proyectos pequeños o con bajo volumen de trabajo) aporta ventajas considerables:
 - Mayor capacidad de carga: la aplicación será capaz de soportar gran cantidad de peticiones
 - Resiliencia: el sistema es capaz de funcionar aun cuando existan fallos en alguna de sus partes, aislando los errores y evitando fallos en cascada que afecten al resto de servicios
@@ -40,6 +42,22 @@ Teniendo en cuenta que se espera que la aplicación sea capaz de soportar un alt
 ![Boceto_Arquitectura](https://user-images.githubusercontent.com/25750692/224835847-d82f4857-fcf1-438d-888b-1aa5e0ef30ff.png)
 
 > *Boceto simplificado de la arquitectura*
+
+### Componentes
+
+La aplicación estará compuesta por los siguientes componentes:
+- Servicios
+    - Gateway: enruta las peticiones a su correspondiente servicio, y autentica los endpoints protegidos con ayuda del servicio de autenticación.
+    - Autenticación: crea y valida tokens.
+    - Usuarios: gestiona la creación y edición de cuentas y perfiles de usuario.
+    - Posts: se encarga de las operaciones relacionadas con posts (crear, editar y eliminar).
+    - Contenido: genera el feed (publicaciones de perfiles seguidos) y gestiona las interacciones entre usuarios.
+    - Media: ofrece y maneja recursos multimedia.
+    - Front: sirve la interfaz web al usuario.
+    - Notificaciones: envía notificaciones y comunicaciones a usuarios mediante e-mail.
+- Gestión de datos
+    - MySQL: base de datos donde almacenar la información de la aplicación
+    - Redis: almacenamiento de datos en memoria, utilizado para la caché de la aplicación
 
 ## ESTIMACIÓN DE COSTES
 
