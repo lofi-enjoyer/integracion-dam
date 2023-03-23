@@ -27,6 +27,10 @@ Además, se consideran como opcionales:
 - Notificaciones sobre eventos e interacciones
 - Compartir publicaciones dentro y fuera de la plataforma
 
+![Casos_de_uso](https://user-images.githubusercontent.com/25750692/227209464-410c53e3-f42e-44f5-b0c2-0469542f4274.png)
+
+> Diagrama simple de casos de uso
+
 ## DISEÑO DEL SOFTWARE
 
 ### Arquitectura
@@ -49,7 +53,7 @@ La aplicación estará compuesta por los siguientes componentes:
     - Autenticación: crea y valida tokens.
     - Usuarios: gestiona la creación y edición de cuentas y perfiles de usuario.
     - Posts: se encarga de las operaciones relacionadas con posts (crear, editar y eliminar).
-    - Contenido: genera el feed (publicaciones de perfiles seguidos) y gestiona las interacciones entre usuarios.
+    - Contenido: genera el feed (publicaciones de perfiles seguidos) y gestiona las interacciones entre usuarios. *(opcional, en un principio irá integrado en el servicio de posts y se dividirá si existe margen de tiempo antes de la entrega)*
     - Media: ofrece y maneja recursos multimedia. *(opcional)*
     - Front: sirve la interfaz web al usuario.
     - Notificaciones: envía notificaciones y comunicaciones a usuarios mediante e-mail. *(opcional)*
@@ -59,9 +63,11 @@ La aplicación estará compuesta por los siguientes componentes:
 
 ### Tecnologías
 
-Para el proyecto utilizaré tecnologías con las que tengo experiencia previa para expandir mis conocimientos sobre ellas y centrarme en el desarrollo en vez de tener que aprender a usarlas desde cero.
+En el proyecto utilizaré mayormente tecnologías con las que tengo experiencia previa para expandir mis conocimientos sobre ellas y centrarme en el desarrollo en vez de tener que aprender a usarlas desde cero.
 
 Para el servidor utilizaré Java con el framework Spring en su versión 5, que proporciona herramientas para manejar peticiones HTTP, seguridad, gestión de bases de datos, cachés y otras funcionalidades ya integradas que agilizan la construcción del proyecto. También HTML, JavaScript y CSS para la interfaz web y MySQL para gestionar bases de datos.
+
+El despliegue se hará suponiendo que se utilizan servicios de Microsoft Azure, que estoy aprendiendo a usar en la FCT.
 
 ## ESTIMACIÓN DE COSTES
 
