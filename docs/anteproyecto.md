@@ -61,7 +61,7 @@ La aplicación estará compuesta por los siguientes componentes:
 
 ### Tecnologías
 
-En el proyecto utilizaré mayormente tecnologías con las que tengo experiencia previa para expandir mis conocimientos sobre ellas y centrarme en el desarrollo en vez de tener que aprender a usarlas desde cero.
+En el proyecto utilizaré mayormente tecnologías con las que tengo experiencia previa para centrarme en el proyecto y expandir mis conocimientos sobre ellas.
 
 Para el servidor utilizaré Java con el framework Spring en su versión 5, que proporciona herramientas para manejar peticiones HTTP, seguridad, gestión de bases de datos, cachés y otras funcionalidades ya integradas que agilizan la construcción del proyecto. También HTML, JavaScript y CSS para la interfaz web y MySQL para gestionar bases de datos.
 
