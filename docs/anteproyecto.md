@@ -2,7 +2,7 @@
 
 ## OBJETIVOS
 
-Diseñar, desarrollar y preparar para su despliegue una red social (de nombre 'Quiet') enfocada en reducir la toxicidad en las interacciones y proteger la salud mental de sus usuarios. Para ello será posible filtrar y bloquear contenido problemático o controversial, así como indicar si tu publicación los contiene. Aparte, al igual que las redes sociales generalistas, será posible seguir a otros usuarios, hacer publicaciones, compartirlas y buscar contenido.
+Diseñar, desarrollar y preparar para su despliegue una red social (de nombre 'Quiet') enfocada en reducir la toxicidad en las interacciones y proteger la salud mental de sus usuarios. Como usuario de Twitter que usa esta plataforma en gran parte para leer opiniones y debatir sobre temas, he visto una tendencia a avisar al comenzar una publicación de que puede contener temas sensibles (acoso sexual, violencia, suicidio...) que a algunos usuarios les gustaría evitar, pero no existe ninguna forma "oficial" de hacerlo. Por ello me gustaría hacer posible filtrar y bloquear contenido problemático o controversial, así como indicar si tu publicación los contiene. Aparte, al igual que las redes sociales generalistas, será posible seguir a otros usuarios, hacer publicaciones, compartirlas y buscar contenido.
 
 ## ANÁLISIS DEL SOFTWARE
 
@@ -10,24 +10,22 @@ El proyecto deberá contar con los siguientes requisitos (casos de uso) para ser
 - Funciones generales
     - Registro de cuentas
     - Inicio de sesión
-    - Notificaciones sobre eventos e interacciones
 - Funciones sociales
-    - Publicar contenido (texto y/o imágenes)
+    - Publicar texto
     - Valorar contenido de otros usuarios
     - Seguir / dejar de seguir a otros usuarios
-    - Ver de forma cronológica el contenido publicado por los usuarios seguidos
-    - Compartir publicaciones dentro y fuera de la plataforma
-    - Establecer un perfil con nombre de usuario, imagen y descripción
-    - Buscador de contenido
+    - Ver el contenido publicado por los usuarios seguidos
+    - Establecer un perfil con nombre de usuario y descripción
+    - Buscar contenido
 - Funciones específicas
-    - Avisar si nuestras publicaciones contienen temas sensibles o controversiales
     - Ocultar contenido no deseado
     - Mostrar advertencias en el contenido sensible
 
 Además, se consideran como opcionales:
 - Autenticación en dos pasos
-- Modo claro y oscuro
-- Programación de publicaciones
+- Publicar imágenes
+- Notificaciones sobre eventos e interacciones
+- Compartir publicaciones dentro y fuera de la plataforma
 
 ## DISEÑO DEL SOFTWARE
 
@@ -52,12 +50,18 @@ La aplicación estará compuesta por los siguientes componentes:
     - Usuarios: gestiona la creación y edición de cuentas y perfiles de usuario.
     - Posts: se encarga de las operaciones relacionadas con posts (crear, editar y eliminar).
     - Contenido: genera el feed (publicaciones de perfiles seguidos) y gestiona las interacciones entre usuarios.
-    - Media: ofrece y maneja recursos multimedia.
+    - Media: ofrece y maneja recursos multimedia. *(opcional)*
     - Front: sirve la interfaz web al usuario.
-    - Notificaciones: envía notificaciones y comunicaciones a usuarios mediante e-mail.
+    - Notificaciones: envía notificaciones y comunicaciones a usuarios mediante e-mail. *(opcional)*
 - Gestión de datos
     - Base de datos: almacena la información de la aplicación
-    - Almacenamiento de datos en memoria: utilizado para la caché de la aplicación
+    - Almacenamiento de datos en memoria: utilizado para la caché de la aplicación *(opcional)*
+
+### Tecnologías
+
+Para el proyecto utilizaré tecnologías con las que tengo experiencia previa para expandir mis conocimientos sobre ellas y centrarme en el desarrollo en vez de tener que aprender a usarlas desde cero.
+
+Para el servidor utilizaré Java con el framework Spring en su versión 5, que proporciona herramientas para manejar peticiones HTTP, seguridad, gestión de bases de datos, cachés y otras funcionalidades ya integradas que agilizan la construcción del proyecto. También HTML, JavaScript y CSS para la interfaz web y MySQL para gestionar bases de datos.
 
 ## ESTIMACIÓN DE COSTES
 
