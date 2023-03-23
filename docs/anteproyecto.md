@@ -8,15 +8,13 @@ Diseñar, desarrollar y preparar para su despliegue una red social (de nombre 'Q
 
 El proyecto deberá contar con los siguientes requisitos (casos de uso) para ser considerado como listo para su uso:
 - Funciones generales
-    - Registro de cuentas
-    - Inicio de sesión
+    - Inicio de sesión / registrarse
 - Funciones sociales
     - Publicar texto
     - Valorar contenido de otros usuarios
     - Seguir / dejar de seguir a otros usuarios
-    - Ver el contenido publicado por los usuarios seguidos
-    - Establecer un perfil con nombre de usuario y descripción
-    - Buscar contenido
+    - Ver el contenido publicado por otros usuarios
+    - Establecer un perfil con nombre de usuario único
 - Funciones específicas
     - Ocultar contenido no deseado
     - Mostrar advertencias en el contenido sensible
@@ -53,10 +51,10 @@ La aplicación estará compuesta por los siguientes componentes:
     - Autenticación: crea y valida tokens.
     - Usuarios: gestiona la creación y edición de cuentas y perfiles de usuario.
     - Posts: se encarga de las operaciones relacionadas con posts (crear, editar y eliminar).
-    - Contenido: genera el feed (publicaciones de perfiles seguidos) y gestiona las interacciones entre usuarios. *(opcional, en un principio irá integrado en el servicio de posts y se dividirá si existe margen de tiempo antes de la entrega)*
-    - Media: ofrece y maneja recursos multimedia. *(opcional)*
     - Front: sirve la interfaz web al usuario.
+    - Contenido: genera el feed (publicaciones de perfiles seguidos) y gestiona las interacciones entre usuarios. *(opcional, en un principio irá integrado en el servicio de posts y se dividirá si hay margen de tiempo antes de la entrega)*
     - Notificaciones: envía notificaciones y comunicaciones a usuarios mediante e-mail. *(opcional)*
+    - Media: ofrece y maneja recursos multimedia. *(opcional)*
 - Gestión de datos
     - Base de datos: almacena la información de la aplicación
     - Almacenamiento de datos en memoria: utilizado para la caché de la aplicación *(opcional)*
@@ -67,7 +65,7 @@ En el proyecto utilizaré mayormente tecnologías con las que tengo experiencia 
 
 Para el servidor utilizaré Java con el framework Spring en su versión 5, que proporciona herramientas para manejar peticiones HTTP, seguridad, gestión de bases de datos, cachés y otras funcionalidades ya integradas que agilizan la construcción del proyecto. También HTML, JavaScript y CSS para la interfaz web y MySQL para gestionar bases de datos.
 
-El despliegue se hará suponiendo que se utilizan servicios de Microsoft Azure, que estoy aprendiendo a usar en la FCT.
+El despliegue se planificará suponiendo que se utilizan servicios de Microsoft Azure, que estoy aprendiendo a usar en la FCT.
 
 ## ESTIMACIÓN DE COSTES
 
