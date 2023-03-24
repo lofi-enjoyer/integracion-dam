@@ -39,6 +39,8 @@ Teniendo en cuenta que se espera que la aplicación sea capaz de soportar un alt
 - Escalabilidad horizontal: gracias al balance de carga se puede ampliar la capacidad del sistema añadiendo más instancias de los servicios que lo requieran
 - Desacoplamiento: cada servicio es independiente salvo en su comunicación con otros, por lo que es posible utilizar múltiples lenguajes y tecnologías dependiendo de lo que sea necesario en cada uno
 
+Además de las ventajas explicadas, he elegido esta arquitectura porque he trabajado anteriormente en un entorno profesional con software monolítico y me gustaría aprender más sobre aplicaciones distribuidas.
+
 ![Boceto_Arquitectura](https://user-images.githubusercontent.com/25750692/224835847-d82f4857-fcf1-438d-888b-1aa5e0ef30ff.png)
 
 > *Boceto simplificado de la arquitectura*
