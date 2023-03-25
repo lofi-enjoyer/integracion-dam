@@ -54,12 +54,16 @@ La aplicación estará compuesta por los siguientes componentes:
     - Usuarios: gestiona la creación y edición de cuentas y perfiles de usuario.
     - Posts: se encarga de las operaciones relacionadas con posts (crear, editar y eliminar).
     - Front: sirve la interfaz web al usuario.
-    - Contenido: genera el feed (publicaciones de perfiles seguidos) y gestiona las interacciones entre usuarios. *(opcional, en un principio irá integrado en el servicio de posts y se dividirá si hay margen de tiempo antes de la entrega)*
-    - Notificaciones: envía notificaciones y comunicaciones a usuarios mediante e-mail. *(opcional)*
-    - Media: ofrece y maneja recursos multimedia. *(opcional)*
+    - ¹ ²Contenido: genera el feed (publicaciones de perfiles seguidos) y gestiona las interacciones entre usuarios.
+    - ¹Notificaciones: envía notificaciones y comunicaciones a usuarios mediante e-mail.
+    - ¹Media: ofrece y maneja recursos multimedia.
 - Gestión de datos
     - Base de datos: almacena la información de la aplicación
     - Almacenamiento de datos en memoria: utilizado para la caché de la aplicación *(opcional)*
+
+¹ Opcional 
+
+² En un principio irá integrado en el servicio de posts y se dividirá si hay margen de tiempo antes de la entrega
 
 ### Tecnologías
 
