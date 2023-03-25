@@ -27,7 +27,15 @@ Además, se consideran como opcionales:
 
 ![Casos_de_uso](https://user-images.githubusercontent.com/25750692/227209464-410c53e3-f42e-44f5-b0c2-0469542f4274.png)
 
-> Diagrama simple de casos de uso
+> Diagrama simple y algunos casos de uso
+
+![Caso de uso de inicio de sesión](https://user-images.githubusercontent.com/25750692/227707592-02a144ca-8745-4726-a929-f6ad52d3e224.png)
+
+> Inicio de sesión
+
+![Caso de uso de listar publicaciones](https://user-images.githubusercontent.com/25750692/227707596-6805b5d5-0e5d-4b1a-8dae-d84ffede30ad.png)
+
+> Listar publicaciones
 
 ## DISEÑO DEL SOFTWARE
 
