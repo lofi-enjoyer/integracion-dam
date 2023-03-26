@@ -1,2 +1,3 @@
 /.idea
-/*/*/target
+/quiet/*/target
+/application.properties
