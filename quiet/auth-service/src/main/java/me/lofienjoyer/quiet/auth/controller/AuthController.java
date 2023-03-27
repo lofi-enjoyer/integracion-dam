@@ -1,10 +1,14 @@
 package me.lofienjoyer.quiet.auth.controller;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.lofienjoyer.quiet.auth.dto.CreateUserDto;
 import me.lofienjoyer.quiet.auth.dto.GetTokenDto;
 import me.lofienjoyer.quiet.auth.model.User;
 import me.lofienjoyer.quiet.auth.service.AuthService;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,12 +28,19 @@ public class AuthController {
     }
 
     @GetMapping("/token")
-    public String getToken(@RequestBody GetTokenDto dto) {
-        Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
+    public void getToken(@RequestParam("email") String email, @RequestParam("password") String password, HttpServletResponse response) {
+        Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
         if (authentication.isAuthenticated()) {
-            return authService.generateToken(dto.getEmail());
+            String token = authService.generateToken(email);
+            Cookie cookie = new Cookie("token", token);
+            cookie.setPath("/");
+            cookie.setHttpOnly(false);
+            cookie.setMaxAge(24 * 60 * 60 * 1000);
+            // TODO: Set expiration for the cookie
+
+            response.addCookie(cookie);
         } else {
-            throw new UsernameNotFoundException("User " + dto.getEmail() + " not found");
+            throw new UsernameNotFoundException("User " + email + " not found");
         }
     }
 
@@ -37,6 +48,11 @@ public class AuthController {
     public String validateToken(@RequestParam("token") String token) {
         authService.validateToken(token);
         return "The token is valid.";
+    }
+
+    @GetMapping("/test")
+    public String amILoggedIn(@CookieValue("token") String tokenCookie) {
+        return "You are logged in!";
     }
 
 }

@@ -28,7 +28,7 @@ public class AuthenticationConfig {
         return http
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/register", "/token", "/validate").permitAll()
+                .requestMatchers("/register", "/token", "/validate", "/test").permitAll()
                 .and()
                 .build();
     }
