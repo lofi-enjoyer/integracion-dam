@@ -50,7 +50,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                             .bodyToMono(String.class);
 
                     return monoResponse
-                            .onErrorResume(e -> Mono.error(new ResponseStatusException(HttpStatus.TOO_MANY_REQUESTS)))
+                            .onErrorResume(e -> Mono.error(new ResponseStatusException(HttpStatus.BAD_REQUEST)))
 
                             .flatMap(response -> {
                                 return chain.filter(exchange);
