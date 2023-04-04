@@ -40,7 +40,7 @@ public class AuthController {
 
     @PostMapping("/new")
     public String addNewUser(@RequestBody UserInfo userInfo) {
-        return service.addUser(userInfo);
+        return service.addUser(userInfo).getEmail();
     }
 
     @PostMapping("/authenticate")
