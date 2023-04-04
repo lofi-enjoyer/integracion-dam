@@ -6,6 +6,8 @@ import me.lofienjoyer.quiet.auth.model.UserInfo;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -18,6 +20,10 @@ public class UserService {
         userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
         userInfoDao.save(userInfo);
         return "user added to system ";
+    }
+
+    public Optional<UserInfo> getByEmail(String email) {
+        return userInfoDao.findByEmail(email);
     }
 
 }

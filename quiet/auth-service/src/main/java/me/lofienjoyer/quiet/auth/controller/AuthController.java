@@ -1,6 +1,9 @@
 package me.lofienjoyer.quiet.auth.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import me.lofienjoyer.quiet.auth.dto.AuthRequest;
+import me.lofienjoyer.quiet.auth.dto.UserInfoDto;
+import me.lofienjoyer.quiet.auth.model.Role;
 import me.lofienjoyer.quiet.auth.model.UserInfo;
 import me.lofienjoyer.quiet.auth.service.JwtService;
 import me.lofienjoyer.quiet.auth.service.UserService;
@@ -11,13 +14,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.stream.Collectors;
+
 @RestController
+@Slf4j
 public class AuthController {
 
     @Autowired
@@ -48,6 +51,28 @@ public class AuthController {
         } else {
             throw new UsernameNotFoundException("invalid user request !");
         }
+    }
+
+    @GetMapping("/getuser")
+    public UserInfoDto getUserInfo(@RequestParam("token") String token) {
+        String email = null;
+        try {
+            email = jwtService.extractUsername(token);
+        } catch (Exception e) {
+            log.warn("Could not parse token " + token, e);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        UserInfo userInfo = service.getByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        UserInfoDto dto = new UserInfoDto();
+        dto.setEmail(userInfo.getEmail());
+        dto.setAuthorities(userInfo.getRoles().stream()
+                .map(Role::getName)
+                .collect(Collectors.toList())
+        );
+
+        return dto;
     }
 
 }
