@@ -1,4 +1,4 @@
-package me.lofienjoyer.quiet.postservice.dto;
+package me.lofienjoyer.quiet.basemodel.dto;
 
 import lombok.Data;
 

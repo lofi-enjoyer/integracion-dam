@@ -1,4 +1,4 @@
-package me.lofienjoyer.quiet.auth.dto;
+package me.lofienjoyer.quiet.basemodel.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

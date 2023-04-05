@@ -1,6 +1,6 @@
 package me.lofienjoyer.quiet.auth.config;
 
-import me.lofienjoyer.quiet.auth.model.UserInfo;
+import me.lofienjoyer.quiet.basemodel.entity.UserInfo;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

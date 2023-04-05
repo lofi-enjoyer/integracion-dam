@@ -1,6 +1,6 @@
 package me.lofienjoyer.quiet.postservice.config;
 
-import me.lofienjoyer.quiet.postservice.dto.UserInfoDto;
+import me.lofienjoyer.quiet.basemodel.dto.UserInfoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -2,8 +2,8 @@ package me.lofienjoyer.quiet.auth.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.lofienjoyer.quiet.auth.dao.UserInfoDao;
-import me.lofienjoyer.quiet.auth.model.UserInfo;
+import me.lofienjoyer.quiet.basemodel.dao.UserInfoDao;
+import me.lofienjoyer.quiet.basemodel.entity.UserInfo;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

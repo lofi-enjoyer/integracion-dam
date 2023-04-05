@@ -1,7 +1,7 @@
 package me.lofienjoyer.quiet.auth.config;
 
-import me.lofienjoyer.quiet.auth.dao.UserInfoDao;
-import me.lofienjoyer.quiet.auth.model.UserInfo;
+import me.lofienjoyer.quiet.basemodel.dao.UserInfoDao;
+import me.lofienjoyer.quiet.basemodel.entity.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

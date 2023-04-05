@@ -1,12 +1,12 @@
 package me.lofienjoyer.quiet.auth.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import me.lofienjoyer.quiet.auth.dto.AuthRequest;
-import me.lofienjoyer.quiet.auth.dto.UserInfoDto;
-import me.lofienjoyer.quiet.auth.model.Role;
-import me.lofienjoyer.quiet.auth.model.UserInfo;
+import me.lofienjoyer.quiet.basemodel.dto.AuthRequest;
 import me.lofienjoyer.quiet.auth.service.JwtService;
 import me.lofienjoyer.quiet.auth.service.UserService;
+import me.lofienjoyer.quiet.basemodel.dto.UserInfoDto;
+import me.lofienjoyer.quiet.basemodel.entity.Role;
+import me.lofienjoyer.quiet.basemodel.entity.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -1,4 +1,4 @@
-package me.lofienjoyer.quiet.auth.model;
+package me.lofienjoyer.quiet.basemodel.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

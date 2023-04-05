@@ -1,6 +1,6 @@
-package me.lofienjoyer.quiet.auth.dao;
+package me.lofienjoyer.quiet.basemodel.dao;
 
-import me.lofienjoyer.quiet.auth.model.UserInfo;
+import me.lofienjoyer.quiet.basemodel.entity.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
