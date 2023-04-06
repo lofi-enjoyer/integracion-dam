@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EntityScan("me.lofienjoyer.quiet.basemodel.*")
-@EnableJpaRepositories("me.lofienjoyer.quiet.basemodel.*")
+@EnableJpaRepositories(basePackages = "me.lofienjoyer.quiet")
 public class AuthServiceApplication {
 
 	public static void main(String[] args) {
