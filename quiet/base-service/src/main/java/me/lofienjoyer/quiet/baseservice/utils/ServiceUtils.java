@@ -1,4 +1,4 @@
-package me.lofienjoyer.quiet.postservice.utils;
+package me.lofienjoyer.quiet.baseservice.utils;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;

@@ -1,7 +1,9 @@
-package me.lofienjoyer.quiet.postservice.config;
+package me.lofienjoyer.quiet.baseservice.config;
 
 import me.lofienjoyer.quiet.basemodel.dto.UserInfoDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -9,9 +11,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -32,6 +34,9 @@ public class SecurityManager implements ReactiveAuthenticationManager {
                 )
                 .cookie("token", token)
                 .retrieve()
+                .onStatus(HttpStatusCode::isError, clientResponse -> {
+                    return Mono.just(new ResponseStatusException(HttpStatus.UNAUTHORIZED));
+                })
                 .bodyToMono(UserInfoDto.class)
 
                 .map(userInfoDto -> {

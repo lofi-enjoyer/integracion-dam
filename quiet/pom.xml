@@ -11,6 +11,7 @@
         <module>auth-service</module>
         <module>post-service</module>
         <module>base-model</module>
+        <module>base-service</module>
     </modules>
 
     <parent>

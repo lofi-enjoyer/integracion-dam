@@ -1,33 +1,25 @@
 package me.lofienjoyer.quiet.gateway.controller;
 
-import me.lofienjoyer.quiet.gateway.exception.InvalidTokenException;
-import org.springframework.context.annotation.Bean;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.error.ErrorAttributeOptions;
+import org.springframework.boot.web.reactive.error.DefaultErrorAttributes;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.reactive.result.method.annotation.ResponseEntityExceptionHandler;
-import org.springframework.web.server.WebExceptionHandler;
-import reactor.core.publisher.Mono;
+import org.springframework.web.reactive.function.server.ServerRequest;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
-public class ErrorController extends ResponseEntityExceptionHandler {
+@Slf4j
+public class ErrorController extends DefaultErrorAttributes {
 
-    @Bean
-    public WebExceptionHandler exceptionHandler() {
-        return (exchange, ex) -> {
-            System.out.println("Exception caught!");
-            if (ex instanceof InvalidTokenException) {
-                System.out.println("Invalid token exception thrown.");
-                exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
-            }
-
-            return Mono.error(ex);
-        };
+    @Override
+    public Map<String, Object> getErrorAttributes(ServerRequest request, ErrorAttributeOptions options) {
+        Map<String, Object> errorAttributes = new HashMap<>();
+        errorAttributes.put("status", HttpStatus.BAD_REQUEST.value());
+        errorAttributes.put("message", "Invalid request");
+        return errorAttributes;
     }
 
 }

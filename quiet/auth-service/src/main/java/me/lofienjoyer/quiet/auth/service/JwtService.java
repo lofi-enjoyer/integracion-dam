@@ -23,16 +23,16 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public Date extractExpiration(String token) {
+    public Date extractExpiration(String token) throws Exception {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) throws Exception {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
-    private Claims extractAllClaims(String token) {
+    private Claims extractAllClaims(String token) throws Exception {
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignKey())
@@ -41,7 +41,7 @@ public class JwtService {
                 .getBody();
     }
 
-    private Boolean isTokenExpired(String token) {
+    private Boolean isTokenExpired(String token) throws Exception {
         return extractExpiration(token).before(new Date());
     }
 

@@ -59,6 +59,7 @@ public class JwtFilter extends OncePerRequestFilter {
             }
         } catch (Exception e) {
             log.warn("An error occurred on the JwtFilter", e);
+            throw new RuntimeException("SIUUU");
         }
 
         filterChain.doFilter(request, response);
