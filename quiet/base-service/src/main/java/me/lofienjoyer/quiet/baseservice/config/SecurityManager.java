@@ -46,7 +46,7 @@ public class SecurityManager implements ReactiveAuthenticationManager {
 
                     return new UsernamePasswordAuthenticationToken(
                             userInfoDto.getEmail(),
-                            null,
+                            token,
                             authorities
                     );
                 });

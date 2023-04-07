@@ -12,6 +12,7 @@ public class ExceptionConfig {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResponseEntity<String> errorHandler(Exception exception) {
+        exception.printStackTrace();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .build();
     }

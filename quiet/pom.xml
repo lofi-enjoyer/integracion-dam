@@ -12,6 +12,7 @@
         <module>post-service</module>
         <module>base-model</module>
         <module>base-service</module>
+        <module>user-service</module>
     </modules>
 
     <parent>
