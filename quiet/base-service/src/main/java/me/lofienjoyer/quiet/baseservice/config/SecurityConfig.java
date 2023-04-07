@@ -23,6 +23,7 @@ public class SecurityConfig {
     private final SecurityContextRepository securityContextRepository;
 
     @Bean
+    // TODO Custom login page via properties file
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         return http.csrf().disable()
                 .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
@@ -43,6 +44,7 @@ public class SecurityConfig {
                 .securityContextRepository(securityContextRepository)
                 .authorizeExchange()
                 .anyExchange().permitAll()
+                .and().formLogin().loginPage("http://localhost:8080/login")
                 .and().build();
     }
 
