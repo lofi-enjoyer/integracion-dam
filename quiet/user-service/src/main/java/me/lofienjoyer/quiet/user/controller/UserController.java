@@ -1,25 +1,25 @@
 package me.lofienjoyer.quiet.user.controller;
 
-import me.lofienjoyer.quiet.basemodel.dao.UserInfoDao;
+import lombok.RequiredArgsConstructor;
+import me.lofienjoyer.quiet.basemodel.dto.CreateUserDto;
 import me.lofienjoyer.quiet.basemodel.entity.UserInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
+import me.lofienjoyer.quiet.user.service.UserService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/internal")
+@RequestMapping("/api/users")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    UserInfoDao userInfoDao;
+    private final UserService userService;
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/all")
-    public Flux<UserInfo> getAllUsers() {
-        return Flux.fromStream(userInfoDao.findAll().stream());
+    @PostMapping("/register")
+    public Mono<UserInfo> registerNewUser(@RequestBody CreateUserDto dto) {
+        return userService.registerNewUser(dto);
     }
 
 }

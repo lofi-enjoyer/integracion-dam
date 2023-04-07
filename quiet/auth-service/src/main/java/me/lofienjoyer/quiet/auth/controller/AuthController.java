@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.lofienjoyer.quiet.basemodel.dto.AuthRequest;
 import me.lofienjoyer.quiet.auth.service.JwtService;
 import me.lofienjoyer.quiet.auth.service.UserService;
+import me.lofienjoyer.quiet.basemodel.dto.CreateUserDto;
 import me.lofienjoyer.quiet.basemodel.dto.UserInfoDto;
 import me.lofienjoyer.quiet.basemodel.entity.Role;
 import me.lofienjoyer.quiet.basemodel.entity.UserInfo;
@@ -39,8 +40,8 @@ public class AuthController {
     }
 
     @PostMapping("/new")
-    public String addNewUser(@RequestBody UserInfo userInfo) {
-        return service.addUser(userInfo).getEmail();
+    public UserInfo addNewUser(@RequestBody CreateUserDto dto) {
+        return service.addUser(dto);
     }
 
     @PostMapping("/authenticate")

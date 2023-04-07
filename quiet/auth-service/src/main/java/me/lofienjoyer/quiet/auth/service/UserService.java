@@ -3,6 +3,7 @@ package me.lofienjoyer.quiet.auth.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.lofienjoyer.quiet.basemodel.dao.UserInfoDao;
+import me.lofienjoyer.quiet.basemodel.dto.CreateUserDto;
 import me.lofienjoyer.quiet.basemodel.entity.UserInfo;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,8 +21,10 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserInfo addUser(UserInfo userInfo) {
-        userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
+    public UserInfo addUser(CreateUserDto dto) {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setEmail(dto.getEmail());
+        userInfo.setPassword(passwordEncoder.encode(dto.getPassword()));
         try {
             return userInfoDao.save(userInfo);
         } catch (Exception e) {
