@@ -2,9 +2,7 @@ package me.lofienjoyer.quiet.basemodel.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Set;
 
@@ -25,6 +23,9 @@ public class UserInfo {
     private String password;
 
     @OneToOne
+    @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Profile profile;
 
     @ManyToMany(fetch = FetchType.EAGER)

@@ -3,13 +3,11 @@ package me.lofienjoyer.quiet.basemodel.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Proxy;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Transactional
@@ -31,16 +29,20 @@ public class Post {
 
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Profile profile;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "likes",
             joinColumns = @JoinColumn(name = "post_id"),
             inverseJoinColumns = @JoinColumn(name = "profile_id")
     )
     @JsonIgnore
-    private List<Profile> likes;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Profile> likes;
 
     private int likesAmount;
 

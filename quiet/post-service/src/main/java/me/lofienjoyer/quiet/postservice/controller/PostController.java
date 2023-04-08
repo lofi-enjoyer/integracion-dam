@@ -16,6 +16,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -54,6 +56,21 @@ public class PostController {
                 .bodyToMono(Profile.class)
                 .map(profile -> {
                     return postDao.getPostsFromFollowed(profile.getId())
+                            .stream().map(PostDto::new)
+                            .collect(Collectors.toList());
+                })
+                .flatMapMany(Flux::fromIterable);
+    }
+
+    @GetMapping("/me")
+    @PreAuthorize("isAuthenticated()")
+    public Flux<PostDto> getOwnPosts(Authentication authentication) {
+        return webClientBuilder.build().get().uri("http://user-service/api/profiles/me")
+                .cookie("token", authentication.getCredentials().toString())
+                .retrieve()
+                .bodyToMono(Profile.class)
+                .map(profile -> {
+                    return postDao.findByProfileOrderByDateDesc(profile)
                             .stream().map(PostDto::new)
                             .collect(Collectors.toList());
                 })

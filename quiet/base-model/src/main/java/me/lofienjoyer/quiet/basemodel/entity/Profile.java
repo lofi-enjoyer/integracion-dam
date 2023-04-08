@@ -2,11 +2,8 @@ package me.lofienjoyer.quiet.basemodel.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,12 +18,16 @@ public class Profile {
 
     private String username;
 
-    @OneToOne(mappedBy = "profile")
+    @OneToOne(mappedBy = "profile", fetch = FetchType.LAZY)
     @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private UserInfo user;
 
     @OneToMany(mappedBy = "profile")
     @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Post> posts;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -36,7 +37,9 @@ public class Profile {
             inverseJoinColumns = @JoinColumn(name = "followed_id")
     )
     @JsonIgnore
-    private List<Profile> following;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Profile> following;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -45,10 +48,14 @@ public class Profile {
             inverseJoinColumns = @JoinColumn(name = "profile_id")
     )
     @JsonIgnore
-    private List<Profile> followed;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Profile> followed;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "likes")
     @JsonIgnore
-    private List<Post> likedPosts;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Post> likedPosts;
 
 }
