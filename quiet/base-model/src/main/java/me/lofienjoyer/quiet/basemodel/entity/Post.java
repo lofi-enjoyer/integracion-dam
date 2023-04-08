@@ -6,26 +6,26 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.Date;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Profile {
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String username;
+    @Column(length = 511, nullable = false)
+    private String content;
 
-    @OneToOne(mappedBy = "profile")
-    @JsonIgnore
-    private UserInfo user;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
 
-    @OneToMany(mappedBy = "profile")
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JsonIgnore
-    private Set<Post> posts;
+    private Profile profile;
 
 }

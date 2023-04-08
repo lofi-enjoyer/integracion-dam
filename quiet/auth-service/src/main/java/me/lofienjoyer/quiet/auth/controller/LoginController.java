@@ -27,6 +27,7 @@ public class LoginController {
             return ResponseEntity.badRequest().build();
 
         Cookie cookie = new Cookie("token", jwtService.generateToken(authRequest.getEmail()));
+        cookie.setPath("/");
         response.addCookie(cookie);
 
         return ResponseEntity.ok("Successful login!");
