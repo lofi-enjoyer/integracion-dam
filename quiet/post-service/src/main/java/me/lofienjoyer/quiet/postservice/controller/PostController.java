@@ -1,80 +1,44 @@
 package me.lofienjoyer.quiet.postservice.controller;
 
-import me.lofienjoyer.quiet.basemodel.dao.PostDao;
+import lombok.RequiredArgsConstructor;
 import me.lofienjoyer.quiet.basemodel.dto.CreatePostDto;
 import me.lofienjoyer.quiet.basemodel.dto.PostDto;
-import me.lofienjoyer.quiet.basemodel.entity.Post;
-import me.lofienjoyer.quiet.basemodel.entity.Profile;
-import me.lofienjoyer.quiet.basemodel.entity.UserInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import me.lofienjoyer.quiet.postservice.service.PostService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 @RestController
 @RequestMapping("/api/posts")
+@RequiredArgsConstructor
 public class PostController {
 
-    @Autowired
-    WebClient.Builder webClientBuilder;
-
-    @Autowired
-    PostDao postDao;
+    private final PostService postService;
 
     @PostMapping("/new")
     @PreAuthorize("isAuthenticated()")
-    public Mono<Post> createPost(@RequestBody CreatePostDto dto, Authentication authentication) {
-        return webClientBuilder.build().get().uri("http://user-service/api/profiles/me")
-                .cookie("token", authentication.getCredentials().toString())
-                .retrieve()
-                .bodyToMono(Profile.class)
-                .map(profile -> {
-                    Post post = new Post();
-                    post.setContent(dto.getContent());
-                    post.setDate(new Date());
-                    post.setProfile(profile);
-
-                    return postDao.save(post);
-                });
+    public Mono<PostDto> createPost(@RequestBody CreatePostDto dto, Authentication authentication) {
+        return postService.createPost(dto, authentication);
     }
 
     @GetMapping("/feed")
     @PreAuthorize("isAuthenticated()")
-    public Flux<PostDto> getFeed(Authentication authentication) {
-        return webClientBuilder.build().get().uri("http://user-service/api/profiles/me")
-                .cookie("token", authentication.getCredentials().toString())
-                .retrieve()
-                .bodyToMono(Profile.class)
-                .map(profile -> {
-                    return postDao.getPostsFromFollowed(profile.getId())
-                            .stream().map(PostDto::new)
-                            .collect(Collectors.toList());
-                })
-                .flatMapMany(Flux::fromIterable);
+    public Flux<PostDto> getCurrentUserFeed(Authentication authentication) {
+        return postService.getCurrentUserFeed(authentication);
     }
 
     @GetMapping("/me")
     @PreAuthorize("isAuthenticated()")
     public Flux<PostDto> getOwnPosts(Authentication authentication) {
-        return webClientBuilder.build().get().uri("http://user-service/api/profiles/me")
-                .cookie("token", authentication.getCredentials().toString())
-                .retrieve()
-                .bodyToMono(Profile.class)
-                .map(profile -> {
-                    return postDao.findByProfileOrderByDateDesc(profile)
-                            .stream().map(PostDto::new)
-                            .collect(Collectors.toList());
-                })
-                .flatMapMany(Flux::fromIterable);
+        return postService.getCurrentUserPosts(authentication);
+    }
+
+    //TODO Use requests params instead of path variables
+    @GetMapping("/get/{username}")
+    public Flux<PostDto> getPostsForProfile(@PathVariable("username") String username) {
+        return postService.getUserPosts(username);
     }
 
 }

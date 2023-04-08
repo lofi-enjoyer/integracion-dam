@@ -7,4 +7,6 @@ public interface ProfileService {
 
     Mono<Profile> getProfileByEmail(String email);
 
+    Mono<Profile> getProfileByUsername(String username);
+
 }

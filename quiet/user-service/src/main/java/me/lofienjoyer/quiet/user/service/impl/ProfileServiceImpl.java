@@ -39,4 +39,13 @@ public class ProfileServiceImpl implements ProfileService {
         return Mono.just(profileOptional.get());
     }
 
+    @Override
+    public Mono<Profile> getProfileByUsername(String username) {
+        Optional<Profile> profileOptional = profileDao.findByUsername(username);
+
+        if (profileOptional.isEmpty())
+            return Mono.error(new UsernameNotFoundException("Username not found."));
+
+        return Mono.just(profileOptional.get());
+    }
 }

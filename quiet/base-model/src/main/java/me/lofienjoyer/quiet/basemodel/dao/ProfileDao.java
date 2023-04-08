@@ -10,4 +10,6 @@ public interface ProfileDao extends JpaRepository<Profile, Long> {
 
     Optional<Profile> findByUser(UserInfo userInfo);
 
+    Optional<Profile> findByUsername(String username);
+
 }
