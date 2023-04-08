@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -27,5 +28,27 @@ public class Profile {
     @OneToMany(mappedBy = "profile")
     @JsonIgnore
     private Set<Post> posts;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "follows",
+            joinColumns = @JoinColumn(name = "profile_id"),
+            inverseJoinColumns = @JoinColumn(name = "followed_id")
+    )
+    @JsonIgnore
+    private List<Profile> following;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "follows",
+            joinColumns = @JoinColumn(name = "followed_id"),
+            inverseJoinColumns = @JoinColumn(name = "profile_id")
+    )
+    @JsonIgnore
+    private List<Profile> followed;
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "likes")
+    @JsonIgnore
+    private List<Post> likedPosts;
 
 }
