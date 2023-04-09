@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+// TODO Abstract to an interface
 @Service
 public class JwtService {
 

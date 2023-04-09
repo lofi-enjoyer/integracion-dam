@@ -15,17 +15,29 @@ public class InternalUserController {
 
     private final UserService userService;
 
+    /**
+     * @param authentication Authentication data of the user sending the request
+     * @return User with the specified email
+     */
     @GetMapping("/me")
     @PreAuthorize("isAuthenticated()")
     public Mono<UserInfo> getCurrentUser(Authentication authentication) {
         return userService.getUserByEmail(authentication.getName());
     }
 
+    /**
+     * @param email Email of the user to retrieve
+     * @return User with the specified email
+     */
     @GetMapping("/email")
     public Mono<UserInfo> getUserByEmail(@RequestParam("email") String email) {
         return userService.getUserByEmail(email);
     }
 
+    /**
+     * @param id ID of the user to retrieve
+     * @return User with the specified email
+     */
     @GetMapping("/id")
     public Mono<UserInfo> getUserById(@RequestParam("id") long id) {
         return userService.getUserById(id);

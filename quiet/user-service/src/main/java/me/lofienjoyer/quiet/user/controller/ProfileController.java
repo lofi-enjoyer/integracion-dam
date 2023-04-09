@@ -18,6 +18,10 @@ public class ProfileController {
 
     private final ProfileService profileService;
 
+    /**
+     * @param email Email of the profile to fetch
+     * @return Profile with the specified email
+     */
     @GetMapping("/me")
     @PreAuthorize("isAuthenticated()")
     public Mono<Profile> getCurrentProfile(Authentication authentication) {
@@ -25,6 +29,10 @@ public class ProfileController {
     }
 
     //TODO Use requests params instead of path variables
+    /**
+     * @param username Username of the profile to fetch
+     * @return Profile with the specified email
+     */
     @GetMapping("/{username}")
     public Mono<Profile> getProfileByUsername(@PathVariable("username") String username) {
         return profileService.getProfileByUsername(username);

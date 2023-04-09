@@ -5,6 +5,9 @@ import me.lofienjoyer.quiet.basemodel.entity.Post;
 
 import java.util.Date;
 
+/**
+ * DTO for a {@link me.lofienjoyer.quiet.basemodel.entity.Post} entity
+ */
 @Data
 public class PostDto {
 

@@ -17,6 +17,10 @@ public class UserController {
 
     private final UserService userService;
 
+    /**
+     * @param dto DTO containing the data for the new user
+     * @return User info of the user created
+     */
     @PostMapping("/register")
     public Mono<UserInfo> registerNewUser(@RequestBody CreateUserDto dto) {
         return userService.registerNewUser(dto);

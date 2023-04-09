@@ -11,6 +11,9 @@ import org.hibernate.annotations.Proxy;
 import java.util.Date;
 import java.util.Set;
 
+/**
+ * Entity representing a post
+ */
 @Entity
 @Transactional
 @Proxy(lazy = false)

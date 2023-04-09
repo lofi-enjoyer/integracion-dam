@@ -6,6 +6,9 @@ import lombok.*;
 
 import java.util.Set;
 
+/**
+ * Entity representing a user
+ */
 @Entity
 @Data
 @AllArgsConstructor

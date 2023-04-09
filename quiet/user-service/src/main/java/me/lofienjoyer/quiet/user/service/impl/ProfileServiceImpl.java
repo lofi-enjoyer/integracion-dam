@@ -6,21 +6,21 @@ import me.lofienjoyer.quiet.basemodel.dao.UserInfoDao;
 import me.lofienjoyer.quiet.basemodel.entity.Profile;
 import me.lofienjoyer.quiet.basemodel.entity.UserInfo;
 import me.lofienjoyer.quiet.user.service.ProfileService;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 
+/**
+ * Implementation of {@link ProfileService}
+ */
 @Service
 @RequiredArgsConstructor
 public class ProfileServiceImpl implements ProfileService {
 
     private final UserInfoDao userInfoDao;
     private final ProfileDao profileDao;
-    private final WebClient.Builder webClientBuilder;
 
     @Override
     public Mono<Profile> getProfileByEmail(String email) {
@@ -48,4 +48,5 @@ public class ProfileServiceImpl implements ProfileService {
 
         return Mono.just(profileOptional.get());
     }
+
 }

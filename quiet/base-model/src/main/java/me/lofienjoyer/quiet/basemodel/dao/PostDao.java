@@ -8,6 +8,9 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+/**
+ * Repository for {@link me.lofienjoyer.quiet.basemodel.entity.Post} entities
+ */
 public interface PostDao extends JpaRepository<Post, Long> {
 
     List<Post> findByProfileOrderByDateDesc(Profile profile);

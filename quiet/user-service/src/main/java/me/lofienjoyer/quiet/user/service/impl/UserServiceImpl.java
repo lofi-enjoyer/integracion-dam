@@ -16,6 +16,9 @@ import reactor.core.publisher.Mono;
 
 import java.util.Optional;
 
+/**
+ * Implementation of {@link UserService}
+ */
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {

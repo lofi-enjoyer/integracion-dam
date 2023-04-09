@@ -5,6 +5,9 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * DTO for a {@link me.lofienjoyer.quiet.basemodel.entity.UserInfo} entity
+ */
 @Data
 public class UserInfoDto {
 

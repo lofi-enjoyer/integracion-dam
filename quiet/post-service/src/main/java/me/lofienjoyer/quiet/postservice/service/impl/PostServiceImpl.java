@@ -16,6 +16,9 @@ import reactor.core.publisher.Mono;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+/**
+ * Implementation of {@link PostService}
+ */
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
