@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Proxy;
 
 import java.util.Date;
@@ -42,6 +44,7 @@ public class Post {
     @JsonIgnore
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @LazyCollection(LazyCollectionOption.EXTRA)
     private Set<Profile> likes;
 
     private int likesAmount;
