@@ -58,7 +58,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 }
             }
         } catch (Exception e) {
-            log.warn("An error occurred on the JwtFilter", e);
+            log.warn("An error occurred on the JwtFilter (probably an invalid token)");
         }
 
         filterChain.doFilter(request, response);

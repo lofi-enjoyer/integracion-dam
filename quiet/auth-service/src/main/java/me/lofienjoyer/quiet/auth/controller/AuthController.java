@@ -60,7 +60,7 @@ public class AuthController {
         try {
             email = jwtService.extractUsername(token);
         } catch (Exception e) {
-            log.warn("Could not parse token " + token, e);
+            log.warn("Could not parse token " + token);
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 

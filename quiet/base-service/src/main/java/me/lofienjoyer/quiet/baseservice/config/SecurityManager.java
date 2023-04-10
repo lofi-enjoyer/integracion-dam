@@ -23,6 +23,7 @@ public class SecurityManager implements ReactiveAuthenticationManager {
     @Autowired
     WebClient.Builder webClientBuilder;
 
+    // TODO: Handle exceptions when using an invalid token
     @Override
     public Mono<Authentication> authenticate(Authentication authentication) {
         String token = authentication.getCredentials().toString();
@@ -34,11 +35,8 @@ public class SecurityManager implements ReactiveAuthenticationManager {
                 )
                 .cookie("token", token)
                 .retrieve()
-                .onStatus(HttpStatusCode::isError, clientResponse -> {
-                    return Mono.just(new ResponseStatusException(HttpStatus.UNAUTHORIZED));
-                })
                 .bodyToMono(UserInfoDto.class)
-
+                .onErrorResume(throwable -> Mono.empty())
                 .map(userInfoDto -> {
                     Set<GrantedAuthority> authorities = userInfoDto.getAuthorities().stream()
                             .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
