@@ -50,6 +50,4 @@ public class Post {
     @LazyCollection(LazyCollectionOption.EXTRA)
     private Set<Profile> likes;
 
-    private int likesAmount;
-
 }

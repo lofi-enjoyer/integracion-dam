@@ -7,6 +7,8 @@ import me.lofienjoyer.quiet.basemodel.dto.PostDto;
 import me.lofienjoyer.quiet.basemodel.entity.Post;
 import me.lofienjoyer.quiet.basemodel.entity.Profile;
 import me.lofienjoyer.quiet.postservice.service.PostService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -45,13 +47,15 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Flux<PostDto> getCurrentUserFeed(Authentication authentication) {
+    public Flux<PostDto> getCurrentUserFeed(Authentication authentication, int page) {
+        Pageable pageable = PageRequest.of(page, 2);
+
         return webClientBuilder.build().get().uri("http://user-service/api/profiles/me")
                 .cookie("token", authentication.getCredentials().toString())
                 .retrieve()
                 .bodyToMono(Profile.class)
                 .map(profile -> {
-                    return postDao.getPostsFromFollowed(profile.getId())
+                    return postDao.getPostsFromFollowed(profile.getId(), pageable)
                             .stream().map(PostDto::new)
                             .collect(Collectors.toList());
                 })
@@ -59,12 +63,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Flux<PostDto> getUserFeed(String username) {
+    public Flux<PostDto> getUserFeed(String username, int page) {
+        Pageable pageable = PageRequest.of(page, 2);
+
         return webClientBuilder.build().get().uri("http://user-service/api/profiles/" + username)
                 .retrieve()
                 .bodyToMono(Profile.class)
                 .map(profile -> {
-                    return postDao.getPostsFromFollowed(profile.getId())
+                    return postDao.getPostsFromFollowed(profile.getId(), pageable)
                             .stream().map(PostDto::new)
                             .collect(Collectors.toList());
                 })

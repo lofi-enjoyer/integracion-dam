@@ -2,8 +2,7 @@ package me.lofienjoyer.quiet.basemodel.dto;
 
 import lombok.Data;
 import me.lofienjoyer.quiet.basemodel.entity.Post;
-
-import java.util.Date;
+import me.lofienjoyer.quiet.basemodel.utils.DateUtils;
 
 /**
  * DTO for a {@link me.lofienjoyer.quiet.basemodel.entity.Post} entity
@@ -13,13 +12,13 @@ public class PostDto {
 
     private String content;
     private String profileUsername;
-    private Date date;
+    private String date;
     private int likes;
 
     public PostDto(Post post) {
         this.content = post.getContent();
         this.profileUsername = post.getProfile().getUsername();
-        this.date = post.getDate();
+        this.date = DateUtils.postDateFormat.format(post.getDate());
         this.likes = post.getLikes().size();
     }
 

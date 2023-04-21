@@ -20,15 +20,17 @@ public interface PostService {
 
     /**
      * @param authentication Authentication data of the user sending the request
+     * @param page Page of the feed
      * @return List of DTOs containing the data of the posts in the user's feed, ordered by date
      */
-    Flux<PostDto> getCurrentUserFeed(Authentication authentication);
+    Flux<PostDto> getCurrentUserFeed(Authentication authentication, int page);
 
     /**
      * @param username Username of the profile to get the profile of
+     * @param page Page of the feed
      * @return List of posts of the specified profile, ordered by date
      */
-    Flux<PostDto> getUserFeed(String username);
+    Flux<PostDto> getUserFeed(String username, int page);
 
     /**
      * @param authentication Authentication data of the user sending the request

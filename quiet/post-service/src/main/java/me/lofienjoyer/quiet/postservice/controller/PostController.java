@@ -2,6 +2,7 @@ package me.lofienjoyer.quiet.postservice.controller;
 
 import lombok.RequiredArgsConstructor;
 import me.lofienjoyer.quiet.basemodel.dto.CreatePostDto;
+import me.lofienjoyer.quiet.basemodel.dto.FeedRequest;
 import me.lofienjoyer.quiet.basemodel.dto.PostDto;
 import me.lofienjoyer.quiet.postservice.service.PostService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,10 +36,10 @@ public class PostController {
      * @param authentication Authentication data of the user sending the request
      * @return List of DTOs containing the data of the posts in the user's feed, ordered by date
      */
-    @GetMapping("/feed")
+    @PostMapping("/feed")
     @PreAuthorize("isAuthenticated()")
-    public Flux<PostDto> getCurrentUserFeed(Authentication authentication) {
-        return postService.getCurrentUserFeed(authentication);
+    public Flux<PostDto> getCurrentUserFeed(@RequestBody FeedRequest feedRequest, Authentication authentication) {
+        return postService.getCurrentUserFeed(authentication, feedRequest.getPage());
     }
 
     /**
