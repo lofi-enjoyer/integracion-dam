@@ -29,6 +29,7 @@ public class LoginController {
 
         Cookie cookie = new Cookie("token", jwtService.generateToken(authRequest.getEmail()));
         cookie.setPath("/");
+        cookie.setMaxAge(60 * 60 * 24 * 7);
         response.addCookie(cookie);
 
         return ResponseEntity.ok(new LoginResponseDto(true, "Successful login."));

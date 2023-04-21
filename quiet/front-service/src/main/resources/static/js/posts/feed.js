@@ -73,6 +73,22 @@ function loadFeed() {
     });
 }
 
+function createPost() {
+  fetch("/api/posts/feed", {
+    method: "POST",
+    body: JSON.stringify({
+      page: currentPage,
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      
+    });
+}
+
 window.addEventListener("load", (event) => {
   document
     .getElementById("feed")

@@ -17,8 +17,7 @@ public class ErrorController extends DefaultErrorAttributes {
     @Override
     public Map<String, Object> getErrorAttributes(ServerRequest request, ErrorAttributeOptions options) {
         Map<String, Object> errorAttributes = new HashMap<>();
-        errorAttributes.put("status", HttpStatus.BAD_REQUEST.value());
-        errorAttributes.put("message", "Invalid request");
+        errorAttributes.put("status", request.exchange().getResponse().getStatusCode());
         return errorAttributes;
     }
 
