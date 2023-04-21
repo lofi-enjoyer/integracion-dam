@@ -16,6 +16,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -46,31 +47,34 @@ public class PostServiceImpl implements PostService {
                 });
     }
 
+    // TODO: Support to show new posts published when scrolling and it not affecting the pagination
     @Override
     public Flux<PostDto> getCurrentUserFeed(Authentication authentication, int page) {
-        Pageable pageable = PageRequest.of(page, 2);
+        Pageable pageable = PageRequest.of(page, 10);
 
         return webClientBuilder.build().get().uri("http://user-service/api/profiles/me")
                 .cookie("token", authentication.getCredentials().toString())
                 .retrieve()
                 .bodyToMono(Profile.class)
                 .map(profile -> {
-                    return postDao.getPostsFromFollowed(profile.getId(), pageable)
+                    List<PostDto> posts =  postDao.findByIdIn(postDao.getPostsIdsFromFollowed(profile.getId(), pageable))
                             .stream().map(PostDto::new)
                             .collect(Collectors.toList());
+                    return posts;
                 })
                 .flatMapMany(Flux::fromIterable);
     }
 
+    // TODO: Support to show new posts published when scrolling and it not affecting the pagination
     @Override
     public Flux<PostDto> getUserFeed(String username, int page) {
-        Pageable pageable = PageRequest.of(page, 2);
+        Pageable pageable = PageRequest.of(page, 10);
 
         return webClientBuilder.build().get().uri("http://user-service/api/profiles/" + username)
                 .retrieve()
                 .bodyToMono(Profile.class)
                 .map(profile -> {
-                    return postDao.getPostsFromFollowed(profile.getId(), pageable)
+                    return postDao.findByIdIn(postDao.getPostsIdsFromFollowed(profile.getId(), pageable))
                             .stream().map(PostDto::new)
                             .collect(Collectors.toList());
                 })

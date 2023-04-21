@@ -9,8 +9,8 @@ function loadFeed() {
       page: currentPage,
     }),
     headers: {
-      "Content-type": "application/json; charset=UTF-8"
-    }
+      "Content-type": "application/json; charset=UTF-8",
+    },
   })
     .then((response) => response.json())
     .then((json) => {
@@ -74,5 +74,27 @@ function loadFeed() {
 }
 
 window.addEventListener("load", (event) => {
+  document
+    .getElementById("feed")
+    .addEventListener("scroll", throttle(callback, 1000));
+
   loadFeed();
 });
+
+function throttle(fn, wait) {
+  var time = Date.now();
+  return function () {
+    if (time + wait - Date.now() < 0) {
+      fn();
+      time = Date.now();
+    }
+  };
+}
+
+function callback() {
+  const { scrollHeight, scrollTop, clientHeight } = event.target;
+
+  if (Math.abs(scrollHeight - clientHeight - scrollTop) < 5) {
+    loadFeed();
+  }
+}
