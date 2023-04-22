@@ -12,12 +12,14 @@ public class PostDto {
 
     private String content;
     private String profileUsername;
+    private String profileName;
     private String date;
     private int likes;
 
     public PostDto(Post post) {
         this.content = post.getContent();
         this.profileUsername = post.getProfile().getUsername();
+        this.profileName = post.getProfile().getName();
         this.date = DateUtils.postDateFormat.format(post.getDate());
         this.likes = post.getLikes().size();
     }

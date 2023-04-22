@@ -31,18 +31,22 @@
                     <div id="loadIcon" class="loader-5 hidden"><span></span></div>
                 </div>
                 <div class="small-inv-separator"></div>
-                <textarea type="text" placeholder="Escribe aquí..." rows="1"></textarea>
-                <button id="postButton">Publicar</button>
+                <textarea id="postInput" type="text" placeholder="Escribe aquí..." rows="1"></textarea>
+                <button id="postButton" onclick="createPost()">Publicar</button>
             </div>
             <div id="feed" class="feed">
-                <div class="fake-post"></div>
+                <div id="loadIconContainer" class="loadIconContainer hidden">
+                    <div class="loadIconWrapper">
+                        <div id="feedLoadIcon" class="loader-5"><span></span></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="connect">
             <div class="panel">
                 <div class="user-info">
                     <div class="user-img">
-                        <img src="samu.png" alt="">
+                        <img src="/test.png" alt="">
                     </div>
                     <span class="name">Test</span>
                     <span class="username">@test</span>

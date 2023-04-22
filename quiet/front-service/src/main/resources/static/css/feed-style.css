@@ -37,7 +37,6 @@ a {
     overflow-y: scroll;
     scrollbar-width: none;
     z-index: 1;
-    margin-top: 10.5vh;
 }
 
 .left-column {
@@ -340,8 +339,7 @@ a {
     animation: create-post-animation 10s linear infinite;
     display: flex;
     flex-direction: column;
-    width: calc(100% - 8vh);
-    position: absolute;
+    width: calc(100% - 4vh);
     z-index: 5;
     transition-duration: 0.125s;
     margin: 0;
@@ -562,7 +560,7 @@ a {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .copyright-panel {
@@ -668,4 +666,17 @@ a {
     .left-column {
         width: 100%;
     }
+}
+
+.loadIconContainer {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loadIconWrapper {
+    background-color: lightpink;
+    border-radius: 50%;
+    padding: 0.25em;
 }

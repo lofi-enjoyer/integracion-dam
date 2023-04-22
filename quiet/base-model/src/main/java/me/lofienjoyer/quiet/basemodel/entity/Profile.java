@@ -19,6 +19,7 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private String name;
     private String username;
 
     @OneToOne(mappedBy = "profile", fetch = FetchType.LAZY)

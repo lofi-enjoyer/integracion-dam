@@ -17,6 +17,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -41,6 +42,7 @@ public class PostServiceImpl implements PostService {
                     post.setContent(dto.getContent());
                     post.setDate(new Date());
                     post.setProfile(profile);
+                    post.setLikes(Set.of());
                     post = postDao.save(post);
 
                     return new PostDto(post);
@@ -57,10 +59,9 @@ public class PostServiceImpl implements PostService {
                 .retrieve()
                 .bodyToMono(Profile.class)
                 .map(profile -> {
-                    List<PostDto> posts =  postDao.findByIdIn(postDao.getPostsIdsFromFollowed(profile.getId(), pageable))
+                    return postDao.findByIdIn(postDao.getPostsIdsFromFollowed(profile.getId(), pageable))
                             .stream().map(PostDto::new)
                             .collect(Collectors.toList());
-                    return posts;
                 })
                 .flatMapMany(Flux::fromIterable);
     }

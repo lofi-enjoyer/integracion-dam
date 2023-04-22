@@ -1,12 +1,16 @@
 var currentPage = 0;
+var feedLoadIcon;
+var postInput;
+var feedElement;
 
 function loadFeed() {
   const feedContainer = document.getElementById("feed");
+  feedLoadIcon.classList.remove("hidden");
 
   fetch("/api/posts/feed", {
     method: "POST",
     body: JSON.stringify({
-      page: currentPage,
+      page: currentPage
     }),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
@@ -33,10 +37,10 @@ function loadFeed() {
         posterInfoContainer.classList.add("poster-info");
         const posterName = document.createElement("span");
         posterName.classList.add("poster-name");
-        posterName.textContent = element.profileUsername;
+        posterName.textContent = element.profileName;
         const posterUsername = document.createElement("span");
         posterUsername.classList.add("poster-username");
-        posterUsername.textContent = element.date;
+        posterUsername.textContent = element.profileUsername;
         posterInfoContainer.appendChild(posterName);
         posterInfoContainer.appendChild(posterUsername);
 
@@ -55,7 +59,7 @@ function loadFeed() {
 
         const postData = document.createElement("div");
         postData.classList.add("post-data");
-        postData.textContent = element.likes;
+        postData.textContent = element.date;
 
         postBottom.appendChild(postText);
         postBottom.appendChild(postData);
@@ -64,20 +68,25 @@ function loadFeed() {
         postContainer.appendChild(invSeparator);
         postContainer.appendChild(postBottom);
 
-        feedContainer.appendChild(postContainer);
+        feedContainer.insertBefore(postContainer, feedLoadIcon);
 
         const smallInvSeparator = document.createElement("div");
         smallInvSeparator.classList.add("small-inv-separator");
-        feedContainer.appendChild(smallInvSeparator);
+        feedContainer.insertBefore(smallInvSeparator, feedLoadIcon);
       });
-    });
+    }).finally(() => {
+      feedLoadIcon.classList.add("hidden");
+    });;
 }
 
 function createPost() {
-  fetch("/api/posts/feed", {
+  const loadIcon = document.getElementById("loadIcon");
+  loadIcon.classList.remove("hidden");
+
+  fetch("/api/posts/new", {
     method: "POST",
     body: JSON.stringify({
-      page: currentPage,
+      content: postInput.value
     }),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
@@ -85,20 +94,25 @@ function createPost() {
   })
     .then((response) => response.json())
     .then((json) => {
-      
+      postInput.value = "";
+    }).finally(() => {
+      loadIcon.classList.add("hidden");
     });
 }
 
 window.addEventListener("load", (event) => {
-  document
-    .getElementById("feed")
+  feedLoadIcon = document.getElementById("loadIconContainer");
+  postInput = document.getElementById("postInput");
+  feedElement = document.getElementById("feed");
+
+  feedElement
     .addEventListener("scroll", throttle(callback, 1000));
 
   loadFeed();
 });
 
 function throttle(fn, wait) {
-  var time = Date.now();
+  var time = Date.now() - wait;
   return function () {
     if (time + wait - Date.now() < 0) {
       fn();
@@ -108,9 +122,7 @@ function throttle(fn, wait) {
 }
 
 function callback() {
-  const { scrollHeight, scrollTop, clientHeight } = event.target;
-
-  if (Math.abs(scrollHeight - clientHeight - scrollTop) < 5) {
+  if (feedElement.offsetHeight + feedElement.scrollTop >= feedElement.scrollHeight - 1000){
     loadFeed();
-  }
+ }
 }
