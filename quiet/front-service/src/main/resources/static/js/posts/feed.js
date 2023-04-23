@@ -30,7 +30,7 @@ function loadFeed() {
         const posterImageContainer = document.createElement("div");
         posterImageContainer.classList.add("poster-image");
         const posterImage = document.createElement("img");
-        posterImage.src = "/test.png";
+        posterImage.src = "/img/user.png";
         posterImageContainer.appendChild(posterImage);
 
         const posterInfoContainer = document.createElement("div");
@@ -40,7 +40,7 @@ function loadFeed() {
         posterName.textContent = element.profileName;
         const posterUsername = document.createElement("span");
         posterUsername.classList.add("poster-username");
-        posterUsername.textContent = element.profileUsername;
+        posterUsername.textContent = "@" + element.profileUsername;
         posterInfoContainer.appendChild(posterName);
         posterInfoContainer.appendChild(posterUsername);
 
@@ -99,6 +99,24 @@ function createPost() {
       loadIcon.classList.add("hidden");
     });
 }
+function loadProfile() {
+  const nameElement = document.getElementById("user-name");
+  const usernameElement = document.getElementById("user-username");
+  const descElement = document.getElementById("user-desc");
+
+  fetch("/api/profiles/me", {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      nameElement.textContent = json.name;
+      usernameElement.textContent = json.username;
+      descElement.textContent = json.description;
+    });
+}
 
 window.addEventListener("load", (event) => {
   feedLoadIcon = document.getElementById("loadIconContainer");
@@ -109,6 +127,7 @@ window.addEventListener("load", (event) => {
     .addEventListener("scroll", throttle(callback, 1000));
 
   loadFeed();
+  loadProfile();
 });
 
 function throttle(fn, wait) {

@@ -249,6 +249,7 @@ a {
     aspect-ratio: 1;
     object-fit: cover;
     border-radius: 50%;
+    background-color: ghostwhite;
 }
 
 .user-desc {

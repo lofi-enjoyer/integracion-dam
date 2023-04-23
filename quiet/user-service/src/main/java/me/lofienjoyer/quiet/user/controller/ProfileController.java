@@ -1,6 +1,7 @@
 package me.lofienjoyer.quiet.user.controller;
 
 import lombok.RequiredArgsConstructor;
+import me.lofienjoyer.quiet.basemodel.dto.ProfileDto;
 import me.lofienjoyer.quiet.basemodel.entity.Profile;
 import me.lofienjoyer.quiet.user.service.ProfileService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,12 +20,12 @@ public class ProfileController {
     private final ProfileService profileService;
 
     /**
-     * @param email Email of the profile to fetch
+     * @param authentication Current authenticated user
      * @return Profile with the specified email
      */
     @GetMapping("/me")
     @PreAuthorize("isAuthenticated()")
-    public Mono<Profile> getCurrentProfile(Authentication authentication) {
+    public Mono<ProfileDto> getCurrentProfile(Authentication authentication) {
         return profileService.getProfileByEmail(authentication.getName());
     }
 
@@ -34,7 +35,7 @@ public class ProfileController {
      * @return Profile with the specified email
      */
     @GetMapping("/{username}")
-    public Mono<Profile> getProfileByUsername(@PathVariable("username") String username) {
+    public Mono<ProfileDto> getProfileByUsername(@PathVariable("username") String username) {
         return profileService.getProfileByUsername(username);
     }
 

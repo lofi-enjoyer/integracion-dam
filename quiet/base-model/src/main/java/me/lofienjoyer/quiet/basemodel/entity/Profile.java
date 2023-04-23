@@ -21,6 +21,7 @@ public class Profile {
 
     private String name;
     private String username;
+    private String description;
 
     @OneToOne(mappedBy = "profile", fetch = FetchType.LAZY)
     @JsonIgnore

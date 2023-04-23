@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.lofienjoyer.quiet.basemodel.dao.PostDao;
 import me.lofienjoyer.quiet.basemodel.dto.CreatePostDto;
 import me.lofienjoyer.quiet.basemodel.dto.PostDto;
+import me.lofienjoyer.quiet.basemodel.dto.ProfileDto;
 import me.lofienjoyer.quiet.basemodel.entity.Post;
 import me.lofienjoyer.quiet.basemodel.entity.Profile;
 import me.lofienjoyer.quiet.postservice.service.PostService;
@@ -57,7 +58,7 @@ public class PostServiceImpl implements PostService {
         return webClientBuilder.build().get().uri("http://user-service/api/profiles/me")
                 .cookie("token", authentication.getCredentials().toString())
                 .retrieve()
-                .bodyToMono(Profile.class)
+                .bodyToMono(ProfileDto.class)
                 .map(profile -> {
                     return postDao.findByIdIn(postDao.getPostsIdsFromFollowed(profile.getId(), pageable))
                             .stream().map(PostDto::new)
@@ -73,7 +74,7 @@ public class PostServiceImpl implements PostService {
 
         return webClientBuilder.build().get().uri("http://user-service/api/profiles/" + username)
                 .retrieve()
-                .bodyToMono(Profile.class)
+                .bodyToMono(ProfileDto.class)
                 .map(profile -> {
                     return postDao.findByIdIn(postDao.getPostsIdsFromFollowed(profile.getId(), pageable))
                             .stream().map(PostDto::new)
