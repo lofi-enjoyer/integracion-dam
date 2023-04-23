@@ -54,6 +54,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Mono<RegisterResponseDto> registerNewUser(CreateUserDto dto) {
+        if (userInfoDao.existsByEmail(dto.getEmail()))
+            return Mono.error(new ResponseStatusException(HttpStatus.CONFLICT, "That email already exists."));
+
+        if (profileDao.existsByUsername(dto.getUsername()))
+            return Mono.error(new ResponseStatusException(HttpStatus.CONFLICT, "That username already exists."));
+
+        System.out.println("Registering user...");
+
         return webClientBuilder.build().post().uri("http://auth-service/new")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(dto)

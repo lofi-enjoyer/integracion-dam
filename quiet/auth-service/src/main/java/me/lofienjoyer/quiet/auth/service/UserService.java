@@ -29,7 +29,7 @@ public class UserService {
         try {
             return userInfoDao.save(userInfo);
         } catch (Exception e) {
-            log.warn("An error happened trying to save a new user (probably a duplicate email)", e);
+            log.warn("An error happened trying to save a new user (probably a duplicate email)");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "That email is already being used by another user.");
         }
     }

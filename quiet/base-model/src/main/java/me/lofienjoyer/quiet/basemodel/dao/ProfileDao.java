@@ -15,4 +15,6 @@ public interface ProfileDao extends JpaRepository<Profile, Long> {
 
     Optional<Profile> findByUsername(String username);
 
+    boolean existsByUsername(String username);
+
 }

@@ -27,11 +27,9 @@
         <div class="left-column">
             <div id="createPanel" class="panel create-panel">
                 <div class="hor-flex">
-                    <p class="create-title">Crear una publicación</p>
+                    <textarea id="postInput" class="postInput" type="text" placeholder="Escribe aquí..." rows="1"></textarea>
                     <div id="loadIcon" class="loader-5 hidden"><span></span></div>
                 </div>
-                <div class="small-inv-separator"></div>
-                <textarea id="postInput" type="text" placeholder="Escribe aquí..." rows="1"></textarea>
                 <button id="postButton" onclick="createPost()">Publicar</button>
             </div>
             <div id="feed" class="feed">

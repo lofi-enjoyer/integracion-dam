@@ -29,8 +29,9 @@ function sendLoginRequest() {
     .then((json) => {
       console.log(json);
       if (json.username == undefined) {
-        errorMessage.textContent = "That email is being used by another user.";
+        errorMessage.textContent = "That username or email is being used by another user.";
         errorMessage.classList.remove("hidden");
+        return;
       }
 
       window.location.href = "http://localhost:8080/login";

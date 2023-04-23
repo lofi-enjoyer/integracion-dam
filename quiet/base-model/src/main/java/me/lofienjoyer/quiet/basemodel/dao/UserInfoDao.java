@@ -12,4 +12,6 @@ public interface UserInfoDao extends JpaRepository<UserInfo, Long> {
 
     Optional<UserInfo> findByEmail(String username);
 
+    boolean existsByEmail(String username);
+
 }

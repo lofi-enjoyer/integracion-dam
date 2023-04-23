@@ -364,7 +364,7 @@ a {
     100%{background-color: #e3ccf2}
 }
 
-.create-panel > textarea {
+.postInput {
     background-color: transparent;
     border: none;
     border-bottom: 2px solid transparent;
