@@ -1,8 +1,10 @@
 package me.lofienjoyer.quiet.front.config;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import me.lofienjoyer.quiet.baseservice.config.SecurityContextRepository;
 import me.lofienjoyer.quiet.baseservice.config.SecurityManager;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -22,9 +24,12 @@ import static org.springframework.http.HttpStatus.FOUND;
 @Configuration
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Order(0)
 public class FrontSecurityConfig {
+
+    @Value("${quiet.webdomain}")
+    private String webDomain;
 
     private final SecurityManager securityManager;
     private final SecurityContextRepository securityContextRepository;
@@ -40,7 +45,7 @@ public class FrontSecurityConfig {
                                 Mono.fromRunnable(
                                         () -> {
                                             swe.getResponse().setStatusCode(FOUND);
-                                            swe.getResponse().getHeaders().setLocation(URI.create("http://localhost:8080/login"));
+                                            swe.getResponse().getHeaders().setLocation(URI.create(webDomain + "/login"));
                                         }
                                 )
                 ).accessDeniedHandler(
@@ -48,7 +53,7 @@ public class FrontSecurityConfig {
                                 Mono.fromRunnable(
                                         () -> {
                                             swe.getResponse().setStatusCode(FOUND);
-                                            swe.getResponse().getHeaders().setLocation(URI.create("http://localhost:8080"));
+                                            swe.getResponse().getHeaders().setLocation(URI.create(webDomain));
                                         }
                                 )
                 )
@@ -57,7 +62,7 @@ public class FrontSecurityConfig {
                 .securityContextRepository(securityContextRepository)
                 .authorizeExchange()
                 .anyExchange().permitAll()
-                .and().formLogin().loginPage("http://localhost:8080/login")
+                .and().formLogin().loginPage(webDomain + "/login")
                 .and().build();
     }
 

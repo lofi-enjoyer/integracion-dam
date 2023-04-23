@@ -7,9 +7,9 @@ body {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  margin: 100px auto;
+  margin: 2.5em auto;
   padding: 40px;
-  width: 400px;
+  width: min(400px, 60%);
 }
 
 h2 {

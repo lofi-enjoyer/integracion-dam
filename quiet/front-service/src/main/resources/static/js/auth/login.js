@@ -18,7 +18,7 @@ function sendLoginRequest() {
     .then((response) => response.json())
     .then((json) => {
         if (json.success) {
-            window.location.href = 'http://localhost:8080/'
+            window.location.href = '/'
         }
     });
 }

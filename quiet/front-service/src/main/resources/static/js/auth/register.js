@@ -34,7 +34,7 @@ function sendLoginRequest() {
         return;
       }
 
-      window.location.href = "http://localhost:8080/login";
+      window.location.href = "/login";
     })
     .catch((reason) => {
     });
