@@ -46,7 +46,10 @@ public class FrontSecurityConfig {
                 ).accessDeniedHandler(
                         (swe, e) ->
                                 Mono.fromRunnable(
-                                        () -> swe.getResponse().setStatusCode(FORBIDDEN)
+                                        () -> {
+                                            swe.getResponse().setStatusCode(FOUND);
+                                            swe.getResponse().getHeaders().setLocation(URI.create("http://localhost:8080"));
+                                        }
                                 )
                 )
                 .and()

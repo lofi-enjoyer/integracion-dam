@@ -22,7 +22,6 @@ public class UserInfo {
     @Column(length = 127, unique = true)
     private String email;
 
-    @JsonIgnore
     private String password;
 
     @OneToOne
@@ -37,6 +36,8 @@ public class UserInfo {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Role> roles;
 
 }

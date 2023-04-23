@@ -1,6 +1,7 @@
 package me.lofienjoyer.quiet.user.service;
 
 import me.lofienjoyer.quiet.basemodel.dto.CreateUserDto;
+import me.lofienjoyer.quiet.basemodel.dto.RegisterResponseDto;
 import me.lofienjoyer.quiet.basemodel.entity.UserInfo;
 import reactor.core.publisher.Mono;
 
@@ -25,6 +26,6 @@ public interface UserService {
      * @param dto DTO containing the data for the new user
      * @return User info of the user created
      */
-    Mono<UserInfo> registerNewUser(CreateUserDto dto);
+    Mono<RegisterResponseDto> registerNewUser(CreateUserDto dto);
 
 }

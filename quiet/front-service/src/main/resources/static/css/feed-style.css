@@ -597,15 +597,28 @@ a {
 }
 
 .navbar > span {
-    color: white;
-    cursor: pointer;
+    color: rgb(167, 167, 167);
     align-self: center;
     padding: 1vh;
     border-radius: 4px;
 }
 
-.navbar > span:hover {
-    background-color: var(--less-dark-color);
+.navbar > a {
+    color: rgb(227, 227, 227);
+    cursor: pointer;
+    align-self: center;
+    padding: 1vh;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.navbar > a:hover {
+    color: white;
+    cursor: pointer;
+    align-self: center;
+    padding: 1vh;
+    border-radius: 4px;
+    text-decoration: none;
 }
 
 .img-border {

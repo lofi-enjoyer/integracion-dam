@@ -2,6 +2,7 @@ package me.lofienjoyer.quiet.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import me.lofienjoyer.quiet.basemodel.dto.CreateUserDto;
+import me.lofienjoyer.quiet.basemodel.dto.RegisterResponseDto;
 import me.lofienjoyer.quiet.basemodel.entity.UserInfo;
 import me.lofienjoyer.quiet.user.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,7 @@ public class UserController {
      * @return User info of the user created
      */
     @PostMapping("/register")
-    public Mono<UserInfo> registerNewUser(@RequestBody CreateUserDto dto) {
+    public Mono<RegisterResponseDto> registerNewUser(@RequestBody CreateUserDto dto) {
         return userService.registerNewUser(dto);
     }
 

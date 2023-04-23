@@ -103,6 +103,7 @@ function loadProfile() {
   const nameElement = document.getElementById("user-name");
   const usernameElement = document.getElementById("user-username");
   const descElement = document.getElementById("user-desc");
+  const navbarUsernameElement = document.getElementById("navbar-username");
 
   fetch("/api/profiles/me", {
     method: "GET",
@@ -113,8 +114,9 @@ function loadProfile() {
     .then((response) => response.json())
     .then((json) => {
       nameElement.textContent = json.name;
-      usernameElement.textContent = json.username;
+      usernameElement.textContent = "@" + json.username;
       descElement.textContent = json.description;
+      navbarUsernameElement.textContent = "@" + json.username;
     });
 }
 
