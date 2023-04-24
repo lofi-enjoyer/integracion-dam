@@ -176,6 +176,8 @@ function createPost() {
       postContainer.appendChild(postBottom);
 
       feedContainer.insertBefore(postContainer, feedContainer.firstChild);
+    }).catch((reason) => {
+      console.log(reason);
     })
     .finally(() => {
       loadIcon.classList.add("hidden");
@@ -234,7 +236,7 @@ function loadRecommendations() {
 
         const usernameSpan = document.createElement("span");
         usernameSpan.classList.add("recommended-username");
-        usernameSpan.textContent = element.username;
+        usernameSpan.textContent = "@" + element.username;
 
         textContainer.appendChild(nameSpan);
         textContainer.appendChild(usernameSpan);

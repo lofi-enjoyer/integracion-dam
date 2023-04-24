@@ -10,9 +10,11 @@ import me.lofienjoyer.quiet.basemodel.entity.Profile;
 import me.lofienjoyer.quiet.postservice.service.PostService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -34,13 +36,16 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Mono<PostDto> createPost(CreatePostDto dto, Authentication authentication) {
+        if (dto.getContent().trim().isEmpty())
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Content cannot be empty.");
+
         return webClientBuilder.build().get().uri("http://user-service/api/profiles/me")
                 .cookie("token", authentication.getCredentials().toString())
                 .retrieve()
                 .bodyToMono(Profile.class)
                 .map(profile -> {
                     Post post = new Post();
-                    post.setContent(dto.getContent());
+                    post.setContent(dto.getContent().trim());
                     post.setDate(new Date());
                     post.setProfile(profile);
                     post.setLikes(Set.of());

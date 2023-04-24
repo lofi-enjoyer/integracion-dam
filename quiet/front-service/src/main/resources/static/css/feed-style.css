@@ -340,7 +340,6 @@ a {
 .create-panel {
     box-shadow: 0px 0px 3px 0px rgb(101, 101, 101);
 
-    animation: create-post-animation 10s linear infinite;
     display: flex;
     flex-direction: column;
     width: calc(100% - 4vh);
@@ -348,6 +347,7 @@ a {
     transition-duration: 0.125s;
     margin: 0;
     box-shadow: none;
+    background-color: #c08bdf;
 }
 
 .collapsed {
@@ -373,10 +373,10 @@ a {
     border-bottom: 2px solid transparent;
     outline: none;
     font-size: 1.6em;
-    color: var(--dark-color);
+    color: var(--light-color);
     resize: none;
     overflow-y: scroll;
-    font-weight: 400;
+    font-weight: bold;
     margin-bottom: 1.5vh;
     width: 100%;
 }
