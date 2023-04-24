@@ -22,6 +22,10 @@ public class PostDto {
     private boolean blurred;
 
     public PostDto(Post post) {
+        this(post, null);
+    }
+
+    public PostDto(Post post, ProfileDto currentProfile) {
         this.content = post.getContent();
         this.profileUsername = post.getProfile().getUsername();
         this.profileName = post.getProfile().getName();
@@ -30,8 +34,11 @@ public class PostDto {
         this.tags = post.getTags().stream()
                 .map(PostTagDto::new)
                 .collect(Collectors.toSet());
-        this.blurred = post.getTags().stream()
-                .anyMatch(postTag -> post.getProfile().getBlockedTags().contains(postTag));
+
+        if (currentProfile != null) {
+            this.blurred = post.getTags().stream()
+                    .anyMatch(postTag -> currentProfile.getBlockedTags().contains(postTag.getName()));
+        }
     }
 
 }

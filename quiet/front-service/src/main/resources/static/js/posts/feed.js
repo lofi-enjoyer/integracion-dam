@@ -72,6 +72,9 @@ function loadFeed() {
 
         if (element.blurred) {
           postText.classList.add("blurred-text");
+          postText.onclick = (event) => {
+            postText.classList.remove("blurred-text");
+          };
         }
 
         const postData = document.createElement("div");
@@ -86,10 +89,6 @@ function loadFeed() {
         postContainer.appendChild(postBottom);
 
         feedContainer.insertBefore(postContainer, feedLoadIcon);
-
-        const smallInvSeparator = document.createElement("div");
-        smallInvSeparator.classList.add("small-inv-separator");
-        feedContainer.insertBefore(smallInvSeparator, feedLoadIcon);
       });
     })
     .finally(() => {
@@ -176,10 +175,6 @@ function createPost() {
       postContainer.appendChild(invSeparator);
       postContainer.appendChild(postBottom);
 
-      const smallInvSeparator = document.createElement("div");
-      smallInvSeparator.classList.add("small-inv-separator");
-      feedContainer.insertBefore(smallInvSeparator, feedContainer.firstChild);
-
       feedContainer.insertBefore(postContainer, feedContainer.firstChild);
     })
     .finally(() => {
@@ -213,6 +208,13 @@ window.addEventListener("load", (event) => {
   feedElement = document.getElementById("feed");
 
   feedElement.addEventListener("scroll", throttle(callback, 1000));
+
+  const adaptPostInputHeightCallback = (event) => {
+    postInput.style.height = 'auto';
+    postInput.style.height = postInput.scrollHeight+'px';
+  };
+  postInput.onchange = adaptPostInputHeightCallback;
+  postInput.onkeyup = adaptPostInputHeightCallback;
 
   loadFeed();
   loadProfile();

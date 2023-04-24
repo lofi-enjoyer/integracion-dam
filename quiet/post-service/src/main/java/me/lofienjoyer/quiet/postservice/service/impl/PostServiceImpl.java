@@ -62,7 +62,7 @@ public class PostServiceImpl implements PostService {
                 .bodyToMono(ProfileDto.class)
                 .map(profile -> {
                     return postDao.findByIdIn(postDao.getPostsIdsFromFollowed(profile.getId(), pageable))
-                            .stream().map(PostDto::new)
+                            .stream().map(post -> new PostDto(post, profile))
                             .collect(Collectors.toList());
                 })
                 .flatMapMany(Flux::fromIterable);
@@ -78,7 +78,7 @@ public class PostServiceImpl implements PostService {
                 .bodyToMono(ProfileDto.class)
                 .map(profile -> {
                     return postDao.findByIdIn(postDao.getPostsIdsFromFollowed(profile.getId(), pageable))
-                            .stream().map(PostDto::new)
+                            .stream().map(post -> new PostDto(post, profile))
                             .collect(Collectors.toList());
                 })
                 .flatMapMany(Flux::fromIterable);
