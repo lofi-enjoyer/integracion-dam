@@ -44,6 +44,7 @@ public class PostServiceImpl implements PostService {
                     post.setDate(new Date());
                     post.setProfile(profile);
                     post.setLikes(Set.of());
+                    post.setTags(Set.of());
                     post = postDao.save(post);
 
                     return new PostDto(post);
