@@ -18,7 +18,6 @@ import reactor.core.publisher.Mono;
 
 import java.net.URI;
 
-import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.FOUND;
 
 @Configuration
@@ -27,9 +26,6 @@ import static org.springframework.http.HttpStatus.FOUND;
 @RequiredArgsConstructor
 @Order(0)
 public class FrontSecurityConfig {
-
-    @Value("${quiet.webdomain}")
-    private String webDomain;
 
     private final SecurityManager securityManager;
     private final SecurityContextRepository securityContextRepository;
@@ -45,7 +41,7 @@ public class FrontSecurityConfig {
                                 Mono.fromRunnable(
                                         () -> {
                                             swe.getResponse().setStatusCode(FOUND);
-                                            swe.getResponse().getHeaders().setLocation(URI.create(webDomain + "/login"));
+                                            swe.getResponse().getHeaders().setLocation(URI.create("/login"));
                                         }
                                 )
                 ).accessDeniedHandler(
@@ -53,7 +49,7 @@ public class FrontSecurityConfig {
                                 Mono.fromRunnable(
                                         () -> {
                                             swe.getResponse().setStatusCode(FOUND);
-                                            swe.getResponse().getHeaders().setLocation(URI.create(webDomain));
+                                            swe.getResponse().getHeaders().setLocation(URI.create("/"));
                                         }
                                 )
                 )
@@ -62,7 +58,6 @@ public class FrontSecurityConfig {
                 .securityContextRepository(securityContextRepository)
                 .authorizeExchange()
                 .anyExchange().permitAll()
-                .and().formLogin().loginPage(webDomain + "/login")
                 .and().build();
     }
 

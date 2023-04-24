@@ -2,6 +2,7 @@ package me.lofienjoyer.quiet.user.service;
 
 import me.lofienjoyer.quiet.basemodel.dto.ProfileDto;
 import me.lofienjoyer.quiet.basemodel.entity.Profile;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -20,5 +21,7 @@ public interface ProfileService {
      * @return Profile with the specified email
      */
     Mono<ProfileDto> getProfileByUsername(String username);
+
+    Flux<ProfileDto> getRecommendations();
 
 }

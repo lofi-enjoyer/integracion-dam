@@ -9,6 +9,7 @@ import me.lofienjoyer.quiet.basemodel.entity.UserInfo;
 import me.lofienjoyer.quiet.user.service.ProfileService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.Optional;
@@ -50,6 +51,11 @@ public class ProfileServiceImpl implements ProfileService {
 
         return Mono.just(profileOptional.get())
                 .map(ProfileDto::new);
+    }
+
+    @Override
+    public Flux<ProfileDto> getRecommendations() {
+        return null;
     }
 
 }
