@@ -19,6 +19,7 @@ public class PostDto {
     private String date;
     private int likes;
     private Set<PostTagDto> tags;
+    private boolean blurred;
 
     public PostDto(Post post) {
         this.content = post.getContent();
@@ -29,6 +30,8 @@ public class PostDto {
         this.tags = post.getTags().stream()
                 .map(PostTagDto::new)
                 .collect(Collectors.toSet());
+        this.blurred = post.getTags().stream()
+                .anyMatch(postTag -> post.getProfile().getBlockedTags().contains(postTag));
     }
 
 }

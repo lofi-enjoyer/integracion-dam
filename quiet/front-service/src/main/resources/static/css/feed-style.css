@@ -707,3 +707,8 @@ a {
     padding: 0.25em;
     border-radius: 0.25em;
 }
+
+.blurred-text {
+    color: transparent;
+    text-shadow: 0px 0px 8px black;
+}

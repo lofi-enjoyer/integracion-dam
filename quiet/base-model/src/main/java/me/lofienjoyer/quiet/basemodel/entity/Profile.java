@@ -63,4 +63,15 @@ public class Profile {
     @EqualsAndHashCode.Exclude
     private Set<Post> likedPosts;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "blocked_tags",
+            joinColumns = @JoinColumn(name = "profile_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<PostTag> blockedTags;
+
 }

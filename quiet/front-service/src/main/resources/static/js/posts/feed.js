@@ -70,6 +70,10 @@ function loadFeed() {
         postText.classList.add("post-text");
         postText.textContent = element.content;
 
+        if (element.blurred) {
+          postText.classList.add("blurred-text");
+        }
+
         const postData = document.createElement("div");
         postData.classList.add("post-data");
         postData.textContent = element.date;
