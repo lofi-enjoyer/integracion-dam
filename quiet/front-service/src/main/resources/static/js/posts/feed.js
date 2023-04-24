@@ -19,6 +19,7 @@ function loadFeed() {
     .then((response) => response.json())
     .then((json) => {
       currentPage++;
+      console.log(json);
       json.forEach((element) => {
         const postContainer = document.createElement("div");
         postContainer.classList.add("panel");
@@ -44,8 +45,21 @@ function loadFeed() {
         posterInfoContainer.appendChild(posterName);
         posterInfoContainer.appendChild(posterUsername);
 
+        const postTagsContainer = document.createElement("div");
+        postTagsContainer.classList.add("post-tags");
+
+        element.tags.forEach(tag => {
+          const tagContainer = document.createElement("span");
+          tagContainer.classList.add("post-tag");
+          tagContainer.textContent = tag.name;
+          tagContainer.style.backgroundColor = "#" + tag.hexColor;
+
+          postTagsContainer.appendChild(tagContainer);
+        });
+
         postInfoContainer.appendChild(posterImageContainer);
         postInfoContainer.appendChild(posterInfoContainer);
+        postInfoContainer.appendChild(postTagsContainer);
 
         const invSeparator = document.createElement("div");
         invSeparator.classList.add("inv-separator");

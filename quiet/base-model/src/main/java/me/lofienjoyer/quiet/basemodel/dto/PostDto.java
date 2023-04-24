@@ -4,6 +4,9 @@ import lombok.Data;
 import me.lofienjoyer.quiet.basemodel.entity.Post;
 import me.lofienjoyer.quiet.basemodel.utils.DateUtils;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 /**
  * DTO for a {@link me.lofienjoyer.quiet.basemodel.entity.Post} entity
  */
@@ -15,6 +18,7 @@ public class PostDto {
     private String profileName;
     private String date;
     private int likes;
+    private Set<PostTagDto> tags;
 
     public PostDto(Post post) {
         this.content = post.getContent();
@@ -22,6 +26,9 @@ public class PostDto {
         this.profileName = post.getProfile().getName();
         this.date = DateUtils.postDateFormat.format(post.getDate());
         this.likes = post.getLikes().size();
+        this.tags = post.getTags().stream()
+                .map(PostTagDto::new)
+                .collect(Collectors.toSet());
     }
 
 }

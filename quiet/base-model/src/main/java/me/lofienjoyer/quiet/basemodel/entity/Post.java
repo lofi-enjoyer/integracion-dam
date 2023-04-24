@@ -50,4 +50,15 @@ public class Post {
     @LazyCollection(LazyCollectionOption.EXTRA)
     private Set<Profile> likes;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "tags",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<PostTag> tags;
+
 }
