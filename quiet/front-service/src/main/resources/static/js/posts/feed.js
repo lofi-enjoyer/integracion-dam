@@ -202,6 +202,56 @@ function loadProfile() {
     });
 }
 
+function loadRecommendations() {
+  const recommendationsElement = document.getElementById("recommendations");
+
+  fetch("/api/profiles/recommendations", {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      json.forEach(element => {
+        const userElement = document.createElement("div");
+        userElement.classList.add("recommended-user");
+
+        const imgContainer = document.createElement("div");
+        imgContainer.classList.add("recommended-img");
+
+        const imgElement = document.createElement("img");
+        imgElement.src = "/img/user.png";
+
+        imgContainer.appendChild(imgElement);
+
+        const textContainer = document.createElement("div");
+        textContainer.classList.add("recommendation-text");
+
+        const nameSpan = document.createElement("span");
+        nameSpan.classList.add("recommended-name");
+        nameSpan.textContent = element.name;
+
+        const usernameSpan = document.createElement("span");
+        usernameSpan.classList.add("recommended-username");
+        usernameSpan.textContent = element.username;
+
+        textContainer.appendChild(nameSpan);
+        textContainer.appendChild(usernameSpan);
+
+        const addButton = document.createElement("div");
+        addButton.classList.add("recommended-add");
+        addButton.textContent = "+";
+
+        userElement.appendChild(imgContainer);
+        userElement.appendChild(textContainer);
+        userElement.appendChild(addButton);
+
+        recommendationsElement.appendChild(userElement);
+      });
+    });
+}
+
 window.addEventListener("load", (event) => {
   feedLoadIcon = document.getElementById("loadIconContainer");
   postInput = document.getElementById("postInput");
@@ -218,6 +268,7 @@ window.addEventListener("load", (event) => {
 
   loadFeed();
   loadProfile();
+  loadRecommendations();
 });
 
 function throttle(fn, wait) {

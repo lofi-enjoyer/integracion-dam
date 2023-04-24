@@ -12,7 +12,10 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 /**
  * Implementation of {@link ProfileService}
@@ -55,7 +58,17 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public Flux<ProfileDto> getRecommendations() {
-        return null;
+        Random random = new Random();
+        List<Profile> allProfiles = profileDao.findAll();
+        List<Profile> recommendedProfiles = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            recommendedProfiles.add(
+                    allProfiles.remove(random.nextInt(allProfiles.size()))
+            );
+        }
+        return Mono.just(recommendedProfiles)
+                .flatMapMany(Flux::fromIterable)
+                .map(ProfileDto::new);
     }
 
 }

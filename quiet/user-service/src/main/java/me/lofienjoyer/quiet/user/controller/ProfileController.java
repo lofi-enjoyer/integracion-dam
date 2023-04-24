@@ -43,7 +43,7 @@ public class ProfileController {
     @GetMapping("/recommendations")
     @PreAuthorize("isAuthenticated()")
     public Flux<ProfileDto> getRecommendations() {
-        return Flux.empty();
+        return profileService.getRecommendations();
     }
 
 }
