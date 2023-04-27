@@ -33,7 +33,7 @@ public class ProfileController {
     //TODO Use requests params instead of path variables
     /**
      * @param username Username of the profile to fetch
-     * @return Profile with the specified email
+     * @return Profile with the specified username
      */
     @GetMapping("/{username}")
     public Mono<ProfileDto> getProfileByUsername(@PathVariable("username") String username) {

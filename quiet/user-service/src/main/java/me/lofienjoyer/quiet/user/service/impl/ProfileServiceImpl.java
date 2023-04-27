@@ -61,7 +61,7 @@ public class ProfileServiceImpl implements ProfileService {
         Random random = new Random();
         List<Profile> allProfiles = profileDao.findAll();
         List<Profile> recommendedProfiles = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < Math.min(3, allProfiles.size()); i++) {
             recommendedProfiles.add(
                     allProfiles.remove(random.nextInt(allProfiles.size()))
             );

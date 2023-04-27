@@ -18,7 +18,7 @@ public interface ProfileService {
 
     /**
      * @param username Username of the profile to fetch
-     * @return Profile with the specified email
+     * @return Profile with the specified username
      */
     Mono<ProfileDto> getProfileByUsername(String username);
 
