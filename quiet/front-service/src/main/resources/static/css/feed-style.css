@@ -586,13 +586,13 @@ a {
     user-select: none;
 }
 
-.navbar > img {
+.navbar-img {
     height: 2em;
     padding: 0.5em;
     padding-right: 0;
 }
 
-.navbar > p {
+.navbar-title {
     color: white;
     font-size: 1.5em;
     margin-left: 1vh;
@@ -600,14 +600,14 @@ a {
     font-weight: 600;
 }
 
-.navbar > span {
+.navbar-text {
     color: rgb(167, 167, 167);
     align-self: center;
     padding: 1vh;
     border-radius: 4px;
 }
 
-.navbar > a {
+.navbar-link {
     color: rgb(227, 227, 227);
     cursor: pointer;
     align-self: center;
@@ -616,13 +616,19 @@ a {
     text-decoration: none;
 }
 
-.navbar > a:hover {
+.navbar-link:hover {
     color: white;
     cursor: pointer;
     align-self: center;
     padding: 1vh;
     border-radius: 4px;
     text-decoration: none;
+}
+
+.navbar-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .img-border {

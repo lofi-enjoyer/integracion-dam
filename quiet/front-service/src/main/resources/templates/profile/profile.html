@@ -18,10 +18,14 @@
 <body>
 
     <div class="navbar">
-        <img src="/img/logo.png" alt="">
-        <p>Quiet</p>
-        <span id="navbar-username"></span>
-        <a href="/logout">Log out</a>
+        <a class="navbar-container" href="/">
+            <img class="navbar-img" src="/img/logo.png" alt="">
+            <p class="navbar-title">Quiet</p>
+        </a>
+        <div class="navbar-container">
+            <span class="navbar-text" id="navbar-username"></span>
+            <a class="navbar-link" href="/logout">Log out</a>
+        </div>
     </div>
     
     <div class="profile-container">
