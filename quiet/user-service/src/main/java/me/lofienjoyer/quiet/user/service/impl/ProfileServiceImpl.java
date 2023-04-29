@@ -36,14 +36,16 @@ public class ProfileServiceImpl implements ProfileService {
 
         UserInfo userInfo = userInfoOptional.get();
 
-        System.out.println(userInfo);
         Optional<Profile> profileOptional = profileDao.findByUser(userInfo);
 
         if (profileOptional.isEmpty())
             return Mono.error(new UsernameNotFoundException("Profile not found"));
 
         return Mono.just(profileOptional.get())
-                .map(ProfileDto::new);
+                .map(profile -> {
+                    int followerCount = profileDao.getFollowerCount(profile.getId());
+                    return new ProfileDto(profile, followerCount);
+                });
     }
 
     @Override
@@ -54,7 +56,10 @@ public class ProfileServiceImpl implements ProfileService {
             return Mono.error(new UsernameNotFoundException("Username not found."));
 
         return Mono.just(profileOptional.get())
-                .map(ProfileDto::new);
+                .map(profile -> {
+                    int followerCount = profileDao.getFollowerCount(profile.getId());
+                    return new ProfileDto(profile, followerCount);
+                });
     }
 
     @Override
@@ -69,7 +74,10 @@ public class ProfileServiceImpl implements ProfileService {
         }
         return Mono.just(recommendedProfiles)
                 .flatMapMany(Flux::fromIterable)
-                .map(ProfileDto::new);
+                .map(profile -> {
+                    int followerCount = profileDao.getFollowerCount(profile.getId());
+                    return new ProfileDto(profile, followerCount);
+                });
     }
 
 }

@@ -21,7 +21,7 @@ public class ProfileDto {
     private Set<String> blockedTags;
     private int followersCount;
 
-    public ProfileDto(Profile profile) {
+    public ProfileDto(Profile profile, int followersCount) {
         this.id = profile.getId();
         this.name = profile.getName();
         this.username = profile.getUsername();
@@ -29,7 +29,7 @@ public class ProfileDto {
         this.blockedTags = profile.getBlockedTags().stream()
                 .map(PostTag::getName)
                 .collect(Collectors.toSet());
-        this.followersCount = profile.getFollowed().size();
+        this.followersCount = followersCount;
     }
 
 }

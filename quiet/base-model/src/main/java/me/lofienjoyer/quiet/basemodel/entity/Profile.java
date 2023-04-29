@@ -3,8 +3,6 @@ package me.lofienjoyer.quiet.basemodel.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import java.util.Set;
 
@@ -25,7 +23,7 @@ public class Profile {
     private String username;
     private String description;
 
-    @OneToOne(mappedBy = "profile", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "profile", fetch = FetchType.LAZY)
     @JsonIgnore
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
@@ -37,7 +35,7 @@ public class Profile {
     @EqualsAndHashCode.Exclude
     private Set<Post> posts;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "follows",
             joinColumns = @JoinColumn(name = "profile_id"),
@@ -48,7 +46,7 @@ public class Profile {
     @EqualsAndHashCode.Exclude
     private Set<Profile> following;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "follows",
             joinColumns = @JoinColumn(name = "followed_id"),
@@ -57,7 +55,7 @@ public class Profile {
     @JsonIgnore
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Profile> followed;
+    private Set<Profile> followers;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "likes")
     @JsonIgnore
