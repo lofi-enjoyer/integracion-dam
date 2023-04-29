@@ -31,36 +31,28 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public Mono<ProfileDto> getProfileByEmail(String email) {
-        Optional<UserInfo> userInfoOptional = userInfoDao.findByEmail(email);
+        UserInfo userInfo = userInfoDao.findByEmail(email)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Email not found."));
 
-        if (userInfoOptional.isEmpty())
-            return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Email not found."));
+        Profile profile = profileDao.findByUser(userInfo)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
 
-        UserInfo userInfo = userInfoOptional.get();
-
-        Optional<Profile> profileOptional = profileDao.findByUser(userInfo);
-
-        if (profileOptional.isEmpty())
-            return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
-
-        return Mono.just(profileOptional.get())
-                .map(profile -> {
-                    int followerCount = profileDao.getFollowerCount(profile.getId());
-                    return new ProfileDto(profile, followerCount);
+        return Mono.just(profile)
+                .map(pr -> {
+                    int followerCount = profileDao.getFollowerCount(pr.getId());
+                    return new ProfileDto(pr, followerCount);
                 });
     }
 
     @Override
     public Mono<ProfileDto> getProfileByUsername(String username) {
-        Optional<Profile> profileOptional = profileDao.findByUsername(username);
+        Profile profile = profileDao.findByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Username not found."));
 
-        if (profileOptional.isEmpty())
-            return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Username not found."));
-
-        return Mono.just(profileOptional.get())
-                .map(profile -> {
-                    int followerCount = profileDao.getFollowerCount(profile.getId());
-                    return new ProfileDto(profile, followerCount);
+        return Mono.just(profile)
+                .map(pr -> {
+                    int followerCount = profileDao.getFollowerCount(pr.getId());
+                    return new ProfileDto(pr, followerCount);
                 });
     }
 

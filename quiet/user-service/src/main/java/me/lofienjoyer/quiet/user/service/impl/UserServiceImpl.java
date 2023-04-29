@@ -34,22 +34,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Mono<UserInfo> getUserById(long id) {
-        Optional<UserInfo> userInfoOptional = userInfoDao.findById(id);
+        UserInfo userInfo = userInfoDao.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
-        if (userInfoOptional.isEmpty())
-            return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-        return Mono.just(userInfoOptional.get());
+        return Mono.just(userInfo);
     }
 
     @Override
     public Mono<UserInfo> getUserByEmail(String email) {
-        Optional<UserInfo> userInfoOptional = userInfoDao.findByEmail(email);
+        UserInfo userInfo = userInfoDao.findByEmail(email)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
-        if (userInfoOptional.isEmpty())
-            return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-        return Mono.just(userInfoOptional.get());
+        return Mono.just(userInfo);
     }
 
     @Override
