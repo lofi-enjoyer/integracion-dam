@@ -47,7 +47,6 @@ public class SecurityConfig {
                 .securityContextRepository(securityContextRepository)
                 .authorizeExchange()
                 .anyExchange().permitAll()
-                .and().formLogin().loginPage("http://localhost:8080/login")
                 .and().build();
     }
 

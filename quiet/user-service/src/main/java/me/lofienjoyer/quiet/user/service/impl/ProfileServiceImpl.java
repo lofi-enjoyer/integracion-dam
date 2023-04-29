@@ -7,8 +7,10 @@ import me.lofienjoyer.quiet.basemodel.dto.ProfileDto;
 import me.lofienjoyer.quiet.basemodel.entity.Profile;
 import me.lofienjoyer.quiet.basemodel.entity.UserInfo;
 import me.lofienjoyer.quiet.user.service.ProfileService;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -32,14 +34,14 @@ public class ProfileServiceImpl implements ProfileService {
         Optional<UserInfo> userInfoOptional = userInfoDao.findByEmail(email);
 
         if (userInfoOptional.isEmpty())
-            return Mono.error(new UsernameNotFoundException("Email not found."));
+            return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Email not found."));
 
         UserInfo userInfo = userInfoOptional.get();
 
         Optional<Profile> profileOptional = profileDao.findByUser(userInfo);
 
         if (profileOptional.isEmpty())
-            return Mono.error(new UsernameNotFoundException("Profile not found"));
+            return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile not found"));
 
         return Mono.just(profileOptional.get())
                 .map(profile -> {
@@ -53,7 +55,7 @@ public class ProfileServiceImpl implements ProfileService {
         Optional<Profile> profileOptional = profileDao.findByUsername(username);
 
         if (profileOptional.isEmpty())
-            return Mono.error(new UsernameNotFoundException("Username not found."));
+            return Mono.error(new ResponseStatusException(HttpStatus.NOT_FOUND, "Username not found."));
 
         return Mono.just(profileOptional.get())
                 .map(profile -> {
