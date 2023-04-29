@@ -274,6 +274,7 @@ function loadRecommendations() {
         const addButton = document.createElement("div");
         addButton.classList.add("recommended-add");
         addButton.textContent = "+";
+        addButton.onclick = () => followProfile(element.username);
 
         userElement.appendChild(imgContainer);
         userElement.appendChild(textContainer);
@@ -317,6 +318,38 @@ function unlikePost(id, countElement) {
       countElement.textContent = "💕 " + json;
       countElement.onclick = () => likePost(id, countElement);
       countElement.classList.remove("liked");
+    });
+}
+
+function followProfile(profileToFollow) {
+  fetch("/api/profiles/follow", {
+    method: "POST",
+    body: JSON.stringify({
+      username: profileToFollow,
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  })
+    .then((response) => response.json())
+    .then((json) => {
+
+    });
+}
+
+function unfollowProfile(profileToUnfollow) {
+  fetch("/api/profiles/unfollow", {
+    method: "POST",
+    body: JSON.stringify({
+      username: profileToUnfollow,
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  })
+    .then((response) => response.json())
+    .then((json) => {
+
     });
 }
 
