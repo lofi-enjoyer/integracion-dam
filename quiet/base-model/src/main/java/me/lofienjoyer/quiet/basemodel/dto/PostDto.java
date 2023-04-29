@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 @Data
 public class PostDto {
 
+    private long id;
     private String content;
     private String profileUsername;
     private String profileName;
@@ -20,12 +21,14 @@ public class PostDto {
     private int likes;
     private Set<PostTagDto> tags;
     private boolean blurred;
+    private boolean likedByUser;
 
     public PostDto(Post post) {
         this(post, null);
     }
 
     public PostDto(Post post, ProfileDto currentProfile) {
+        this.id = post.getId();
         this.content = post.getContent();
         this.profileUsername = post.getProfile().getUsername();
         this.profileName = post.getProfile().getName();
@@ -38,6 +41,8 @@ public class PostDto {
         if (currentProfile != null) {
             this.blurred = post.getTags().stream()
                     .anyMatch(postTag -> currentProfile.getBlockedTags().contains(postTag.getName()));
+
+            this.likedByUser = post.getLikes().stream().anyMatch(profile -> profile.getId() == currentProfile.getId());
         }
     }
 

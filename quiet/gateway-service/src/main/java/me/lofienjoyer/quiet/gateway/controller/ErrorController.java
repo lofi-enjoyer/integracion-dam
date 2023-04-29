@@ -10,7 +10,6 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
 @Slf4j
 public class ErrorController extends DefaultErrorAttributes {
 

@@ -63,8 +63,8 @@ function loadFeed() {
         const invSeparator = document.createElement("div");
         invSeparator.classList.add("inv-separator");
 
-        const postBottom = document.createElement("div");
-        postBottom.classList.add("post-bottom");
+        const postBottom1 = document.createElement("div");
+        postBottom1.classList.add("post-bottom");
 
         const postText = document.createElement("div");
         postText.classList.add("post-text");
@@ -77,16 +77,30 @@ function loadFeed() {
           };
         }
 
+        const postBottom2 = document.createElement("div");
+        postBottom2.classList.add("post-bottom");
+
         const postData = document.createElement("div");
         postData.classList.add("post-data");
         postData.textContent = element.date;
 
-        postBottom.appendChild(postText);
-        postBottom.appendChild(postData);
+        const postLikes = document.createElement("div");
+        postLikes.classList.add("post-likes");
+        postLikes.textContent = "💕 " + element.likes;
+        postLikes.onclick = () => likePost(element.id, postLikes);
+        if (element.likedByUser) {
+          postLikes.classList.add("liked");
+        }
+
+        postBottom1.appendChild(postText);
+
+        postBottom2.appendChild(postLikes);
+        postBottom2.appendChild(postData);
 
         postContainer.appendChild(postInfoContainer);
         postContainer.appendChild(invSeparator);
-        postContainer.appendChild(postBottom);
+        postContainer.appendChild(postBottom1);
+        postContainer.appendChild(postBottom2);
 
         feedContainer.insertBefore(postContainer, feedLoadIcon);
       });
@@ -157,32 +171,48 @@ function createPost() {
       const invSeparator = document.createElement("div");
       invSeparator.classList.add("inv-separator");
 
-      const postBottom = document.createElement("div");
-      postBottom.classList.add("post-bottom");
+      const postBottom1 = document.createElement("div");
+      postBottom1.classList.add("post-bottom");
 
       const postText = document.createElement("div");
       postText.classList.add("post-text");
       postText.textContent = element.content;
 
+      const postBottom2 = document.createElement("div");
+      postBottom2.classList.add("post-bottom");
+
       const postData = document.createElement("div");
       postData.classList.add("post-data");
       postData.textContent = element.date;
 
-      postBottom.appendChild(postText);
-      postBottom.appendChild(postData);
+      const postLikes = document.createElement("div");
+      postLikes.classList.add("post-likes");
+      postLikes.textContent = "💕 " + element.likes;
+      postLikes.onclick = () => likePost(element.id, postLikes);
+      if (element.likedByUser) {
+        postLikes.classList.add("liked");
+      }
+
+      postBottom1.appendChild(postText);
+
+      postBottom2.appendChild(postLikes);
+      postBottom2.appendChild(postData);
 
       postContainer.appendChild(postInfoContainer);
       postContainer.appendChild(invSeparator);
-      postContainer.appendChild(postBottom);
+      postContainer.appendChild(postBottom1);
+      postContainer.appendChild(postBottom2);
 
       feedContainer.insertBefore(postContainer, feedContainer.firstChild);
-    }).catch((reason) => {
+    })
+    .catch((reason) => {
       console.log(reason);
     })
     .finally(() => {
       loadIcon.classList.add("hidden");
     });
 }
+
 function loadProfile() {
   const nameElement = document.getElementById("user-name");
   const usernameElement = document.getElementById("user-username");
@@ -215,7 +245,7 @@ function loadRecommendations() {
   })
     .then((response) => response.json())
     .then((json) => {
-      json.forEach(element => {
+      json.forEach((element) => {
         const userElement = document.createElement("div");
         userElement.classList.add("recommended-user");
 
@@ -254,6 +284,42 @@ function loadRecommendations() {
     });
 }
 
+function likePost(id, countElement) {
+  fetch("/api/posts/like", {
+    method: "POST",
+    body: JSON.stringify({
+      postId: id,
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      countElement.textContent = "💕 " + json;
+      countElement.onclick = () => unlikePost(id, countElement);
+      countElement.classList.add("liked");
+    });
+}
+
+function unlikePost(id, countElement) {
+  fetch("/api/posts/unlike", {
+    method: "POST",
+    body: JSON.stringify({
+      postId: id,
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      countElement.textContent = "💕 " + json;
+      countElement.onclick = () => likePost(id, countElement);
+      countElement.classList.remove("liked");
+    });
+}
+
 window.addEventListener("load", (event) => {
   feedLoadIcon = document.getElementById("loadIconContainer");
   postInput = document.getElementById("postInput");
@@ -262,8 +328,8 @@ window.addEventListener("load", (event) => {
   feedElement.addEventListener("scroll", throttle(callback, 1000));
 
   const adaptPostInputHeightCallback = (event) => {
-    postInput.style.height = 'auto';
-    postInput.style.height = postInput.scrollHeight+'px';
+    postInput.style.height = "auto";
+    postInput.style.height = postInput.scrollHeight + "px";
   };
   postInput.onchange = adaptPostInputHeightCallback;
   postInput.onkeyup = adaptPostInputHeightCallback;

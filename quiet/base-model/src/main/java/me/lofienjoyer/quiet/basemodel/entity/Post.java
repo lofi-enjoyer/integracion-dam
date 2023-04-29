@@ -47,7 +47,6 @@ public class Post {
     @JsonIgnore
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @LazyCollection(LazyCollectionOption.EXTRA)
     private Set<Profile> likes;
 
     @ManyToMany(fetch = FetchType.EAGER)

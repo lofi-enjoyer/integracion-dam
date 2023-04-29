@@ -200,6 +200,26 @@ a {
     flex-shrink: 0;
 }
 
+.post-likes {
+    font-size: 0.9em;
+    font-weight: 400;
+    margin-right: auto;
+    flex-shrink: 0;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+
+.liked {
+    background-color: #cecece;
+    font-weight: bold;
+}
+
+.liked:hover {
+    background-color: #c0c0c0;
+    font-weight: bold;
+}
+
 .img-container {
     overflow: hidden;
     display: flex;

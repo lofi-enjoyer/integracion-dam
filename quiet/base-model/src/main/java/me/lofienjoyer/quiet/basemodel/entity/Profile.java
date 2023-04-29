@@ -25,7 +25,7 @@ public class Profile {
     private String username;
     private String description;
 
-    @OneToOne(mappedBy = "profile", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "profile", fetch = FetchType.EAGER)
     @JsonIgnore
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
@@ -37,7 +37,7 @@ public class Profile {
     @EqualsAndHashCode.Exclude
     private Set<Post> posts;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "follows",
             joinColumns = @JoinColumn(name = "profile_id"),

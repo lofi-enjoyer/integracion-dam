@@ -36,6 +36,7 @@ public class ProfileServiceImpl implements ProfileService {
 
         UserInfo userInfo = userInfoOptional.get();
 
+        System.out.println(userInfo);
         Optional<Profile> profileOptional = profileDao.findByUser(userInfo);
 
         if (profileOptional.isEmpty())
