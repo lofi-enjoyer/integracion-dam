@@ -2,6 +2,7 @@ package me.lofienjoyer.quiet.user.service;
 
 import me.lofienjoyer.quiet.basemodel.dto.ProfileDto;
 import me.lofienjoyer.quiet.basemodel.entity.Profile;
+import org.springframework.security.core.Authentication;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -23,5 +24,9 @@ public interface ProfileService {
     Mono<ProfileDto> getProfileByUsername(String username);
 
     Flux<ProfileDto> getRecommendations();
+
+    Mono<Integer> followProfile(Authentication authentication, String username);
+
+    Mono<Integer> unfollowProfile(Authentication authentication, String username);
 
 }

@@ -1,15 +1,13 @@
 package me.lofienjoyer.quiet.user.controller;
 
 import lombok.RequiredArgsConstructor;
+import me.lofienjoyer.quiet.basemodel.dto.FollowRequestDto;
 import me.lofienjoyer.quiet.basemodel.dto.ProfileDto;
 import me.lofienjoyer.quiet.basemodel.entity.Profile;
 import me.lofienjoyer.quiet.user.service.ProfileService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -44,6 +42,12 @@ public class ProfileController {
     @PreAuthorize("isAuthenticated()")
     public Flux<ProfileDto> getRecommendations() {
         return profileService.getRecommendations();
+    }
+
+    @PostMapping("/follow")
+    @PreAuthorize("isAuthenticated()")
+    public Mono<Integer> followProfile(@RequestBody FollowRequestDto dto, Authentication authentication) {
+        return profileService.followProfile(authentication, dto.getUsername());
     }
 
 }

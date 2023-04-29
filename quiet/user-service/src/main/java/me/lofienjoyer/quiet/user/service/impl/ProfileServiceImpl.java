@@ -8,6 +8,7 @@ import me.lofienjoyer.quiet.basemodel.entity.Profile;
 import me.lofienjoyer.quiet.basemodel.entity.UserInfo;
 import me.lofienjoyer.quiet.user.service.ProfileService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -72,6 +73,40 @@ public class ProfileServiceImpl implements ProfileService {
                     int followerCount = profileDao.getFollowerCount(profile.getId());
                     return new ProfileDto(profile, followerCount);
                 });
+    }
+
+    @Override
+    public Mono<Integer> followProfile(Authentication authentication, String username) {
+        UserInfo user = userInfoDao.findByEmail(authentication.getName())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found."));
+
+        Profile userProfile = profileDao.findByUser(user)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User profile not found"));
+
+        Profile profileToFollow = profileDao.findByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile to follow not found"));
+
+        if (profileDao.isFollowing(userProfile.getId(), profileToFollow.getId()) != 0) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Already following that user");
+        }
+
+        profileDao.addFollow(userProfile.getId(), profileToFollow.getId());
+        return Mono.just(profileDao.getFollowerCount(profileToFollow.getId()));
+    }
+
+    @Override
+    public Mono<Integer> unfollowProfile(Authentication authentication, String username) {
+        UserInfo user = userInfoDao.findByEmail(authentication.getName())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found."));
+
+        Profile userProfile = profileDao.findByUser(user)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User profile not found"));
+
+        Profile profileToFollow = profileDao.findByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile to follow not found"));
+
+        profileDao.removeFollow(userProfile.getId(), profileToFollow.getId());
+        return Mono.just(profileDao.getFollowerCount(profileToFollow.getId()));
     }
 
 }
