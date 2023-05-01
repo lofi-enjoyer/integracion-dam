@@ -16,4 +16,10 @@ public class ProfileController {
         return Mono.just("profile/profile");
     }
 
+    @GetMapping("/edit")
+    @PreAuthorize("isAuthenticated()")
+    public Mono<String> editProfile() {
+        return Mono.just("profile/editProfile");
+    }
+
 }
