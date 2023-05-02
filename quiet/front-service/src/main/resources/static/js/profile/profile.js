@@ -3,6 +3,7 @@ const lastPart = urlParts[urlParts.length - 1];
 const username = lastPart.split("?")[0];
 
 function loadProfile() {
+  const profileImg = document.getElementById("profileImg");
   const nameElement = document.getElementById("name");
   const usernameElement = document.getElementById("username");
   const descElement = document.getElementById("description");
@@ -16,6 +17,7 @@ function loadProfile() {
   })
     .then((response) => response.json())
     .then((json) => {
+      profileImg.src = "/api/media/profile/" + json.username;
       nameElement.textContent = json.name;
       usernameElement.textContent = "@" + json.username;
       descElement.textContent = json.description;

@@ -30,7 +30,7 @@ function loadFeed() {
         const posterImageContainer = document.createElement("div");
         posterImageContainer.classList.add("poster-image");
         const posterImage = document.createElement("img");
-        posterImage.src = "/img/user.png";
+        posterImage.src = "/api/media/profile/" + element.profileUsername;
         posterImageContainer.appendChild(posterImage);
 
         const posterInfoContainer = document.createElement("div");
@@ -138,7 +138,7 @@ function createPost() {
       const posterImageContainer = document.createElement("div");
       posterImageContainer.classList.add("poster-image");
       const posterImage = document.createElement("img");
-      posterImage.src = "/img/user.png";
+      posterImage.src = "/api/media/profile/" + element.profileUsername;
       posterImageContainer.appendChild(posterImage);
 
       const posterInfoContainer = document.createElement("div");
@@ -214,6 +214,7 @@ function createPost() {
 }
 
 function loadProfile() {
+  const profileImg = document.getElementById("userImg");
   const nameElement = document.getElementById("user-name");
   const usernameElement = document.getElementById("user-username");
   const descElement = document.getElementById("user-desc");
@@ -227,6 +228,7 @@ function loadProfile() {
   })
     .then((response) => response.json())
     .then((json) => {
+      profileImg.src = "/api/media/profile/" + json.username;
       nameElement.textContent = json.name;
       usernameElement.textContent = "@" + json.username;
       descElement.textContent = json.description;
@@ -253,7 +255,7 @@ function loadRecommendations() {
         imgContainer.classList.add("recommended-img");
 
         const imgElement = document.createElement("img");
-        imgElement.src = "/img/user.png";
+        imgElement.src = "/api/media/profile/" + element.username;
 
         imgContainer.appendChild(imgElement);
 
