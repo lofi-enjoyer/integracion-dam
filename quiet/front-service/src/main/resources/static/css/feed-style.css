@@ -260,6 +260,7 @@ a {
     padding: 0.5vh;
     background: linear-gradient(270deg, #f9f554, #e84b0f, #e70fe8, #554af5, #4addf5, #4bf54a);
     background-size: 400% 400%;
+    margin-bottom: 1em;
 
     -webkit-animation: verified-animation 5s ease infinite;
     -moz-animation: verified-animation 5s ease infinite;
@@ -288,6 +289,8 @@ a {
 .recommended-user {
     display: flex;
     align-items: center;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
 }
 
 .recommended-name {
