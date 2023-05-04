@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  margin: 3em;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.feed-container {
+  background-color: rgba(1, 1, 1, 0.05);
+  display: flex;
+  flex-direction: column;
+  padding: 0.5em;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5em;
+  padding: 1em;
+  background-color: rgba(1, 1, 1, 0.1);
+  border-radius: 0.5em;
+}
+
+.post:hover {
+  background-color: rgba(1, 1, 1, 0.15);
+}
