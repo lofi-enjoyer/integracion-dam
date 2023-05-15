@@ -1,6 +1,7 @@
 package me.lofienjoyer.quiet.user.controller;
 
 import lombok.RequiredArgsConstructor;
+import me.lofienjoyer.quiet.basemodel.dto.EditProfileDto;
 import me.lofienjoyer.quiet.basemodel.dto.FollowRequestDto;
 import me.lofienjoyer.quiet.basemodel.dto.ProfileDto;
 import me.lofienjoyer.quiet.user.service.ProfileService;
@@ -53,6 +54,12 @@ public class ProfileController {
     @PreAuthorize("isAuthenticated()")
     public Mono<Integer> unfollowProfile(@RequestBody FollowRequestDto dto, Authentication authentication) {
         return profileService.unfollowProfile(authentication, dto.getUsername());
+    }
+
+    @PostMapping("/edit")
+    @PreAuthorize("isAuthenticated()")
+    public Mono<ProfileDto> editProfile(@RequestBody EditProfileDto dto, Authentication authentication) {
+        return profileService.editProfile(dto, authentication);
     }
 
 }

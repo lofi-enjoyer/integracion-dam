@@ -87,9 +87,11 @@ function loadFeed() {
         const postLikes = document.createElement("div");
         postLikes.classList.add("post-likes");
         postLikes.textContent = "💕 " + element.likes;
-        postLikes.onclick = () => likePost(element.id, postLikes);
         if (element.likedByUser) {
           postLikes.classList.add("liked");
+          postLikes.onclick = () => unlikePost(element.id, postLikes);
+        } else {
+          postLikes.onclick = () => likePost(element.id, postLikes);
         }
 
         postBottom1.appendChild(postText);
@@ -188,9 +190,11 @@ function createPost() {
       const postLikes = document.createElement("div");
       postLikes.classList.add("post-likes");
       postLikes.textContent = "💕 " + element.likes;
-      postLikes.onclick = () => likePost(element.id, postLikes);
       if (element.likedByUser) {
         postLikes.classList.add("liked");
+        postLikes.onclick = () => unlikePost(element.id, postLikes);
+      } else {
+        postLikes.onclick = () => likePost(element.id, postLikes);
       }
 
       postBottom1.appendChild(postText);
