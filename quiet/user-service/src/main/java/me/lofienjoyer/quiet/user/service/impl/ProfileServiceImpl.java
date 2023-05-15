@@ -3,6 +3,7 @@ package me.lofienjoyer.quiet.user.service.impl;
 import lombok.RequiredArgsConstructor;
 import me.lofienjoyer.quiet.basemodel.dao.ProfileDao;
 import me.lofienjoyer.quiet.basemodel.dao.UserInfoDao;
+import me.lofienjoyer.quiet.basemodel.dto.EditProfileDto;
 import me.lofienjoyer.quiet.basemodel.dto.ProfileDto;
 import me.lofienjoyer.quiet.basemodel.entity.Profile;
 import me.lofienjoyer.quiet.basemodel.entity.UserInfo;
@@ -107,6 +108,23 @@ public class ProfileServiceImpl implements ProfileService {
 
         profileDao.removeFollow(userProfile.getId(), profileToFollow.getId());
         return Mono.just(profileDao.getFollowerCount(profileToFollow.getId()));
+    }
+
+    @Override
+    public Mono<ProfileDto> editProfile(EditProfileDto dto, Authentication authentication) {
+        if (profileDao.findByUsername(dto.getUsername()).isPresent())
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "That username is already being used!");
+
+        UserInfo userInfo = userInfoDao.findByEmail(authentication.getName())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found."));
+
+        Profile profile = profileDao.findByUser(userInfo)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User profile not found."));
+
+        profile.setUsername(dto.getUsername().trim().toLowerCase());
+        profile.setName(dto.getName().trim());
+        profile.setDescription(dto.getDescription().trim());
+        return Mono.just(new ProfileDto(profileDao.save(profile), 0));
     }
 
 }

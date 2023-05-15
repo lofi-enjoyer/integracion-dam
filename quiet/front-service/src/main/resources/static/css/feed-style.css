@@ -209,16 +209,22 @@ a {
     padding: 0.5em;
     border-radius: 0.5em;
     cursor: pointer;
+    margin: 3px;
+    border: 1px solid transparent;
+}
+
+.post-likes:hover {
+    background-color: var(--less-light-color);
 }
 
 .liked {
-    background-color: #cecece;
     font-weight: bold;
+    border: 1px solid red;
+    box-shadow: 0px 0px 3px red;
 }
 
 .liked:hover {
-    background-color: #c0c0c0;
-    font-weight: bold;
+    background-color: var(--less-light-color);
 }
 
 .img-container {
@@ -807,4 +813,10 @@ a {
     margin-left: 0.5em;
     margin-right: 0.5em;
     min-width: 0;
+}
+
+.user-options {
+    font-size: 12px;
+    font-weight: 300;
+    margin-top: 1em;
 }

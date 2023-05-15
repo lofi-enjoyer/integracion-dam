@@ -7,6 +7,7 @@
     <title>Edit profile • Quiet</title>
     <link rel="stylesheet" href="/css/feed-style.css">
     <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/edit-profile.css">
     <link rel="shortcut icon" href="/img/logo.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,11 +29,24 @@
         </div>
     </div>
     
-    <div class="profile-container">
-        <input type="file" name="file" id="profileImgInput">
-        <button onclick="uploadProfileImage()">Upload</button>
-        <span>Max image size: 20MB</span>
-      </div>
+    <div class="profile-container profile-edit-container">
+        <h2>Change your profile image</h2>
+        <input type="file" name="file" id="profileImgInput" accept=".png">
+        <button class="save-button" onclick="uploadProfileImage()">Upload</button>
+        <label class="image-size-label">Max image size: 20MB</label>
+    </div>
+    
+    <div class="profile-container profile-edit-container">
+        <h2>Edit profile</h2>
+        <label>Name</label>
+        <input type="text" name="name" id="nameInput">
+        <label>Username</label>
+        <input type="text" name="username" id="usernameInput">
+        <label>Description</label>
+        <input type="text" name="description" id="descriptionInput">
+        <span id="errorMessage"></span>
+        <button class="save-button" onclick="updateProfile()">Save changes</button>
+    </div>
 
 </body>
 </html>

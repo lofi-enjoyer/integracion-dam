@@ -52,6 +52,9 @@ public class ImageServiceImpl implements ImageService {
         return webClientBuilder.build().get().uri("http://user-service/api/profiles/" + username)
                 .retrieve()
                 .bodyToMono(ProfileDto.class)
+                .doOnError(throwable -> {
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+                })
                 .flatMapMany(profileDto -> {
                     Path file = Paths.get(profileImgDir).resolve(profileDto.getId() + ".png");
                     Resource resource = null;

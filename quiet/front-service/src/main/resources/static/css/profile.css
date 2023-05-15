@@ -5,7 +5,7 @@
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 400px;
+  width: min(400px, 60%);
   margin: 2.5em auto;
   background-color: #f9f9f9;
 }
