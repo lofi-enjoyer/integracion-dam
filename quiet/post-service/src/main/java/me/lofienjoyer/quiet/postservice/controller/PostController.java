@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.lofienjoyer.quiet.basemodel.dto.CreatePostDto;
 import me.lofienjoyer.quiet.basemodel.dto.FeedRequest;
 import me.lofienjoyer.quiet.basemodel.dto.PostDto;
+import me.lofienjoyer.quiet.basemodel.dto.PostTagDto;
 import me.lofienjoyer.quiet.postservice.service.PostService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -60,6 +61,11 @@ public class PostController {
     @GetMapping("/get/{username}")
     public Flux<PostDto> getPostsForProfile(@PathVariable("username") String username) {
         return postService.getUserPosts(username);
+    }
+
+    @GetMapping("/alltags")
+    public Flux<PostTagDto> getAllPostTags() {
+        return postService.getAllPostTags();
     }
 
 }

@@ -2,6 +2,7 @@ package me.lofienjoyer.quiet.postservice.service;
 
 import me.lofienjoyer.quiet.basemodel.dto.CreatePostDto;
 import me.lofienjoyer.quiet.basemodel.dto.PostDto;
+import me.lofienjoyer.quiet.basemodel.dto.PostTagDto;
 import org.springframework.security.core.Authentication;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -43,5 +44,7 @@ public interface PostService {
      * @return List of posts the specified profile, ordered by date
      */
     Flux<PostDto> getUserPosts(String username);
+
+    Flux<PostTagDto> getAllPostTags();
 
 }

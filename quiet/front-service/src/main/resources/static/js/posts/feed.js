@@ -121,6 +121,7 @@ function createPost() {
     method: "POST",
     body: JSON.stringify({
       content: postInput.value,
+      tagIds: getSelectedTags()
     }),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
@@ -128,6 +129,7 @@ function createPost() {
   })
     .then((response) => response.json())
     .then((element) => {
+      clearSelectedTags();
       postInput.value = "";
 
       const postContainer = document.createElement("div");
@@ -359,6 +361,55 @@ function unfollowProfile(profileToUnfollow) {
     });
 }
 
+function loadTags() {
+  const optionsContainer = document.getElementById('optionsContainer');
+  fetch("/api/posts/alltags", {
+    method: "GET"
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      json.forEach(tag => {
+        const tagContainer = document.createElement('div');
+        tagContainer.classList.add("post-tag");
+        tagContainer.classList.add("create-post-tag");
+        tagContainer.style.backgroundColor = "#" + tag.hexColor;
+        
+        const label = document.createElement('label');
+        label.textContent = tag.name;
+        label.htmlFor = 'tag' + tag.id;
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = 'tag' + tag.id;
+        checkbox.value = tag.id;
+
+        tagContainer.appendChild(checkbox);
+        tagContainer.appendChild(label);
+
+        optionsContainer.appendChild(tagContainer);
+      })
+    });
+}
+
+function getSelectedTags() {
+  var array = [];
+  var checkboxes = document.getElementById('optionsContainer').querySelectorAll('input[type=checkbox]:checked');
+
+  for (var i = 0; i < checkboxes.length; i++) {
+    array.push(checkboxes[i].value);
+  }
+
+  return array;
+}
+
+function clearSelectedTags() {
+  var checkboxes = document.getElementById('optionsContainer').querySelectorAll('input[type=checkbox]:checked');
+
+  for (var i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].checked = false;
+  }
+}
+
 window.addEventListener("load", (event) => {
   feedLoadIcon = document.getElementById("loadIconContainer");
   postInput = document.getElementById("postInput");
@@ -376,6 +427,7 @@ window.addEventListener("load", (event) => {
   loadFeed();
   loadProfile();
   loadRecommendations();
+  loadTags();
 });
 
 function throttle(fn, wait) {

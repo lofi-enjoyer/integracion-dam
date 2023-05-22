@@ -820,3 +820,19 @@ a {
     font-weight: 300;
     margin-top: 1em;
 }
+
+.create-post-tags {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.create-post-tag > label {
+    color: var(--light-color);
+    font-weight: 500;
+}
+
+.create-post-tag > input {
+    margin: 0.5em;
+}

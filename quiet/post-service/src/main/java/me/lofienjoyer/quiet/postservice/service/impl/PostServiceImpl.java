@@ -2,8 +2,10 @@ package me.lofienjoyer.quiet.postservice.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import me.lofienjoyer.quiet.basemodel.dao.PostDao;
+import me.lofienjoyer.quiet.basemodel.dao.PostTagDao;
 import me.lofienjoyer.quiet.basemodel.dto.CreatePostDto;
 import me.lofienjoyer.quiet.basemodel.dto.PostDto;
+import me.lofienjoyer.quiet.basemodel.dto.PostTagDto;
 import me.lofienjoyer.quiet.basemodel.dto.ProfileDto;
 import me.lofienjoyer.quiet.basemodel.entity.Post;
 import me.lofienjoyer.quiet.basemodel.entity.Profile;
@@ -18,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -31,6 +34,7 @@ import java.util.stream.Collectors;
 public class PostServiceImpl implements PostService {
 
     private final PostDao postDao;
+    private final PostTagDao postTagDao;
 
     private final WebClient.Builder webClientBuilder;
 
@@ -49,7 +53,7 @@ public class PostServiceImpl implements PostService {
                     post.setDate(new Date());
                     post.setProfile(profile);
                     post.setLikes(Set.of());
-                    post.setTags(Set.of());
+                    post.setTags(Set.copyOf(postTagDao.findAllById(dto.getTagIds())));
                     post = postDao.save(post);
 
                     return new PostDto(post);
@@ -114,6 +118,15 @@ public class PostServiceImpl implements PostService {
                             .collect(Collectors.toList());
                 })
                 .flatMapMany(Flux::fromIterable);
+    }
+
+    @Override
+    public Flux<PostTagDto> getAllPostTags() {
+        return Mono.just(postTagDao.findAll())
+                .flatMapMany(Flux::fromIterable)
+                .map(postTag -> {
+                    return new PostTagDto(postTag);
+                });
     }
 
 }
