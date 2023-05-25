@@ -39,6 +39,7 @@ function updateProfile() {
         return response.json();
     })
     .catch(error => {
+        showError(error.message);
         console.log(error.message);
     });
 }
@@ -62,9 +63,52 @@ function loadProfile() {
     });
 }
 
+function loadTags() {
+  const optionsContainer = document.getElementById('optionsContainer');
+  fetch("/api/posts/alltags", {
+    method: "GET"
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      json.forEach(tag => {
+        const tagContainer = document.createElement('div');
+        tagContainer.classList.add("post-tag");
+        tagContainer.classList.add("create-post-tag");
+        tagContainer.style.backgroundColor = "#" + tag.hexColor;
+        
+        const label = document.createElement('label');
+        label.textContent = tag.name;
+        label.htmlFor = 'tag' + tag.id;
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = 'tag' + tag.id;
+        checkbox.value = tag.id;
+
+        tagContainer.appendChild(checkbox);
+        tagContainer.appendChild(label);
+
+        optionsContainer.appendChild(tagContainer);
+      })
+    });
+}
+
+function getSelectedTags() {
+  var array = [];
+  var checkboxes = document.getElementById('optionsContainer').querySelectorAll('input[type=checkbox]:checked');
+
+  for (var i = 0; i < checkboxes.length; i++) {
+    array.push(checkboxes[i].value);
+  }
+
+  return array;
+}
+
 function showError(message) {
     const errorDisplay = document.getElementById('errorMessage');
     errorDisplay.classList.add('shown');
+    errorDisplay.classList.remove('hidden');
+    errorDisplay.textContent = message;
 }
 
 window.addEventListener("load", (event) => {

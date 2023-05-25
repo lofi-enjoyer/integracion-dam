@@ -112,14 +112,16 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public Mono<ProfileDto> editProfile(EditProfileDto dto, Authentication authentication) {
-        if (profileDao.findByUsername(dto.getUsername()).isPresent())
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "That username is already being used!");
 
         UserInfo userInfo = userInfoDao.findByEmail(authentication.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found."));
 
         Profile profile = profileDao.findByUser(userInfo)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User profile not found."));
+
+        Optional<Profile> possibleConflictingProfile = profileDao.findByUsername(dto.getUsername());
+        if (possibleConflictingProfile.isPresent() && !possibleConflictingProfile.get().getUsername().equals(profile.getUsername()))
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "That username is already being used!");
 
         profile.setUsername(dto.getUsername().trim().toLowerCase());
         profile.setName(dto.getName().trim());

@@ -44,8 +44,16 @@
         <input type="text" name="username" id="usernameInput">
         <label>Description</label>
         <input type="text" name="description" id="descriptionInput">
-        <span id="errorMessage"></span>
+        <span id="errorMessage" class="error-display hidden"></span>
         <button class="save-button" onclick="updateProfile()">Save changes</button>
+    </div>
+    
+    <div class="profile-container profile-edit-container">
+        <h2>Blocked tags</h2>
+        <div class="optionsContainer">
+            
+        </div>
+        <button class="save-button" onclick="updateBlockedTags()">Save changes</button>
     </div>
 
 </body>

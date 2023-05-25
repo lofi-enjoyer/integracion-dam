@@ -1,5 +1,6 @@
 .profile-edit-container {
     align-items: flex-start;
+    width: min(800px, 60%);
 }
 
 .profile-edit-container > input {
@@ -38,7 +39,12 @@
 }
 
 .error-display {
-    display: none;
+    background-color: rgb(255, 83, 83);
+    color: whitesmoke;
+    padding: 0.5em;
+    border-radius: 0.25em;
+    margin-bottom: 0.5em;
+    font-weight: 600;
 }
 
 .shown {
