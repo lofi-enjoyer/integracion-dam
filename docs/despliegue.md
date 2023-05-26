@@ -1,8 +1,17 @@
 # Instalación/Despliegue
 
-Puesta en producción del software. En caso de una aplicación de usuario final, deberá contar con un instalador o paquete de instalación (exe, msi, deb, deb, rpm, apk).
+El proyecto se compila de forma automática cada vez que ocurre un cambio en las ramas `main` o `dev` haciendo uso de Jenkins, una herramienta para automatizar la construcción, los tests y el despliegue de aplicaciones. Se han creado dos proyectos, uno por cada rama, aunque ambos siguen fases de compilación similares.
 
-Opcionalmente, se propone hacer uso de herramientas de tipo CI/CD (integración continua/despliegue continuo) que faciliten la distribución/despliegue. 
+### Fases
 
+#### Clonación del repositorio
 
-> NOTA: La CI/CD es un método para distribuir las aplicaciones a los clientes con frecuencia mediante el uso de la automatización en las etapas del distribución y la implementación continuas.
+En esta fase se clona la rama que corresponda desde GitHub en su versión más reciente.
+
+#### Construcción y tests
+
+Se compila individualmente cada servicio y se ejecutan sus tests. Los resultados de esta fase se almacenan en el histórico.
+
+#### Exportación a Docker
+
+Una vez los servicios han sido empaquetados en archivos .jar se crea una imagen de Docker de cada uno de ellos.
