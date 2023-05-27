@@ -15,13 +15,20 @@ function loadProfile() {
       "Content-type": "application/json; charset=UTF-8",
     },
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok)
+          throw new Error("Profile not found");
+      return response.json();
+    })
     .then((json) => {
       profileImg.src = "/api/media/profile/" + json.username;
       nameElement.textContent = json.name;
       usernameElement.textContent = "@" + json.username;
       descElement.textContent = json.description;
       followersCountElement.textContent = json.followersCount + " followers";
+    })
+    .catch((error) => {
+      nameElement.textContent = error.message;
     });
 }
 
