@@ -50,3 +50,8 @@
 .shown {
     display: block;
 }
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+}

@@ -127,4 +127,5 @@ function showError(message) {
 
 window.addEventListener("load", (event) => {
     loadProfile();
+    loadTags();
 });

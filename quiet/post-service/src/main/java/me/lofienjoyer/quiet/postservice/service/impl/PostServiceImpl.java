@@ -161,8 +161,6 @@ public class PostServiceImpl implements PostService {
 
         profileDao.save(profile);
 
-        System.out.println(profile.getBlockedTags());
-
         return Mono.just(profile.getBlockedTags())
                 .flatMapMany(Flux::fromIterable)
                 .map(PostTagDto::new);
