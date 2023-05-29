@@ -12,6 +12,7 @@ function uploadProfileImage() {
     })
     .then(response => {
         fileInput.value = null;
+        window.location.href = "/";
     });
 }
 
@@ -31,12 +32,13 @@ function updateProfile() {
         })
     })
     .then(response => {
-        console.log(response);
-        console.log(response.ok);
         if (!response.ok) {
             return response.text().then(text => { throw new Error(text) });
         }
         return response.json();
+    })
+    .then(result => {
+      window.location.href = "/";
     })
     .catch(error => {
         showError(error.message);
@@ -103,6 +105,15 @@ function saveTags() {
         body: JSON.stringify({
             tagsIds: getSelectedTags()
         })
+  })
+  .then(response => {
+      if (!response.ok) {
+          return response.text().then(text => { throw new Error(text) });
+      }
+      return response.json();
+  })
+  .then(result => {
+    window.location.href = "/";
   });
 }
 
