@@ -155,7 +155,7 @@ public class PostServiceImpl implements PostService {
         Profile profile = profileDao.findByUser(userInfo)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
 
-        postTagDao.deleteUsersByFirstName(profile.getId());
+        profile.getBlockedTags().clear();
 
         profile.getBlockedTags().addAll(postTagDao.findAllById(dto.getTagsIds()));
 
@@ -167,9 +167,17 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Flux<PostDto> searchPosts(SearchRequestDto dto) {
-        return Mono.just(postDao.findByText(dto.getText())).flatMapMany(Flux::fromIterable)
-                .map(PostDto::new);
+    public Flux<PostDto> searchPosts(Authentication authentication, SearchRequestDto dto) {
+        return webClientBuilder.build().get().uri("http://user-service/api/profiles/me")
+                .cookie("token", authentication.getCredentials().toString())
+                .retrieve()
+                .bodyToMono(ProfileDto.class)
+                .map(profile -> {
+                    return postDao.findByText(dto.getText())
+                            .stream().map(post -> new PostDto(post, profile))
+                            .collect(Collectors.toList());
+                })
+                .flatMapMany(Flux::fromIterable);
     }
 
 }

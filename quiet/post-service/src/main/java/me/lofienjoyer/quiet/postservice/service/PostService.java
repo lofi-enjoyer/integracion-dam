@@ -49,6 +49,6 @@ public interface PostService {
 
     Flux<PostTagDto> saveBlockedPostTags(SaveBlockedTagsDto dto, Authentication authentication);
 
-    Flux<PostDto> searchPosts(SearchRequestDto dto);
+    Flux<PostDto> searchPosts(Authentication authentication, SearchRequestDto dto);
 
 }

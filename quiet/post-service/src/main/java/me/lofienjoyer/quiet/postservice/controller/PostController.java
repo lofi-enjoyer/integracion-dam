@@ -80,7 +80,7 @@ public class PostController {
     @PostMapping("/search")
     @PreAuthorize("isAuthenticated()")
     public Flux<PostDto> searchPosts(@RequestBody SearchRequestDto searchRequestDto, Authentication authentication) {
-        return postService.searchPosts(searchRequestDto);
+        return postService.searchPosts(authentication, searchRequestDto);
     }
 
 }
