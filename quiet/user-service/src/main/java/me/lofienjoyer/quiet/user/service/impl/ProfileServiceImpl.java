@@ -59,9 +59,18 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public Flux<ProfileDto> getRecommendations() {
+    public Flux<ProfileDto> getRecommendations(Authentication authentication) {
+        UserInfo user = userInfoDao.findByEmail(authentication.getName())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found."));
+
+        Profile userProfile = profileDao.findByUser(user)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User profile not found"));
+
+        List<Long> followedProfilesIds = profileDao.getFollowingProfilesIds(userProfile.getId());
+
         Random random = new Random();
         List<Profile> allProfiles = profileDao.findAll();
+        allProfiles.removeIf(profile -> followedProfilesIds.contains(profile.getId()));
         List<Profile> recommendedProfiles = new ArrayList<>();
         for (int i = 0; i < Math.min(3, allProfiles.size()); i++) {
             recommendedProfiles.add(

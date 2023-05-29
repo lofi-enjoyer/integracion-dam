@@ -40,8 +40,8 @@ public class ProfileController {
 
     @GetMapping("/recommendations")
     @PreAuthorize("isAuthenticated()")
-    public Flux<ProfileDto> getRecommendations() {
-        return profileService.getRecommendations();
+    public Flux<ProfileDto> getRecommendations(Authentication authentication) {
+        return profileService.getRecommendations(authentication);
     }
 
     @PostMapping("/follow")

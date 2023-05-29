@@ -24,7 +24,7 @@ public interface ProfileService {
      */
     Mono<ProfileDto> getProfileByUsername(String username);
 
-    Flux<ProfileDto> getRecommendations();
+    Flux<ProfileDto> getRecommendations(Authentication authentication);
 
     Mono<Integer> followProfile(Authentication authentication, String username);
 

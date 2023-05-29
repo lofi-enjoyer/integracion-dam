@@ -286,7 +286,10 @@ function loadRecommendations() {
         const addButton = document.createElement("div");
         addButton.classList.add("recommended-add");
         addButton.textContent = "+";
-        addButton.onclick = () => followProfile(element.username);
+        addButton.onclick = () => {
+          followProfile(element.username);
+          recommendationsElement.removeChild(userElement);
+        }
 
         userElement.appendChild(imgContainer);
         userElement.appendChild(textContainer);
