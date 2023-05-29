@@ -3,10 +3,7 @@ package me.lofienjoyer.quiet.postservice.service.impl;
 import lombok.RequiredArgsConstructor;
 import me.lofienjoyer.quiet.basemodel.dao.PostDao;
 import me.lofienjoyer.quiet.basemodel.dao.PostTagDao;
-import me.lofienjoyer.quiet.basemodel.dto.CreatePostDto;
-import me.lofienjoyer.quiet.basemodel.dto.PostDto;
-import me.lofienjoyer.quiet.basemodel.dto.PostTagDto;
-import me.lofienjoyer.quiet.basemodel.dto.ProfileDto;
+import me.lofienjoyer.quiet.basemodel.dto.*;
 import me.lofienjoyer.quiet.basemodel.entity.Post;
 import me.lofienjoyer.quiet.basemodel.entity.Profile;
 import me.lofienjoyer.quiet.postservice.service.PostService;
@@ -127,6 +124,13 @@ public class PostServiceImpl implements PostService {
                 .map(postTag -> {
                     return new PostTagDto(postTag);
                 });
+    }
+
+    @Override
+    public Flux<PostDto> searchPosts(SearchRequestDto dto) {
+        System.out.println(dto.getText());
+        return Mono.just(postDao.findByText(dto.getText())).flatMapMany(Flux::fromIterable)
+                .map(PostDto::new);
     }
 
 }

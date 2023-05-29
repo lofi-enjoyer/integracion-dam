@@ -3,6 +3,7 @@ package me.lofienjoyer.quiet.postservice.service;
 import me.lofienjoyer.quiet.basemodel.dto.CreatePostDto;
 import me.lofienjoyer.quiet.basemodel.dto.PostDto;
 import me.lofienjoyer.quiet.basemodel.dto.PostTagDto;
+import me.lofienjoyer.quiet.basemodel.dto.SearchRequestDto;
 import org.springframework.security.core.Authentication;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -46,5 +47,7 @@ public interface PostService {
     Flux<PostDto> getUserPosts(String username);
 
     Flux<PostTagDto> getAllPostTags();
+
+    Flux<PostDto> searchPosts(SearchRequestDto dto);
 
 }

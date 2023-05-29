@@ -22,4 +22,7 @@ public interface PostDao extends JpaRepository<Post, Long> {
     @Query(value = "SELECT p.id FROM Post p WHERE p.profile IN (SELECT pr.following FROM Profile pr WHERE pr.id = :id) OR p.profile IN (SELECT pr FROM Profile pr WHERE pr.id = :id) ORDER BY p.date DESC")
     List<Long> getPostsIdsFromFollowed(@Param("id") long profileId, Pageable pageable);
 
+    @Query(value = "SELECT p FROM Post p WHERE p.content LIKE '%' || :text || '%' ORDER BY p.date DESC")
+    List<Post> findByText(@Param("text") String text);
+
 }

@@ -24,7 +24,7 @@
         </a>
         <div class="navbar-container search-container">
             <input class="search-bar" type="text" id="searchInput" placeholder="Lookin' for something?">
-            <button class="search-button">
+            <button class="search-button" onclick="searchPosts()">
                 <i class="bi bi-search"></i>
             </button>
         </div>
@@ -45,12 +45,12 @@
                     <span id="user-username" class="username"></span>
                     <div class="separator"></div>
                     <span id="user-desc" class="user-desc"></span>
-                    <a href="/profile/edit" class="user-options"><i class="bi bi-gear-fill"></i> Configuración</a>
+                    <a href="/profile/edit" class="user-options"><i class="bi bi-gear-fill"></i> Settings</a>
                 </div>
             </div>
             <div class="inv-separator"></div>
             <div class="panel">
-                <h3>Recommendations</h3>
+                <h3>Recommended</h3>
                 <div class="inv-separator"></div>
                 <div id="recommendations" class="recommendations">
 

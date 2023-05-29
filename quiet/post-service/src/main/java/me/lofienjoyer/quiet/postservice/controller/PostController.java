@@ -1,10 +1,7 @@
 package me.lofienjoyer.quiet.postservice.controller;
 
 import lombok.RequiredArgsConstructor;
-import me.lofienjoyer.quiet.basemodel.dto.CreatePostDto;
-import me.lofienjoyer.quiet.basemodel.dto.FeedRequest;
-import me.lofienjoyer.quiet.basemodel.dto.PostDto;
-import me.lofienjoyer.quiet.basemodel.dto.PostTagDto;
+import me.lofienjoyer.quiet.basemodel.dto.*;
 import me.lofienjoyer.quiet.postservice.service.PostService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -66,6 +63,12 @@ public class PostController {
     @GetMapping("/alltags")
     public Flux<PostTagDto> getAllPostTags() {
         return postService.getAllPostTags();
+    }
+
+    @PostMapping("/search")
+    @PreAuthorize("isAuthenticated()")
+    public Flux<PostDto> searchPosts(@RequestBody SearchRequestDto searchRequestDto, Authentication authentication) {
+        return postService.searchPosts(searchRequestDto);
     }
 
 }

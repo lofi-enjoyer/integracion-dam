@@ -1,14 +1,20 @@
 var feedLoadIcon;
 var feedElement;
+var searchInput;
+
+const urlParts = window.location.href.split("/");
+const lastPart = urlParts[urlParts.length - 1];
+var searchParam = lastPart.split("?")[0];
+searchParam = searchParam.replace('%20', ' ');
 
 function loadFeed() {
     const feedContainer = document.getElementById("feed");
     feedLoadIcon.classList.remove("hidden");
   
-    fetch("/api/posts/feed", {
+    fetch("/api/posts/search", {
       method: "POST",
       body: JSON.stringify({
-        page: currentPage,
+        text: searchParam,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -16,7 +22,6 @@ function loadFeed() {
     })
       .then((response) => response.json())
       .then((json) => {
-        currentPage++;
         json.forEach((element) => {
           const postContainer = document.createElement("div");
           postContainer.classList.add("panel");
@@ -110,9 +115,20 @@ function loadFeed() {
       });
   }
 
+function searchPosts() {
+  window.location.href = '/search/' + searchInput.value;
+}
+
 window.addEventListener("load", (event) => {
   feedLoadIcon = document.getElementById("loadIconContainer");
   feedElement = document.getElementById("feed");
+  searchInput = document.getElementById("searchInput");
+  searchInput.addEventListener("keypress", (event) => {
+    if (event.key == 'Enter') {
+      event.preventDefault();
+      searchPosts();
+    }
+  });
  
   loadFeed();
 });

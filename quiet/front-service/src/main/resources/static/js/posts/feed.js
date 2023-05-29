@@ -2,6 +2,7 @@ var currentPage = 0;
 var feedLoadIcon;
 var postInput;
 var feedElement;
+var searchInput;
 
 function loadFeed() {
   const feedContainer = document.getElementById("feed");
@@ -113,6 +114,9 @@ function loadFeed() {
 }
 
 function createPost() {
+  if (postInput.value.trim().length == 0)
+    return;
+
   const feedContainer = document.getElementById("feed");
   const loadIcon = document.getElementById("loadIcon");
   loadIcon.classList.remove("hidden");
@@ -391,6 +395,10 @@ function loadTags() {
     });
 }
 
+function searchPosts() {
+  window.location.href = '/search/' + searchInput.value;
+}
+
 function getSelectedTags() {
   var array = [];
   var checkboxes = document.getElementById('optionsContainer').querySelectorAll('input[type=checkbox]:checked');
@@ -413,7 +421,19 @@ function clearSelectedTags() {
 window.addEventListener("load", (event) => {
   feedLoadIcon = document.getElementById("loadIconContainer");
   postInput = document.getElementById("postInput");
+  postInput.addEventListener("keypress", (event) => {
+    if (event.key == 'Enter')
+      createPost();
+  });
+
   feedElement = document.getElementById("feed");
+  searchInput = document.getElementById("searchInput");
+  searchInput.addEventListener("keypress", (event) => {
+    if (event.key == 'Enter') {
+      event.preventDefault();
+      searchPosts();
+    }
+  });
 
   feedElement.addEventListener("scroll", throttle(callback, 1000));
 

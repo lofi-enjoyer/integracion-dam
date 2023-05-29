@@ -17,4 +17,10 @@ public class IndexController {
         return Mono.just("index");
     }
 
+    @GetMapping("/search/**")
+    @PreAuthorize("isAuthenticated()")
+    public Mono<String> search() {
+        return Mono.just("search/search");
+    }
+
 }
