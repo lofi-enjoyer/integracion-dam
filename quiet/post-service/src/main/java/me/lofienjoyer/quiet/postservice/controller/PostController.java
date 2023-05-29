@@ -65,6 +65,18 @@ public class PostController {
         return postService.getAllPostTags();
     }
 
+    @GetMapping("/mytags")
+    @PreAuthorize("isAuthenticated()")
+    public Flux<PostTagDto> getBlockedPostTags(Authentication authentication) {
+        return postService.getBlockedPostTags(authentication);
+    }
+
+    @PostMapping("/savetags")
+    @PreAuthorize("isAuthenticated()")
+    public Flux<PostTagDto> saveBlockedPostTags(@RequestBody SaveBlockedTagsDto dto, Authentication authentication) {
+        return postService.saveBlockedPostTags(dto, authentication);
+    }
+
     @PostMapping("/search")
     @PreAuthorize("isAuthenticated()")
     public Flux<PostDto> searchPosts(@RequestBody SearchRequestDto searchRequestDto, Authentication authentication) {

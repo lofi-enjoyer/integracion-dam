@@ -3,9 +3,12 @@ package me.lofienjoyer.quiet.postservice.service.impl;
 import lombok.RequiredArgsConstructor;
 import me.lofienjoyer.quiet.basemodel.dao.PostDao;
 import me.lofienjoyer.quiet.basemodel.dao.PostTagDao;
+import me.lofienjoyer.quiet.basemodel.dao.ProfileDao;
+import me.lofienjoyer.quiet.basemodel.dao.UserInfoDao;
 import me.lofienjoyer.quiet.basemodel.dto.*;
 import me.lofienjoyer.quiet.basemodel.entity.Post;
 import me.lofienjoyer.quiet.basemodel.entity.Profile;
+import me.lofienjoyer.quiet.basemodel.entity.UserInfo;
 import me.lofienjoyer.quiet.postservice.service.PostService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -32,6 +35,8 @@ public class PostServiceImpl implements PostService {
 
     private final PostDao postDao;
     private final PostTagDao postTagDao;
+    private final ProfileDao profileDao;
+    private final UserInfoDao userInfoDao;
 
     private final WebClient.Builder webClientBuilder;
 
@@ -127,8 +132,44 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public Flux<PostTagDto> getBlockedPostTags(Authentication authentication) {
+        UserInfo userInfo = userInfoDao.findByEmail(authentication.getPrincipal().toString())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+
+        Profile profile = profileDao.findByUser(userInfo)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+
+        return Mono.just(postTagDao.findAll())
+                .flatMapMany(Flux::fromIterable)
+                .map(postTag -> {
+                    boolean isTagBlocked = profile.getBlockedTags().stream().anyMatch(postTag1 -> postTag1.getName().equals(postTag.getName()));
+                    return new PostTagDto(postTag, isTagBlocked);
+                });
+    }
+
+    @Override
+    public Flux<PostTagDto> saveBlockedPostTags(SaveBlockedTagsDto dto, Authentication authentication) {
+        UserInfo userInfo = userInfoDao.findByEmail(authentication.getPrincipal().toString())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+
+        Profile profile = profileDao.findByUser(userInfo)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+
+        postTagDao.deleteUsersByFirstName(profile.getId());
+
+        profile.getBlockedTags().addAll(postTagDao.findAllById(dto.getTagsIds()));
+
+        profileDao.save(profile);
+
+        System.out.println(profile.getBlockedTags());
+
+        return Mono.just(profile.getBlockedTags())
+                .flatMapMany(Flux::fromIterable)
+                .map(PostTagDto::new);
+    }
+
+    @Override
     public Flux<PostDto> searchPosts(SearchRequestDto dto) {
-        System.out.println(dto.getText());
         return Mono.just(postDao.findByText(dto.getText())).flatMapMany(Flux::fromIterable)
                 .map(PostDto::new);
     }

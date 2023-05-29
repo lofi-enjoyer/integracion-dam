@@ -65,7 +65,7 @@ function loadProfile() {
 
 function loadTags() {
   const optionsContainer = document.getElementById('optionsContainer');
-  fetch("/api/posts/alltags", {
+  fetch("/api/posts/mytags", {
     method: "GET"
   })
     .then((response) => response.json())
@@ -84,6 +84,7 @@ function loadTags() {
         checkbox.type = 'checkbox';
         checkbox.id = 'tag' + tag.id;
         checkbox.value = tag.id;
+        checkbox.checked = tag.checked;
 
         tagContainer.appendChild(checkbox);
         tagContainer.appendChild(label);
@@ -92,6 +93,19 @@ function loadTags() {
       })
     });
 }
+
+function saveTags() {
+  fetch("/api/posts/savetags", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        }, 
+        body: JSON.stringify({
+            tagsIds: getSelectedTags()
+        })
+  });
+}
+
 
 function getSelectedTags() {
   var array = [];
