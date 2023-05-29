@@ -28,11 +28,18 @@ Estos pasos se deben seguir para cada uno de los servicios.
 3. Crear un archivo con nombre `application.properties`.
 4. Definir las siguientes propiedades en el archivo:
 ```
-eureka.client.service-url.default-zone=http://{discovery_hostname}:{discovery_port}/eureka
+eureka.client.service-url.defaultZone=http://{discovery_hostname}:{discovery_port}/eureka
 
 spring.datasource.url=jdbc:mysql://{db_hostname}:{db_port}/quiet_dev
 spring.datasource.username={db_username}
 spring.datasource.password={db_password}
+
+quiet.defaultdesc={default_profile_desc}
+
+// Solo para el media service
+quiet.profile_img_dir={profile_img_dir}
+spring.servlet.multipart.max-file-size={max_file_size}
+spring.servlet.multipart.max-request-size={max_file_size}
 ```
  5. Sustituir las variables por su valor correspondiente.
 
@@ -42,6 +49,9 @@ spring.datasource.password={db_password}
 - db_port: Puerto de la base de datos.
 - db_username: Nombre de usuario de la base de datos.
 - db_password: Contraseña de la base de datos.
+- default_profile_desc: Descripción por defecto para los perfiles de usuario.
+- profile_img_dir: Directorio donde el media service almacenará las imagenes de perfil de los usuarios.
+- max_file_size: Tamaño máximo de los archivos que se pueden subir.
 
 6. Ejecutar el archivo .jar (preferiblemente desde consola)
 
