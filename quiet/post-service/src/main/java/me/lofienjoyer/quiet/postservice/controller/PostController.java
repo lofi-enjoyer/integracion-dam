@@ -1,9 +1,7 @@
 package me.lofienjoyer.quiet.postservice.controller;
 
 import lombok.RequiredArgsConstructor;
-import me.lofienjoyer.quiet.basemodel.dto.CreatePostDto;
-import me.lofienjoyer.quiet.basemodel.dto.FeedRequest;
-import me.lofienjoyer.quiet.basemodel.dto.PostDto;
+import me.lofienjoyer.quiet.basemodel.dto.*;
 import me.lofienjoyer.quiet.postservice.service.PostService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -60,6 +58,46 @@ public class PostController {
     @GetMapping("/get/{username}")
     public Flux<PostDto> getPostsForProfile(@PathVariable("username") String username) {
         return postService.getUserPosts(username);
+    }
+
+    /**
+     * @return All post tags
+     */
+    @GetMapping("/alltags")
+    public Flux<PostTagDto> getAllPostTags() {
+        return postService.getAllPostTags();
+    }
+
+    /**
+     * @param authentication User's authentication
+     * @return Post tags for the current user
+     */
+    @GetMapping("/mytags")
+    @PreAuthorize("isAuthenticated()")
+    public Flux<PostTagDto> getBlockedPostTags(Authentication authentication) {
+        return postService.getBlockedPostTags(authentication);
+    }
+
+    /**
+     * @param dto DTO with the necessary data
+     * @param authentication User's authentication
+     * @return List of post tags
+     */
+    @PostMapping("/savetags")
+    @PreAuthorize("isAuthenticated()")
+    public Flux<PostTagDto> saveBlockedPostTags(@RequestBody SaveBlockedTagsDto dto, Authentication authentication) {
+        return postService.saveBlockedPostTags(dto, authentication);
+    }
+
+    /**
+     * @param searchRequestDto DTO with the necessary information
+     * @param authentication User's authentication
+     * @return List of posts found
+     */
+    @PostMapping("/search")
+    @PreAuthorize("isAuthenticated()")
+    public Flux<PostDto> searchPosts(@RequestBody SearchRequestDto searchRequestDto, Authentication authentication) {
+        return postService.searchPosts(authentication, searchRequestDto);
     }
 
 }

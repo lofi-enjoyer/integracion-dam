@@ -20,6 +20,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.stream.Collectors;
 
+/**
+ * Controller to handle authentication related requests
+ */
 @RestController
 @Slf4j
 public class AuthController {
@@ -33,17 +36,30 @@ public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    /**
+     * Test endpoint
+     */
     @GetMapping("/welcome")
     @PreAuthorize("hasRole('ADMIN')")
     public String welcome() {
         return "If you see this you're admin, yay!";
     }
 
+    /**
+     * Endpoint for registering a user
+     * @param dto DTO with the needed data to register a new user
+     * @return Created UserInfo object
+     */
     @PostMapping("/new")
     public UserInfo addNewUser(@RequestBody CreateUserDto dto) {
         return service.addUser(dto);
     }
 
+    /**
+     * Endpoint to get a user's token
+     * @param authRequest DTO with the needed data to log in
+     * @return Generated JWT token
+     */
     @PostMapping("/authenticate")
     public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
@@ -54,6 +70,11 @@ public class AuthController {
         }
     }
 
+    /**
+     * Endpoint to retrieve user info
+     * @param token JWT token
+     * @return DTO with user info
+     */
     @GetMapping("/getuser")
     public UserInfoDto getUserInfo(@RequestParam("token") String token) {
         String email = null;

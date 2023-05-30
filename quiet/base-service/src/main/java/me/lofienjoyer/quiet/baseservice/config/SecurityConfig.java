@@ -25,8 +25,12 @@ public class SecurityConfig {
     private final SecurityManager securityManager;
     private final SecurityContextRepository securityContextRepository;
 
+    /**
+     * Sets up the security filter chain for the service
+     * @param http HTTP security configuration
+     * @return Security filter chain
+     */
     @Bean
-    // TODO Custom login page via properties file
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         return http.csrf().disable()
                 .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())

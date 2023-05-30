@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -36,5 +37,8 @@ public interface ProfileDao extends JpaRepository<Profile, Long> {
 
     @Query(value = "SELECT COUNT(*) FROM follows WHERE profile_id = :profileId AND followed_id = :followedId", nativeQuery = true)
     int isFollowing(@Param("profileId") long profileId, @Param("followedId") long followedId);
+
+    @Query(value = "SELECT followed_id FROM follows WHERE profile_id = :profileId", nativeQuery = true)
+    List<Long> getFollowingProfilesIds(@Param("profileId") long profileId);
 
 }

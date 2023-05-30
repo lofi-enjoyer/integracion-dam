@@ -2,6 +2,7 @@ var currentPage = 0;
 var feedLoadIcon;
 var postInput;
 var feedElement;
+var searchInput;
 
 function loadFeed() {
   const feedContainer = document.getElementById("feed");
@@ -33,6 +34,9 @@ function loadFeed() {
         posterImage.src = "/api/media/profile/" + element.profileUsername;
         posterImageContainer.appendChild(posterImage);
 
+        const anchorElement = document.createElement("a");
+        anchorElement.href = "/profile/" + element.profileUsername;
+
         const posterInfoContainer = document.createElement("div");
         posterInfoContainer.classList.add("poster-info");
         const posterName = document.createElement("span");
@@ -43,6 +47,8 @@ function loadFeed() {
         posterUsername.textContent = "@" + element.profileUsername;
         posterInfoContainer.appendChild(posterName);
         posterInfoContainer.appendChild(posterUsername);
+
+        anchorElement.appendChild(posterInfoContainer);
 
         const postTagsContainer = document.createElement("div");
         postTagsContainer.classList.add("post-tags");
@@ -57,7 +63,7 @@ function loadFeed() {
         });
 
         postInfoContainer.appendChild(posterImageContainer);
-        postInfoContainer.appendChild(posterInfoContainer);
+        postInfoContainer.appendChild(anchorElement);
         postInfoContainer.appendChild(postTagsContainer);
 
         const invSeparator = document.createElement("div");
@@ -113,6 +119,9 @@ function loadFeed() {
 }
 
 function createPost() {
+  if (postInput.value.trim().length == 0)
+    return;
+
   const feedContainer = document.getElementById("feed");
   const loadIcon = document.getElementById("loadIcon");
   loadIcon.classList.remove("hidden");
@@ -121,6 +130,7 @@ function createPost() {
     method: "POST",
     body: JSON.stringify({
       content: postInput.value,
+      tagIds: getSelectedTags()
     }),
     headers: {
       "Content-type": "application/json; charset=UTF-8",
@@ -128,6 +138,7 @@ function createPost() {
   })
     .then((response) => response.json())
     .then((element) => {
+      clearSelectedTags();
       postInput.value = "";
 
       const postContainer = document.createElement("div");
@@ -143,6 +154,9 @@ function createPost() {
       posterImage.src = "/api/media/profile/" + element.profileUsername;
       posterImageContainer.appendChild(posterImage);
 
+      const anchorElement = document.createElement("a");
+      anchorElement.href = "/profile/" + element.profileUsername;
+
       const posterInfoContainer = document.createElement("div");
       posterInfoContainer.classList.add("poster-info");
       const posterName = document.createElement("span");
@@ -153,6 +167,8 @@ function createPost() {
       posterUsername.textContent = "@" + element.profileUsername;
       posterInfoContainer.appendChild(posterName);
       posterInfoContainer.appendChild(posterUsername);
+
+      anchorElement.appendChild(posterInfoContainer);
 
       const postTagsContainer = document.createElement("div");
       postTagsContainer.classList.add("post-tags");
@@ -167,7 +183,7 @@ function createPost() {
       });
 
       postInfoContainer.appendChild(posterImageContainer);
-      postInfoContainer.appendChild(posterInfoContainer);
+      postInfoContainer.appendChild(anchorElement);
       postInfoContainer.appendChild(postTagsContainer);
 
       const invSeparator = document.createElement("div");
@@ -252,6 +268,9 @@ function loadRecommendations() {
     .then((response) => response.json())
     .then((json) => {
       json.forEach((element) => {
+        const anchorElement = document.createElement("a");
+        anchorElement.href = "/profile/" + element.username;
+
         const userElement = document.createElement("div");
         userElement.classList.add("recommended-user");
 
@@ -280,10 +299,14 @@ function loadRecommendations() {
         const addButton = document.createElement("div");
         addButton.classList.add("recommended-add");
         addButton.textContent = "+";
-        addButton.onclick = () => followProfile(element.username);
+        addButton.onclick = () => {
+          followProfile(element.username);
+          recommendationsElement.removeChild(userElement);
+        }
 
-        userElement.appendChild(imgContainer);
-        userElement.appendChild(textContainer);
+        anchorElement.appendChild(imgContainer);
+        anchorElement.appendChild(textContainer);
+        userElement.appendChild(anchorElement);
         userElement.appendChild(addButton);
 
         recommendationsElement.appendChild(userElement);
@@ -359,10 +382,75 @@ function unfollowProfile(profileToUnfollow) {
     });
 }
 
+function loadTags() {
+  const optionsContainer = document.getElementById('optionsContainer');
+  fetch("/api/posts/alltags", {
+    method: "GET"
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      json.forEach(tag => {
+        const tagContainer = document.createElement('div');
+        tagContainer.classList.add("post-tag");
+        tagContainer.classList.add("create-post-tag");
+        tagContainer.style.backgroundColor = "#" + tag.hexColor;
+        
+        const label = document.createElement('label');
+        label.textContent = tag.name;
+        label.htmlFor = 'tag' + tag.id;
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = 'tag' + tag.id;
+        checkbox.value = tag.id;
+
+        tagContainer.appendChild(checkbox);
+        tagContainer.appendChild(label);
+
+        optionsContainer.appendChild(tagContainer);
+      })
+    });
+}
+
+function searchPosts() {
+  window.location.href = '/search/' + searchInput.value;
+}
+
+function getSelectedTags() {
+  var array = [];
+  var checkboxes = document.getElementById('optionsContainer').querySelectorAll('input[type=checkbox]:checked');
+
+  for (var i = 0; i < checkboxes.length; i++) {
+    array.push(checkboxes[i].value);
+  }
+
+  return array;
+}
+
+function clearSelectedTags() {
+  var checkboxes = document.getElementById('optionsContainer').querySelectorAll('input[type=checkbox]:checked');
+
+  for (var i = 0; i < checkboxes.length; i++) {
+    checkboxes[i].checked = false;
+  }
+}
+
 window.addEventListener("load", (event) => {
   feedLoadIcon = document.getElementById("loadIconContainer");
   postInput = document.getElementById("postInput");
+  postInput.addEventListener("keypress", (event) => {
+    if (event.key == 'Enter')
+      createPost();
+  });
+
   feedElement = document.getElementById("feed");
+  searchInput = document.getElementById("searchInput");
+  searchInput.addEventListener("keypress", (event) => {
+    if (event.key == 'Enter') {
+      event.preventDefault();
+      searchPosts();
+    }
+  });
 
   feedElement.addEventListener("scroll", throttle(callback, 1000));
 
@@ -376,6 +464,7 @@ window.addEventListener("load", (event) => {
   loadFeed();
   loadProfile();
   loadRecommendations();
+  loadTags();
 });
 
 function throttle(fn, wait) {

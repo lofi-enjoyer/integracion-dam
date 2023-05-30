@@ -56,8 +56,6 @@ public class UserServiceImpl implements UserService {
         if (profileDao.existsByUsername(dto.getUsername()))
             return Mono.error(new ResponseStatusException(HttpStatus.CONFLICT, "That username already exists."));
 
-        System.out.println("Registering user...");
-
         return webClientBuilder.build().post().uri("http://auth-service/new")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(dto)
@@ -65,7 +63,7 @@ public class UserServiceImpl implements UserService {
                 .bodyToMono(UserInfo.class)
                 .map(userInfo -> {
                     Profile profile = new Profile();
-                    profile.setUsername(dto.getUsername());
+                    profile.setUsername(dto.getUsername().toLowerCase().replace(" ", "_"));
                     profile.setName(dto.getUsername());
                     profile.setDescription(String.format(defaultDescription, "@" + dto.getUsername()));
                     profileDao.save(profile);

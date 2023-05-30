@@ -1,7 +1,6 @@
 package me.lofienjoyer.quiet.postservice.service;
 
-import me.lofienjoyer.quiet.basemodel.dto.CreatePostDto;
-import me.lofienjoyer.quiet.basemodel.dto.PostDto;
+import me.lofienjoyer.quiet.basemodel.dto.*;
 import org.springframework.security.core.Authentication;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -43,5 +42,30 @@ public interface PostService {
      * @return List of posts the specified profile, ordered by date
      */
     Flux<PostDto> getUserPosts(String username);
+
+    /**
+     * @return All post tags
+     */
+    Flux<PostTagDto> getAllPostTags();
+
+    /**
+     * @param authentication User's authentication
+     * @return List of the blocked tags for the current user
+     */
+    Flux<PostTagDto> getBlockedPostTags(Authentication authentication);
+
+    /**
+     * @param dto DTO with the necessary data
+     * @param authentication User's authentication
+     * @return Saves blocked tags for the current user
+     */
+    Flux<PostTagDto> saveBlockedPostTags(SaveBlockedTagsDto dto, Authentication authentication);
+
+    /**
+     * @param authentication User's authentication
+     * @param dto DTO with the necessary data
+     * @return List of posts found
+     */
+    Flux<PostDto> searchPosts(Authentication authentication, SearchRequestDto dto);
 
 }

@@ -24,10 +24,17 @@ public class MediaServiceApplication {
 	@Value("${quiet.profile-img-dir}")
 	private String profileImgDir;
 
+	/**
+	 * Starts the service
+	 * @param args Startup arguments
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(MediaServiceApplication.class, args);
 	}
 
+	/**
+	 * Creates the folder to store the profile images
+	 */
 	@Bean
 	CommandLineRunner init() {
 		return (args) -> {

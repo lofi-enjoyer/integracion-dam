@@ -12,6 +12,7 @@ function uploadProfileImage() {
     })
     .then(response => {
         fileInput.value = null;
+        window.location.href = "/home";
     });
 }
 
@@ -31,14 +32,16 @@ function updateProfile() {
         })
     })
     .then(response => {
-        console.log(response);
-        console.log(response.ok);
         if (!response.ok) {
             return response.text().then(text => { throw new Error(text) });
         }
         return response.json();
     })
+    .then(result => {
+      window.location.href = "/home";
+    })
     .catch(error => {
+        showError(error.message);
         console.log(error.message);
     });
 }
@@ -62,11 +65,78 @@ function loadProfile() {
     });
 }
 
+function loadTags() {
+  const optionsContainer = document.getElementById('optionsContainer');
+  fetch("/api/posts/mytags", {
+    method: "GET"
+  })
+    .then((response) => response.json())
+    .then((json) => {
+      json.forEach(tag => {
+        const tagContainer = document.createElement('div');
+        tagContainer.classList.add("post-tag");
+        tagContainer.classList.add("create-post-tag");
+        tagContainer.style.backgroundColor = "#" + tag.hexColor;
+        
+        const label = document.createElement('label');
+        label.textContent = tag.name;
+        label.htmlFor = 'tag' + tag.id;
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = 'tag' + tag.id;
+        checkbox.value = tag.id;
+        checkbox.checked = tag.checked;
+
+        tagContainer.appendChild(checkbox);
+        tagContainer.appendChild(label);
+
+        optionsContainer.appendChild(tagContainer);
+      })
+    });
+}
+
+function saveTags() {
+  fetch("/api/posts/savetags", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        }, 
+        body: JSON.stringify({
+            tagsIds: getSelectedTags()
+        })
+  })
+  .then(response => {
+      if (!response.ok) {
+          return response.text().then(text => { throw new Error(text) });
+      }
+      return response.json();
+  })
+  .then(result => {
+    window.location.href = "/home";
+  });
+}
+
+
+function getSelectedTags() {
+  var array = [];
+  var checkboxes = document.getElementById('optionsContainer').querySelectorAll('input[type=checkbox]:checked');
+
+  for (var i = 0; i < checkboxes.length; i++) {
+    array.push(checkboxes[i].value);
+  }
+
+  return array;
+}
+
 function showError(message) {
     const errorDisplay = document.getElementById('errorMessage');
     errorDisplay.classList.add('shown');
+    errorDisplay.classList.remove('hidden');
+    errorDisplay.textContent = message;
 }
 
 window.addEventListener("load", (event) => {
     loadProfile();
+    loadTags();
 });

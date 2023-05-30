@@ -17,13 +17,20 @@ import reactor.core.publisher.Mono;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Component to handle authentication
+ */
 @Component
 public class SecurityManager implements ReactiveAuthenticationManager {
 
     @Autowired
     WebClient.Builder webClientBuilder;
 
-    // TODO: Handle exceptions when using an invalid token
+    /**
+     * Tries to authenticate a user
+     * @param authentication User authentication object
+     * @return Authentication object with the result of the operation
+     */
     @Override
     public Mono<Authentication> authenticate(Authentication authentication) {
         String token = authentication.getCredentials().toString();

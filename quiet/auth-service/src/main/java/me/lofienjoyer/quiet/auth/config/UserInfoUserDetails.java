@@ -9,6 +9,9 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Utility class used to authenticate users
+ */
 public class UserInfoUserDetails implements UserDetails {
 
     private final String email;

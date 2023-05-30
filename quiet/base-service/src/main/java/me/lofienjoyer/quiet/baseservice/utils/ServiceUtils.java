@@ -5,9 +5,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
+/**
+ * Creates some utilities components
+ */
 @Component
 public class ServiceUtils {
 
+    /**
+     * @return Load balanced WebClient builder
+     */
     @Bean
     @LoadBalanced
     public WebClient.Builder webClientBuilder() {

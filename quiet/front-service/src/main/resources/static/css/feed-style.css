@@ -5,6 +5,10 @@
     --dark-color: rgb(38, 38, 38);
     --less-dark-color: rgb(56, 56, 56);
     --even-less-dark-color: rgb(87, 87, 87);
+
+    --light-purple: rgb(123, 106, 220);
+    --normal-purple: rgb(110, 93, 207);
+    --dark-purple: rgb(92, 75, 189);
 }
 
 * {
@@ -123,7 +127,7 @@ a {
 }
 
 .post-text {
-    line-height: 2.5vh;
+    font-size: 1.5em;
 }
 
 .separator {
@@ -294,6 +298,13 @@ a {
 }
 
 .recommended-user {
+    display: flex;
+    align-items: center;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+.recommended-user > a {
     display: flex;
     align-items: center;
     padding-top: 0.5em;
@@ -764,7 +775,7 @@ a {
 
 .blurred-text {
     color: transparent;
-    text-shadow: 0px 0px 8px black;
+    text-shadow: 0px 0px 12px black;
     user-select: none;
     cursor: pointer;
 }
@@ -819,4 +830,20 @@ a {
     font-size: 12px;
     font-weight: 300;
     margin-top: 1em;
+}
+
+.create-post-tags {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.create-post-tag > label {
+    color: var(--light-color);
+    font-weight: 500;
+}
+
+.create-post-tag > input {
+    margin: 0.5em;
 }

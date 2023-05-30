@@ -20,6 +20,9 @@ import java.net.URI;
 
 import static org.springframework.http.HttpStatus.FOUND;
 
+/**
+ * Security configuration class
+ */
 @Configuration
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
@@ -30,6 +33,11 @@ public class FrontSecurityConfig {
     private final SecurityManager securityManager;
     private final SecurityContextRepository securityContextRepository;
 
+    /**
+     * Overrides default base-service security configuration to handle redirects
+     * @param http HTTP security configuration
+     * @return Security filter chain
+     */
     @Primary
     @Bean
     public SecurityWebFilterChain securityFrontWebFilterChain(ServerHttpSecurity http) {
@@ -49,7 +57,7 @@ public class FrontSecurityConfig {
                                 Mono.fromRunnable(
                                         () -> {
                                             swe.getResponse().setStatusCode(FOUND);
-                                            swe.getResponse().getHeaders().setLocation(URI.create("/"));
+                                            swe.getResponse().getHeaders().setLocation(URI.create("/home"));
                                         }
                                 )
                 )

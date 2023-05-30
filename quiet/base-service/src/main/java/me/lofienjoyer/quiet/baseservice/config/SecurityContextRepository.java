@@ -11,17 +11,31 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+/**
+ * Security context repository to handle authentication
+ */
 @Component
 public class SecurityContextRepository implements ServerSecurityContextRepository {
 
     @Autowired
     SecurityManager securityManager;
 
+    /**
+     * Saves the security context
+     * @param exchange Request connection
+     * @param context Security context
+     * @return Empty mono object
+     */
     @Override
     public Mono<Void> save(ServerWebExchange exchange, SecurityContext context) {
         throw new RuntimeException("Not supported");
     }
 
+    /**
+     * Loads the security context
+     * @param exchange Request connection
+     * @return Mono with security context object
+     */
     @Override
     public Mono<SecurityContext> load(ServerWebExchange exchange) {
         HttpCookie tokenCookie = exchange.getRequest().getCookies().getFirst("token");

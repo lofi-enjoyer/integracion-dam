@@ -10,12 +10,21 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+/**
+ * Service used to load users before authenticating them
+ */
 @Component
 public class UserInfoUserDetailsService implements UserDetailsService {
 
     @Autowired
     UserInfoDao userInfoDao;
 
+    /**
+     * Loads a user by its email
+     * @param username User's email
+     * @return User details object
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<UserInfo> userInfo = userInfoDao.findByEmail(username);

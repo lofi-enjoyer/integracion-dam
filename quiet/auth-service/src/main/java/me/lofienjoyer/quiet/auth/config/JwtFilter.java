@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Optional;
 
+/**
+ * Component to authenticate requests
+ */
 @Component
 @Slf4j
 public class JwtFilter extends OncePerRequestFilter {
@@ -29,6 +32,14 @@ public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private UserInfoUserDetailsService userDetailsService;
 
+    /**
+     * Checks the client's JWT token
+     * @param request HTTP request
+     * @param response HTTP response
+     * @param filterChain Chain of filters
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
