@@ -21,6 +21,9 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Security config component
+ */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -34,6 +37,12 @@ public class SecurityConfig {
         return new UserInfoUserDetailsService();
     }
 
+    /**
+     * Configures the security filter chain on startup
+     * @param http Security configuration class
+     * @return Chain of filters for requests
+     * @throws Exception
+     */
     @Bean
     // TODO Custom login page via properties file
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

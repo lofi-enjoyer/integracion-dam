@@ -38,24 +38,43 @@ public class ProfileController {
         return profileService.getProfileByUsername(username);
     }
 
+    /**
+     * @param authentication User's authentication
+     * @return Recommended profiles for a user
+     */
     @GetMapping("/recommendations")
     @PreAuthorize("isAuthenticated()")
     public Flux<ProfileDto> getRecommendations(Authentication authentication) {
         return profileService.getRecommendations(authentication);
     }
 
+    /**
+     * @param dto DTO with the necessary data
+     * @param authentication User's authentication
+     * @return Profile follower count
+     */
     @PostMapping("/follow")
     @PreAuthorize("isAuthenticated()")
     public Mono<Integer> followProfile(@RequestBody FollowRequestDto dto, Authentication authentication) {
         return profileService.followProfile(authentication, dto.getUsername());
     }
 
+    /**
+     * @param dto DTO with the necessary data
+     * @param authentication User's authentication
+     * @return Profile follower count
+     */
     @PostMapping("/unfollow")
     @PreAuthorize("isAuthenticated()")
     public Mono<Integer> unfollowProfile(@RequestBody FollowRequestDto dto, Authentication authentication) {
         return profileService.unfollowProfile(authentication, dto.getUsername());
     }
 
+    /**
+     * @param dto DTO with the necessary data
+     * @param authentication User's authentication
+     * @return Profile DTO with the updated information
+     */
     @PostMapping("/edit")
     @PreAuthorize("isAuthenticated()")
     public Mono<ProfileDto> editProfile(@RequestBody EditProfileDto dto, Authentication authentication) {

@@ -17,6 +17,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories("me.lofienjoyer.quiet.*")
 public class UserServiceApplication {
 
+	/**
+	 * Starts the service
+	 * @param args Startup arguments
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(UserServiceApplication.class, args);
 	}

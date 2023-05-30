@@ -60,23 +60,40 @@ public class PostController {
         return postService.getUserPosts(username);
     }
 
+    /**
+     * @return All post tags
+     */
     @GetMapping("/alltags")
     public Flux<PostTagDto> getAllPostTags() {
         return postService.getAllPostTags();
     }
 
+    /**
+     * @param authentication User's authentication
+     * @return Post tags for the current user
+     */
     @GetMapping("/mytags")
     @PreAuthorize("isAuthenticated()")
     public Flux<PostTagDto> getBlockedPostTags(Authentication authentication) {
         return postService.getBlockedPostTags(authentication);
     }
 
+    /**
+     * @param dto DTO with the necessary data
+     * @param authentication User's authentication
+     * @return List of post tags
+     */
     @PostMapping("/savetags")
     @PreAuthorize("isAuthenticated()")
     public Flux<PostTagDto> saveBlockedPostTags(@RequestBody SaveBlockedTagsDto dto, Authentication authentication) {
         return postService.saveBlockedPostTags(dto, authentication);
     }
 
+    /**
+     * @param searchRequestDto DTO with the necessary information
+     * @param authentication User's authentication
+     * @return List of posts found
+     */
     @PostMapping("/search")
     @PreAuthorize("isAuthenticated()")
     public Flux<PostDto> searchPosts(@RequestBody SearchRequestDto searchRequestDto, Authentication authentication) {

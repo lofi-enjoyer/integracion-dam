@@ -7,9 +7,16 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 
+/**
+ * Sets up integration tests
+ */
 @Configuration
 public class IntegrationTestsProfile {
 
+    /**
+     * Sets up a temporary data source for tests
+     * @return Temporary data source for tests
+     */
     @Bean
     @Profile("test")
     public DataSource dataSource() {

@@ -31,6 +31,12 @@ public class ImageServiceImpl implements ImageService {
 
     private final WebClient.Builder webClientBuilder;
 
+    /**
+     * Handles a profile image upload
+     * @param authentication User authentication
+     * @param multipartFile File to save
+     * @return Image filename
+     */
     @Override
     public Mono<String> uploadProfileImage(Authentication authentication, Mono<FilePart> multipartFile) {
         Path folder = Paths.get(profileImgDir);
@@ -47,6 +53,11 @@ public class ImageServiceImpl implements ImageService {
                 });
     }
 
+    /**
+     * Returns a profile image
+     * @param username Profile username
+     * @return Profile image
+     */
     @Override
     public Flux<DataBuffer> loadProfileImage(String username) {
         return webClientBuilder.build().get().uri("http://user-service/api/profiles/" + username)
@@ -72,6 +83,11 @@ public class ImageServiceImpl implements ImageService {
                 });
     }
 
+    /**
+     * Extracts the extension of a file name
+     * @param name File name
+     * @return File extension
+     */
     private static String getFileExtension(String name) {
         int lastIndexOf = name.lastIndexOf(".");
         if (lastIndexOf == -1) {

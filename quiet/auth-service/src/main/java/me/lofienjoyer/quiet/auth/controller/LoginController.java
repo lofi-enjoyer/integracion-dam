@@ -15,6 +15,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+/**
+ * Handles login requests
+ */
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -23,6 +26,11 @@ public class LoginController {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
+    /**
+     * @param authRequest DTO with the needed data to log in
+     * @param response HTTP response
+     * @return DTO with the needed data to register a new user
+     */
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> login(@RequestBody AuthRequest authRequest, HttpServletResponse response) {
         Authentication authentication;
@@ -41,12 +49,6 @@ public class LoginController {
         response.addCookie(cookie);
 
         return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/test")
-    @PreAuthorize("isAuthenticated()")
-    public String test() {
-        return "Hola";
     }
 
 }

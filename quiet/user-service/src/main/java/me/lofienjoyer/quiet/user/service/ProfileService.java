@@ -24,12 +24,31 @@ public interface ProfileService {
      */
     Mono<ProfileDto> getProfileByUsername(String username);
 
+    /**
+     * @param authentication User's authentication
+     * @return Recommended profiles for a user
+     */
     Flux<ProfileDto> getRecommendations(Authentication authentication);
 
+    /**
+     * @param authentication User's authentication
+     * @param username Profile username
+     * @return
+     */
     Mono<Integer> followProfile(Authentication authentication, String username);
 
+    /**
+     * @param authentication User's authentication
+     * @param username Profile username
+     * @return
+     */
     Mono<Integer> unfollowProfile(Authentication authentication, String username);
 
+    /**
+     * @param dto DTO with the necessary data
+     * @param authentication User's authentication
+     * @return
+     */
     Mono<ProfileDto> editProfile(EditProfileDto dto, Authentication authentication);
 
 }
