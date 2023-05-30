@@ -1,3 +1,9 @@
+:root {
+    --light-purple: rgb(123, 106, 220);
+    --normal-purple: rgb(110, 93, 207);
+    --dark-purple: rgb(92, 75, 189);
+  }
+
 .profile-edit-container {
     align-items: flex-start;
     width: min(800px, 60%);
@@ -12,7 +18,7 @@
 }
 
 .save-button {
-    background-color: #4caf50;
+    background-color: var(--light-purple);
     border: none;
     border-radius: 5px;
     color: #fff;
@@ -23,7 +29,7 @@
 }
   
 .save-button:hover {
-    background-color: #3e8e41;
+    background-color: var(--normal-purple);
 }
 
 .inv-separator {
@@ -49,6 +55,10 @@
 
 .shown {
     display: block;
+}
+
+.hidden {
+    display: none;
 }
 
 .tags-container {

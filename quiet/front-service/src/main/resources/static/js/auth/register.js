@@ -25,17 +25,29 @@ function sendLoginRequest() {
       "Content-type": "application/json; charset=UTF-8",
     },
   })
-    .then((response) => response.json())
-    .then((json) => {
-      console.log(json);
-      if (json.username == undefined) {
-        errorMessage.textContent = "That username or email is being used by another user.";
-        errorMessage.classList.remove("hidden");
-        return;
-      }
+  .then((response) => {
+    if (!response.ok) {
+      return response.text().then(text => { throw new Error(text) });
+    }
+    return response.json();
+  })
+  .then((json) => {
+    window.location.href = '/home';
+  })
+  .catch(error => {
+      showError(error.message);
+  });
+}
 
-      window.location.href = "/login";
-    })
-    .catch((reason) => {
-    });
+function showError(message) {
+    const errorDisplay = document.getElementById('errorMessage');
+    errorDisplay.classList.add('shown');
+    errorDisplay.classList.remove('hidden');
+    errorDisplay.textContent = message;
+}
+
+function hideError() {
+    const errorDisplay = document.getElementById('errorMessage');
+    errorDisplay.classList.remove('shown');
+    errorDisplay.classList.add('hidden');
 }

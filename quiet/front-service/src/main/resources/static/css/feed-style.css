@@ -5,6 +5,10 @@
     --dark-color: rgb(38, 38, 38);
     --less-dark-color: rgb(56, 56, 56);
     --even-less-dark-color: rgb(87, 87, 87);
+
+    --light-purple: rgb(123, 106, 220);
+    --normal-purple: rgb(110, 93, 207);
+    --dark-purple: rgb(92, 75, 189);
 }
 
 * {
