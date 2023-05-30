@@ -34,6 +34,9 @@ function loadFeed() {
         posterImage.src = "/api/media/profile/" + element.profileUsername;
         posterImageContainer.appendChild(posterImage);
 
+        const anchorElement = document.createElement("a");
+        anchorElement.href = "/profile/" + element.profileUsername;
+
         const posterInfoContainer = document.createElement("div");
         posterInfoContainer.classList.add("poster-info");
         const posterName = document.createElement("span");
@@ -44,6 +47,8 @@ function loadFeed() {
         posterUsername.textContent = "@" + element.profileUsername;
         posterInfoContainer.appendChild(posterName);
         posterInfoContainer.appendChild(posterUsername);
+
+        anchorElement.appendChild(posterInfoContainer);
 
         const postTagsContainer = document.createElement("div");
         postTagsContainer.classList.add("post-tags");
@@ -58,7 +63,7 @@ function loadFeed() {
         });
 
         postInfoContainer.appendChild(posterImageContainer);
-        postInfoContainer.appendChild(posterInfoContainer);
+        postInfoContainer.appendChild(anchorElement);
         postInfoContainer.appendChild(postTagsContainer);
 
         const invSeparator = document.createElement("div");
@@ -149,6 +154,9 @@ function createPost() {
       posterImage.src = "/api/media/profile/" + element.profileUsername;
       posterImageContainer.appendChild(posterImage);
 
+      const anchorElement = document.createElement("a");
+      anchorElement.href = "/profile/" + element.profileUsername;
+
       const posterInfoContainer = document.createElement("div");
       posterInfoContainer.classList.add("poster-info");
       const posterName = document.createElement("span");
@@ -159,6 +167,8 @@ function createPost() {
       posterUsername.textContent = "@" + element.profileUsername;
       posterInfoContainer.appendChild(posterName);
       posterInfoContainer.appendChild(posterUsername);
+
+      anchorElement.appendChild(posterInfoContainer);
 
       const postTagsContainer = document.createElement("div");
       postTagsContainer.classList.add("post-tags");
@@ -173,7 +183,7 @@ function createPost() {
       });
 
       postInfoContainer.appendChild(posterImageContainer);
-      postInfoContainer.appendChild(posterInfoContainer);
+      postInfoContainer.appendChild(anchorElement);
       postInfoContainer.appendChild(postTagsContainer);
 
       const invSeparator = document.createElement("div");
@@ -258,6 +268,9 @@ function loadRecommendations() {
     .then((response) => response.json())
     .then((json) => {
       json.forEach((element) => {
+        const anchorElement = document.createElement("a");
+        anchorElement.href = "/profile/" + element.username;
+
         const userElement = document.createElement("div");
         userElement.classList.add("recommended-user");
 
@@ -291,8 +304,9 @@ function loadRecommendations() {
           recommendationsElement.removeChild(userElement);
         }
 
-        userElement.appendChild(imgContainer);
-        userElement.appendChild(textContainer);
+        anchorElement.appendChild(imgContainer);
+        anchorElement.appendChild(textContainer);
+        userElement.appendChild(anchorElement);
         userElement.appendChild(addButton);
 
         recommendationsElement.appendChild(userElement);

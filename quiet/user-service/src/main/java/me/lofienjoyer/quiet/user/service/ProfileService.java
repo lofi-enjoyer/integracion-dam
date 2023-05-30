@@ -1,9 +1,11 @@
 package me.lofienjoyer.quiet.user.service;
 
 import me.lofienjoyer.quiet.basemodel.dto.EditProfileDto;
+import me.lofienjoyer.quiet.basemodel.dto.FollowRequestDto;
 import me.lofienjoyer.quiet.basemodel.dto.ProfileDto;
 import me.lofienjoyer.quiet.basemodel.entity.Profile;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.RequestBody;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -50,5 +52,12 @@ public interface ProfileService {
      * @return
      */
     Mono<ProfileDto> editProfile(EditProfileDto dto, Authentication authentication);
+
+    /**
+     * @param dto DTO with the necessary data
+     * @param authentication User's authentication
+     * @return True if following, false otherwise
+     */
+    Mono<Boolean> isFollowing(@RequestBody FollowRequestDto dto, Authentication authentication);
 
 }

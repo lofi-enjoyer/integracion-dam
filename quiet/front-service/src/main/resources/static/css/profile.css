@@ -33,3 +33,19 @@
   font-size: 16px;
   margin: 0;
 }
+
+button {
+  display: none;
+  padding: 0.5em;
+  font-size: 20px;
+  margin: 0.5em;
+  font-weight: 500;
+}
+
+.following-button {
+  display: block;
+}
+
+.unknown-button {
+  display: block;
+}

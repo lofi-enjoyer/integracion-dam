@@ -81,4 +81,14 @@ public class ProfileController {
         return profileService.editProfile(dto, authentication);
     }
 
+    /**
+     * @param dto DTO with the necessary data
+     * @param authentication User's authentication
+     * @return True if following, false otherwise
+     */
+    @PostMapping("/isfollowing")
+    public Mono<Boolean> isFollowing(@RequestBody FollowRequestDto dto, Authentication authentication) {
+        return profileService.isFollowing(dto, authentication);
+    }
+
 }

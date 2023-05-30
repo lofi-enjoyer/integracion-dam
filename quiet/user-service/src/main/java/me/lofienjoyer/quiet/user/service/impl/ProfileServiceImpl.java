@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.lofienjoyer.quiet.basemodel.dao.ProfileDao;
 import me.lofienjoyer.quiet.basemodel.dao.UserInfoDao;
 import me.lofienjoyer.quiet.basemodel.dto.EditProfileDto;
+import me.lofienjoyer.quiet.basemodel.dto.FollowRequestDto;
 import me.lofienjoyer.quiet.basemodel.dto.ProfileDto;
 import me.lofienjoyer.quiet.basemodel.entity.Profile;
 import me.lofienjoyer.quiet.basemodel.entity.UserInfo;
@@ -123,7 +124,6 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public Mono<ProfileDto> editProfile(EditProfileDto dto, Authentication authentication) {
-
         UserInfo userInfo = userInfoDao.findByEmail(authentication.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found."));
 
@@ -138,6 +138,23 @@ public class ProfileServiceImpl implements ProfileService {
         profile.setName(dto.getName().trim());
         profile.setDescription(dto.getDescription().trim());
         return Mono.just(new ProfileDto(profileDao.save(profile), 0));
+    }
+
+    @Override
+    public Mono<Boolean> isFollowing(FollowRequestDto dto, Authentication authentication) {
+        UserInfo userInfo = userInfoDao.findByEmail(authentication.getName())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found."));
+
+        Profile profile = profileDao.findByUser(userInfo)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User profile not found."));
+
+        Profile profileToFollow = profileDao.findByUsername(dto.getUsername())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Profile to follow not found"));
+
+        if (profile.getUsername().equals(dto.getUsername()))
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
+
+        return Mono.just(profileDao.isFollowing(profile.getId(), profileToFollow.getId()) != 0);
     }
 
 }

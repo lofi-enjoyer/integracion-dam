@@ -304,6 +304,13 @@ a {
     padding-bottom: 0.5em;
 }
 
+.recommended-user > a {
+    display: flex;
+    align-items: center;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
 .recommended-name {
     font-size: 1.1em;
     font-weight: 400;
