@@ -49,7 +49,7 @@ public class FrontSecurityConfig {
                                 Mono.fromRunnable(
                                         () -> {
                                             swe.getResponse().setStatusCode(FOUND);
-                                            swe.getResponse().getHeaders().setLocation(URI.create("/"));
+                                            swe.getResponse().getHeaders().setLocation(URI.create("/home"));
                                         }
                                 )
                 )

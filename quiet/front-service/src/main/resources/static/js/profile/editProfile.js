@@ -12,7 +12,7 @@ function uploadProfileImage() {
     })
     .then(response => {
         fileInput.value = null;
-        window.location.href = "/";
+        window.location.href = "/home";
     });
 }
 
@@ -38,7 +38,7 @@ function updateProfile() {
         return response.json();
     })
     .then(result => {
-      window.location.href = "/";
+      window.location.href = "/home";
     })
     .catch(error => {
         showError(error.message);
@@ -113,7 +113,7 @@ function saveTags() {
       return response.json();
   })
   .then(result => {
-    window.location.href = "/";
+    window.location.href = "/home";
   });
 }
 

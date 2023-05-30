@@ -12,6 +12,11 @@ import reactor.core.publisher.Mono;
 public class IndexController {
 
     @GetMapping("")
+    public Mono<String> welcome() {
+        return Mono.just("welcome");
+    }
+
+    @GetMapping("/home")
     @PreAuthorize("isAuthenticated()")
     public Mono<String> index() {
         return Mono.just("index");
