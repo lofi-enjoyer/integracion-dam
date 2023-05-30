@@ -24,7 +24,7 @@ function sendLoginRequest() {
       return response.json();
     })
     .then((json) => {
-        window.location.href = '/home';
+      window.location.href = '/home';
     })
     .catch(error => {
         showError(error.message);
