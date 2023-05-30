@@ -18,8 +18,15 @@
 - HTML
 - JavaScript
 - CSS
+- [Boostrap Icons](https://icons.getbootstrap.com/)
+- [Material Design Icons](https://fonts.google.com/icons)
 
 ### Bases de datos
 
 - MySQL
 - H2 (base de datos en memoria utilizada para tests unitarios)
+
+### Recursos utilizados
+
+- [Logotipo de la web](https://freeicons.io/web-user-interface-2/anchor-web-app-connect-marine-nautical-icon-522339)
+- [Imagen de portada](https://www.pexels.com/es-es/foto/gente-alcohol-barra-sentado-5054644/)
