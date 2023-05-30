@@ -40,6 +40,13 @@ quiet.defaultdesc={default_profile_desc}
 quiet.profile_img_dir={profile_img_dir}
 spring.servlet.multipart.max-file-size={max_file_size}
 spring.servlet.multipart.max-request-size={max_file_size}
+
+// Solo para el gateway-service y discovery-service
+server.port={gateway_port}
+
+// Solo para el discovery-service
+eureka.datacenter={datacenter}
+environment={environment}
 ```
  5. Sustituir las variables por su valor correspondiente.
 
@@ -52,6 +59,9 @@ spring.servlet.multipart.max-request-size={max_file_size}
 - default_profile_desc: Descripción por defecto para los perfiles de usuario.
 - profile_img_dir: Directorio donde el media service almacenará las imagenes de perfil de los usuarios.
 - max_file_size: Tamaño máximo de los archivos que se pueden subir.
+- gateway_port: Puerto al que se conectarán los clientes.
+- datacenter: Centro de datos desde el que se ejecuta el servicio de Discovery.
+- environment: Entorno del servicio de discovery (dev, test, prod...).
 
 6. Ejecutar el archivo .jar (preferiblemente desde consola)
 
