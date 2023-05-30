@@ -10,6 +10,8 @@ searchParam = searchParam.replace('%20', ' ');
 function loadFeed() {
     const feedContainer = document.getElementById("feed");
     feedLoadIcon.classList.remove("hidden");
+
+    const searchTitle = document.getElementById("searchTitle");
   
     fetch("/api/posts/search", {
       method: "POST",
@@ -22,6 +24,7 @@ function loadFeed() {
     })
       .then((response) => response.json())
       .then((json) => {
+        searchTitle.textContent = json.length + ' results for "' + searchParam + '"';
         json.forEach((element) => {
           const postContainer = document.createElement("div");
           postContainer.classList.add("panel");
